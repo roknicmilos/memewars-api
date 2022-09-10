@@ -2,7 +2,7 @@
 from os.path import join
 
 # Django imports
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 # project imports
 from .common import PROJECT_ROOT, MIDDLEWARE
@@ -33,6 +33,9 @@ LOCALE_PATHS = (
 )
 
 # Inject the localization middleware into the right position
-MIDDLEWARE = [y for i, x in enumerate(MIDDLEWARE) for y in (
-    ('django.middleware.locale.LocaleMiddleware', x) if MIDDLEWARE[i-1] == \
-    'django.contrib.sessions.middleware.SessionMiddleware' else (x, ))]
+MIDDLEWARE = [
+    y for i, x in enumerate(MIDDLEWARE) for y in (
+        ('django.middleware.locale.LocaleMiddleware', x)
+        if MIDDLEWARE[i - 1] == 'django.contrib.sessions.middleware.SessionMiddleware' else (x,)
+    )
+]
