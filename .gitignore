@@ -17,3 +17,5 @@ coverage_html
 *.todo
 
 .idea
+venv
+*.env

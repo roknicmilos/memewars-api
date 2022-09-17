@@ -1,5 +1,3 @@
-# specific .gitignore for this directory
-
 # ignore everything
 *
 
@@ -21,3 +19,12 @@ static/*
 media/*
 # except the README
 !media/README
+
+# do NOT ignore the gunicorn directory, but everyting inside it
+!gunicorn
+gunicorn/*
+
+# do NOT ignore the logs directories, but everyting inside them
+!logs
+logs/*
+!logs/gunicorn

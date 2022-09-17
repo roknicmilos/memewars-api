@@ -19,7 +19,6 @@ LOGIN_URL = 'core_login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = 'core_login'
 
-
 # ##### DATABASE CONFIGURATION ############################
 DATABASES = {
     'default': {
@@ -31,3 +30,6 @@ DATABASES = {
 # ##### APPLICATION CONFIGURATION #########################
 
 INSTALLED_APPS = DEFAULT_APPS
+
+MEME_WARS_FE_URL = 'http://127.0.0.1:3000/'
+MEME_WARS_BE_URL = 'http://127.0.0.1:8000/'

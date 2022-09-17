@@ -5,7 +5,7 @@ from .development import *
 DEBUG = False
 
 # You will have to determine, which hostnames should be served by Django
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['qwertymania.com']
 
 # ##### SECURITY CONFIGURATION ############################
 
@@ -31,3 +31,6 @@ ALLOWED_HOSTS = []
 
 # how many days a password reset should work. I'd say even one day is too long
 # PASSWORD_RESET_TIMEOUT_DAYS = 1
+
+MEME_WARS_FE_URL = 'https://memewars.qwertymania.com/'
+MEME_WARS_BE_URL = 'https://admin.memewars.qwertymania.com/'
