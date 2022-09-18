@@ -30,6 +30,3 @@ DATABASES = {
 # ##### APPLICATION CONFIGURATION #########################
 
 INSTALLED_APPS = DEFAULT_APPS
-
-MEME_WARS_FE_URL = 'http://127.0.0.1:3000/'
-MEME_WARS_BE_URL = 'http://127.0.0.1:8000/'

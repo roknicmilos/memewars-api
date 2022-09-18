@@ -123,3 +123,5 @@ except IOError:
             f.write(SECRET_KEY)
     except IOError:
         raise Exception('Could not open %s for writing!' % SECRET_FILE)
+
+MEME_WARS_APP_URL = getenv('MEME_WARS_APP_URL', '#')

@@ -9,7 +9,6 @@ class IndexView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         context['links'] = [
-            {'label': _('Meme Wars App'), 'url': settings.MEME_WARS_FE_URL},
-            {'label': _('Meme Wars Back Office'), 'url': settings.MEME_WARS_BE_URL},
+            {'label': _('Meme Wars App'), 'url': settings.MEME_WARS_APP_URL},
         ]
         return context
