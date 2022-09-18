@@ -2,7 +2,10 @@
 
 set -e
 
-. "$APP_ROOT_DIR"/scripts/colored_print.sh
+pwd
+ls -la
+
+. /app/scripts/colored_print.sh
 
 wait_for_postgres() {
   # Adapted from https://docs.docker.com/compose/startup-order/
@@ -16,9 +19,9 @@ wait_for_postgres() {
 initialize_django_project() {
   if [ "$APP_ENV" = 'development' ]; then
     printc "Starting project in $APP_ENV mode \n\n" "info"
-    python3 "$APP_ROOT_DIR"/manage.py migrate
-    python3 "$APP_ROOT_DIR"/manage.py collectstatic --noinput
-    python3 manage.py loaddata users
+    python3 manage.py migrate
+    python3 manage.py collectstatic --noinput
+    python3 manage.py loaddata users wars enlistments memes votes
     python3 manage.py create_superuser --noinput
     python3 manage.py runserver 0.0.0.0:8000
 

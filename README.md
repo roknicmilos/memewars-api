@@ -33,6 +33,6 @@
   To load them again, run the comment below (**NOTE: this will override table raws with the same
   primary keys as those specified in fixtures**):
 
-  `docker exec -it meme-wars-django sh -c 'python manage.py loaddata users'`
+  `docker exec -it qwerty-django sh -c 'python manage.py loaddata users wars enlistments memes votes'`
 
 - - -
