@@ -24,6 +24,11 @@ initialize_django_project() {
     python3 manage.py create_superuser --noinput
     python3 manage.py runserver 0.0.0.0:8000
 
+  elif [ "$APP_ENV" = 'production' ]; then
+    printc "Starting project in $APP_ENV mode \n\n" "info"
+    python3 manage.py migrate
+    python3 manage.py runserver 0.0.0.0:8000
+
   else
     printc "[ERROR]: Unknown environment: '$APP_ENV'. Available environment is 'development'.\n" "danger"
     printc "Exiting... \n\n"
