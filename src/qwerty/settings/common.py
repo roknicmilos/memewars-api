@@ -45,6 +45,10 @@ DEFAULT_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Third party apps:
+    'rest_framework',
+    'rest_framework.authtoken',
+
     # Local apps:
     'apps.users',
     'apps.meme_wars',
@@ -141,4 +145,14 @@ DATABASES = {
     }
 }
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'apps.users.authentication.TokenAuthentication',
+    ]
+}
+
 MEME_WARS_APP_URL = getenv('MEME_WARS_APP_URL', '#')
+
+CORS_ALLOWED_ORIGINS = [
+    MEME_WARS_APP_URL,
+]
