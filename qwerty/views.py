@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from django.conf import settings
 
 
+# TODO: move to "core" app
 class IndexView(TemplateView):
     template_name = 'index.html'
 

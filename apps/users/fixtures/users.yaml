@@ -1,0 +1,40 @@
+- model: users.User
+  pk: 1
+  fields:
+    email: jon.show@mw2fixture.com
+    first_name: Jon
+    last_name: Snow
+    created: 2999-01-01T00:00:00+00:00
+    modified: 2999-01-01T00:00:00+00:00
+- model: users.User
+  pk: 2
+  fields:
+    email: m.roknic@mw2fixture.com
+    first_name: Miloš
+    last_name: Roknić
+    created: 1994-02-13T00:00:00+00:00
+    modified: 1994-02-13T00:00:00+00:00
+- model: users.User
+  pk: 3
+  fields:
+    email: n.smiljanic@mw2fixture.com
+    first_name: Nikola
+    last_name: Smiljanić
+    created: 2021-12-05T00:00:00+00:00
+    modified: 2021-12-05T00:00:00+00:00
+- model: users.User
+  pk: 4
+  fields:
+    email: m.lazarevic@mw2fixture.com
+    first_name: Marija
+    last_name: Lazarević
+    created: 2021-12-05T00:00:00+00:00
+    modified: 2021-12-05T00:00:00+00:00
+- model: users.User
+  pk: 5
+  fields:
+    email: j.vucetic@mw2fixture.com
+    first_name: Jovan
+    last_name: Vučetić
+    created: 2021-12-05T00:00:00+00:00
+    modified: 2021-12-05T00:00:00+00:00

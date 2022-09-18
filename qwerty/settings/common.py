@@ -44,6 +44,9 @@ DEFAULT_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Local apps:
+    'apps.users',
 ]
 
 # Middlewares
@@ -123,5 +126,18 @@ except IOError:
             f.write(SECRET_KEY)
     except IOError:
         raise Exception('Could not open %s for writing!' % SECRET_FILE)
+
+AUTH_USER_MODEL = 'users.User'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': getenv('DB_NAME'),
+        'USER': getenv('DB_USERNAME'),
+        'PASSWORD': getenv('DB_PASSWORD'),
+        'HOST': getenv('DB_HOSTNAME'),
+        'PORT': 5432,
+    }
+}
 
 MEME_WARS_APP_URL = getenv('MEME_WARS_APP_URL', '#')
