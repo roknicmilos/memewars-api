@@ -30,7 +30,7 @@ initialize_django_project() {
     python3 manage.py runserver 0.0.0.0:8000
 
   else
-    printc "[ERROR]: Unknown environment: '$APP_ENV'. Available environment is 'development'.\n" "danger"
+    printc "[ERROR]: Unknown environment: '$APP_ENV'. Available environments are 'development' and 'production'.\n" "danger"
     printc "Exiting... \n\n"
     exit 1
   fi
