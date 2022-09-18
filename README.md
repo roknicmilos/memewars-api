@@ -36,3 +36,12 @@
   `docker exec -it qwerty-django sh -c 'python manage.py loaddata users wars enlistments memes votes'`
 
 - - -
+
+## Production setup
+
+Production setup requirements and steps are the same as for [Development setup](#development-setup), 
+and the only thing that differs is that you have to put `production` instead of `development` as the 
+value for `APP_ENV` in `.env` file. None of the [Initial data](#initial-data) will be loaded
+in this case.
+
+- - -
