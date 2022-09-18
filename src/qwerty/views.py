@@ -5,7 +5,7 @@ from django.conf import settings
 
 # TODO: move to "core" app
 class IndexView(TemplateView):
-    template_name = 'index.html'
+    template_name = '../templates/index.html'
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)

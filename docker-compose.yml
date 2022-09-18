@@ -14,10 +14,8 @@ services:
     depends_on:
       - postgres
     volumes:
-      - ./apps:/app/apps/
-      - ./qwerty:/app/qwerty/
-      - ./requirements:/app/requirements/
-      - ./static:/app/static/
+      - ./src:/app/src/
+      - ./scripts:/app/scripts/
     entrypoint: [ "sh", "/app/scripts/entrypoint.sh" ]
 
 
