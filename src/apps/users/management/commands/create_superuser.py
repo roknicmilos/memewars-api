@@ -7,4 +7,4 @@ class Command(BaseCommand):
         try:
             super(Command, self).handle(*args, **options)
         except Exception as error:
-            self.stderr.write(f'{type(error).__name__}: "{str(error)}"')
+            self.stdout.write(f'[ERROR] Unable to crate superuser: ({type(error).__name__}) "{str(error)}"')

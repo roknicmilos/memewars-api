@@ -2,7 +2,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser, UserManager as BaseUserManager
 from django.contrib.postgres.fields import CIEmailField
 from django.utils.translation import gettext_lazy as _
-from qwerty.models import BaseModel
+from apps.common.models import BaseModel
 
 
 class UserManager(BaseUserManager):

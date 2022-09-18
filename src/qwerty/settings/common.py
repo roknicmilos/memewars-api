@@ -47,6 +47,7 @@ DEFAULT_APPS = [
 
     # Local apps:
     'apps.users',
+    'apps.meme_wars',
 ]
 
 # Middlewares

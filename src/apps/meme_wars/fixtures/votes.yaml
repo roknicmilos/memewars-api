@@ -1,0 +1,225 @@
+- model: meme_wars.Vote
+  pk: 1
+  fields:
+    user: 1
+    meme: 1
+    score: 7
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 2
+  fields:
+    user: 1
+    meme: 2
+    score: 6
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 3
+  fields:
+    user: 1
+    meme: 3
+    score: 1
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 4
+  fields:
+    user: 1
+    meme: 4
+    score: 1
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 5
+  fields:
+    user: 1
+    meme: 5
+    score: 1
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 6
+  fields:
+    user: 1
+    meme: 6
+    score: 1
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 7
+  fields:
+    user: 1
+    meme: 7
+    score: 1
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 8
+  fields:
+    user: 1
+    meme: 8
+    score: 1
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 9
+  fields:
+    user: 1
+    meme: 9
+    score: 1
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 10
+  fields:
+    user: 1
+    meme: 10
+    score: 1
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 11
+  fields:
+    user: 1
+    meme: 11
+    score: 1
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 12
+  fields:
+    user: 1
+    meme: 12
+    score: 1
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 13
+  fields:
+    user: 1
+    meme: 13
+    score: 1
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 14
+  fields:
+    user: 1
+    meme: 14
+    score: 1
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+
+- model: meme_wars.Vote
+  pk: 15
+  fields:
+    user: 2
+    meme: 1
+    score: 8
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 16
+  fields:
+    user: 2
+    meme: 2
+    score: 9
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 17
+  fields:
+    user: 2
+    meme: 3
+    score: 3
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 18
+  fields:
+    user: 2
+    meme: 4
+    score: 4
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 19
+  fields:
+    user: 2
+    meme: 5
+    score: 1
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 20
+  fields:
+    user: 2
+    meme: 6
+    score: 4
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 21
+  fields:
+    user: 2
+    meme: 7
+    score: 1
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 22
+  fields:
+    user: 2
+    meme: 8
+    score: 5
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 23
+  fields:
+    user: 2
+    meme: 9
+    score: 1
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 24
+  fields:
+    user: 2
+    meme: 10
+    score: 3
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 25
+  fields:
+    user: 2
+    meme: 11
+    score: 2
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 26
+  fields:
+    user: 2
+    meme: 12
+    score: 5
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 27
+  fields:
+    user: 2
+    meme: 13
+    score: 1
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
+- model: meme_wars.Vote
+  pk: 28
+  fields:
+    user: 2
+    meme: 14
+    score: 3
+    created: 2021-12-11T00:00:00+00:00
+    modified: 2021-12-11T00:00:00+00:00
