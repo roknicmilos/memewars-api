@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <h1>Welcome to qwertymania</h1>
+    <div class="button-container">
+        {% for link in links %}
+            <a class="button" href="{{ link.url }}">
+                {{ link.label }}
+            </a>
+        {% endfor %}
+    </div>
+{% endblock body %}

@@ -1,0 +1,49 @@
+version: '3.7'
+
+services:
+
+  django:
+    container_name: qwerty-django
+    build:
+      context: .
+      dockerfile: django.Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "${DJANGO_PORT}:8000"
+    depends_on:
+      - postgres
+    volumes:
+      - ./apps:/app/apps/
+      - ./qwerty:/app/qwerty/
+      - ./requirements:/app/requirements/
+      - ./static:/app/static/
+    entrypoint: [ "sh", "/app/scripts/entrypoint.sh" ]
+
+
+  postgres:
+    container_name: qwerty-postgres
+    image: postgres:14
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - qwerty-postgres-data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: qwerty-pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+    ports:
+      - "${PGADMIN_PORT}:80"
+    depends_on:
+      - postgres
+    volumes:
+      - qwerty-pgadmin-data:/var/lib/pgadmin
+
+volumes:
+  qwerty-postgres-data:
+  qwerty-pgadmin-data:

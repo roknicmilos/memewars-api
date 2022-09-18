@@ -1,7 +1,7 @@
 # Python imports
-from os.path import abspath, basename, dirname, join, normpath
 import sys
-
+from os import getenv
+from os.path import abspath, basename, dirname, join, normpath
 
 # ##### PATH CONFIGURATION ################################
 
@@ -34,7 +34,6 @@ PROJECT_TEMPLATES = [
 # add apps/ to the Python path
 sys.path.append(normpath(join(PROJECT_ROOT, 'apps')))
 
-
 # ##### APPLICATION CONFIGURATION #########################
 
 # these are the apps
@@ -45,6 +44,9 @@ DEFAULT_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Local apps:
+    'apps.users',
 ]
 
 # Middlewares
@@ -72,7 +74,8 @@ TEMPLATES = [
                 'django.template.context_processors.media',
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
-                'django.contrib.messages.context_processors.messages'
+                'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -80,7 +83,6 @@ TEMPLATES = [
 
 # Internationalization
 USE_I18N = False
-
 
 # ##### SECURITY CONFIGURATION ############################
 
@@ -93,7 +95,6 @@ ADMINS = (
     ('your name', 'your_name@example.com'),
 )
 MANAGERS = ADMINS
-
 
 # ##### DJANGO RUNNING CONFIGURATION ######################
 
@@ -109,10 +110,8 @@ STATIC_URL = '/static/'
 # the URL for media files
 MEDIA_URL = '/media/'
 
-
 # ##### DEBUG CONFIGURATION ###############################
 DEBUG = False
-
 
 # finally grab the SECRET KEY
 try:
@@ -120,9 +119,25 @@ try:
 except IOError:
     try:
         from django.utils.crypto import get_random_string
+
         chars = 'abcdefghijklmnopqrstuvwxyz0123456789!$%&()=+-_'
         SECRET_KEY = get_random_string(50, chars)
         with open(SECRET_FILE, 'w') as f:
             f.write(SECRET_KEY)
     except IOError:
         raise Exception('Could not open %s for writing!' % SECRET_FILE)
+
+AUTH_USER_MODEL = 'users.User'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': getenv('DB_NAME'),
+        'USER': getenv('DB_USERNAME'),
+        'PASSWORD': getenv('DB_PASSWORD'),
+        'HOST': getenv('DB_HOSTNAME'),
+        'PORT': 5432,
+    }
+}
+
+MEME_WARS_APP_URL = getenv('MEME_WARS_APP_URL', '#')
