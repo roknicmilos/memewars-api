@@ -1,74 +1,38 @@
 # qwerty
 
-Table of Contents
-=================
-
-* [Development setup](#development-setup)
-* [Production setup](#development-setup)
-
+- - -
 
 ## Development setup
 
-### Prerequisite
+### Setup requirements
 
-- [Python](https://www.python.org/downloads/)
-- (**Optional**) [venv](https://docs.python.org/3/library/venv.html)
+- **Docker**:
+    - Windows - [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/install/)
+    - Mac - [Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/)
+    - Linux - [Docker Engine](https://docs.docker.com/engine/install/#server)
+      and [Docker Compose](https://docs.docker.com/compose/install/)
 
-### Steps
+### Setup steps
 
-1. (**Optional**) Setup virtual environment. If you want to start the project in
-   virtual environment, and you installed [venv](https://docs.python.org/3/library/venv.html),
-   follow the next steps to create and activate virtual environment:
-    - Go into project root directory and create virtual environment:
+1. Create `.env` based on `example.env`
+2. Start the app:
 
-      `python3 -m venv venv`
+   `docker compose up`
 
-    - Activate virtual environment:
+   (for older versions of Docker Compose use: `docker-compose up`)
 
-      `source venv/bin/activate` (Linux bash)
+### Initial Data
 
-      **OR**
+- **Create a superuser**. Superuser should already be created after running `docker compose up`
+  with the credentials from `.env` file. If you want to create a new one, run:
 
-      `venv\Scripts\activate.bat` (Windows cmd)
-
-
-2. Start server
-
-   `python manage.py runserver`
-
-   This will start a lightweight development server (that comes with Django)
-   at http://127.0.0.1:8000/.
+  `docker exec -it meme-wars-django sh -c 'python manage.py create_superuser'`
 
 
-## Production setup
+- **Load fixtures**. Fixtures should already be loaded after running `docker compose up`.
+  To load them again, run the comment below (**NOTE: this will override table raws with the same
+  primary keys as those specified in fixtures**):
 
-### Prerequisite
+  `docker exec -it meme-wars-django sh -c 'python manage.py loaddata users'`
 
-- [Python](https://www.python.org/downloads/)
-- (**Optional**) [venv](https://docs.python.org/3/library/venv.html)
-
-### Steps
-
-1. (**Optional**) Setup virtual environment. If you want to start the project in
-   virtual environment, and you installed [venv](https://docs.python.org/3/library/venv.html),
-   follow the next steps to create and activate virtual environment:
-    - Go into project root directory and create virtual environment:
-
-      `python3 -m venv venv`
-
-    - Activate virtual environment:
-
-      `source venv/bin/activate` (Linux bash)
-
-      **OR**
-
-      `venv\Scripts\activate.bat` (Windows cmd)
-
-
-3. Start server:
-
-   `./start_gunicorn.sh`
-
-   This will run migrations, collect static files and start Gunicorn production server at
-   http://127.0.0.1:8000/. Check files in `run/logs/gunicorn/` directory for access and error 
-   logs.
+- - -

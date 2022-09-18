@@ -10,8 +10,3 @@
 
 # let's include samples of the config files
 !*.sample
-
-# development files
-!gunicorn
-gunicorn/*
-!gunicorn/development.py
