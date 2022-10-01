@@ -9,21 +9,21 @@ class War(BaseModel):
         verbose_name = _('War')
         verbose_name_plural = _('Wars')
 
+    class Phases(models.TextChoices):
+        PREPARATION = 'preparation', _('preparation')
+        SUBMISSION = 'submission', _('submission')
+        VOTING = 'voting', _('voting')
+        FINISHED = 'finished', _('finished')
+
     name = models.CharField(
         verbose_name=_('name'),
         max_length=250,
     )
-    has_ended = models.BooleanField(
-        verbose_name=_('has ended'),
-        default=False,
-        help_text=_(
-            'If the war has ended, it will not accept new enlistments or votes. '
-            'Results of the war will be available on the API only after the war ends.'
-        )
-    )
-    is_published = models.BooleanField(
-        verbose_name=_('is published'),
-        default=False,
+    phase = models.CharField(
+        verbose_name=_('phase'),
+        max_length=12,
+        choices=Phases.choices,
+        default=Phases.PREPARATION,
     )
 
     def __str__(self):
@@ -40,17 +40,5 @@ class War(BaseModel):
         return Vote.objects.filter(meme__enlistment__war=self)
 
     @property
-    def enlistment_count(self) -> int:
-        return self.enlistments.count()
-
-    @property
-    def meme_count(self) -> int:
-        return self.memes.count()
-
-    @property
     def voter_count(self) -> int:
         return self.votes.distinct('user').count()
-
-    @property
-    def vote_count(self) -> int:
-        return self.votes.count()

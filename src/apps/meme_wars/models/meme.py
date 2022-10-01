@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 from django.utils.translation import gettext_lazy as _
 from apps.users.models import User
 from apps.common.models import BaseModel
@@ -33,13 +34,9 @@ class Meme(BaseModel):
         return self.enlistment.user
 
     @property
-    def scored_value(self) -> float:
-        votes_with_scores = self.votes.filter(score__isnull=False).select_related('score')
-        if votes_with_scores.exists():
-            score_sum = sum([vote.score.order for vote in votes_with_scores])
-            return round(score_sum / votes_with_scores.count(), 2)
-
-        return 0
+    def total_score(self) -> float:
+        scores_sum = self.votes.aggregate(Sum('score')).get('score__sum') or 0
+        return round(scores_sum / self.votes.count(), 2)
 
     @property
     def vote_count(self) -> int:

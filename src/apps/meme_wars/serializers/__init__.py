@@ -1,7 +1,0 @@
-from apps.meme_wars.serializers.abstract_meme_serializer import AbstractMemeSerializer
-from apps.meme_wars.serializers.ongoing_war_meme_serializer import OngoingWarMemeSerializer
-from apps.meme_wars.serializers.submit_vote_serializer import SubmitVoteSerializer
-from apps.meme_wars.serializers.vote_serializer import VoteSerializer
-from apps.meme_wars.serializers.voting_score_serializer import VotingScoreSerializer
-from apps.meme_wars.serializers.ongoing_war_serializer import OngoingWarSerializer
-from apps.meme_wars.serializers.ended_war_serializer import EndedWarSerializer

@@ -12,7 +12,7 @@ class MemeAdmin(ModelAdmin):
         'enlistment__user__last_name',
         'enlistment__war__name',
     )
-    list_display = ('admin_id', 'image', 'user', 'enlistment', 'war', 'vote_count', 'scored_value',)
+    list_display = ('admin_id', 'image', 'user', 'enlistment', 'war', 'vote_count', 'total_score',)
     add_form_fields = ('enlistment', 'image',)
 
     def admin_id(self, obj: Meme = None) -> str:

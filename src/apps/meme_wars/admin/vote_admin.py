@@ -8,8 +8,7 @@ from apps.meme_wars.models import Vote
 @admin.register(Vote)
 class VoteAdmin(admin.ModelAdmin):
     list_display = (
-        'admin_id', 'user', 'meme_id', 'score', 'score_order', 'submission_count',
-        'war', 'created', 'modified',
+        'admin_id', 'user', 'meme_id', 'score', 'submission_count', 'war', 'created', 'modified',
     )
     search_fields = (
         'user__email',
@@ -19,8 +18,7 @@ class VoteAdmin(admin.ModelAdmin):
         'meme__enlistment__war__name',
     )
     fields = (
-        'id', 'user', 'meme', 'score', 'score_order', 'submission_count', 'war',
-        'created', 'modified',
+        'id', 'user', 'meme', 'score', 'submission_count', 'war', 'created', 'modified',
     )
 
     def admin_id(self, obj: Vote = None) -> str:

@@ -1,4 +1,3 @@
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
@@ -25,7 +24,3 @@ class Enlistment(BaseModel):
 
     def __str__(self):
         return f'"{self.war.name}" enlistment for "{self.user}"'
-
-    def clean(self):
-        if self.war.has_ended:
-            raise ValidationError({'war': _('This war has ended')})

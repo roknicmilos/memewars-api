@@ -5,74 +5,9 @@
     created: 2021-12-05T00:00:00+00:00
     modified: 2021-12-05T00:00:00+00:00
 
-- model: meme_wars.VotingScore
-  pk: 1
-  fields:
-    war: 1
-    label: poor
-    created: 2021-12-05T00:00:00+00:00
-    modified: 2021-12-05T00:00:00+00:00
-- model: meme_wars.VotingScore
-  pk: 2
-  fields:
-    war: 1
-    label: mah
-    created: 2021-12-05T00:00:00+00:00
-    modified: 2021-12-05T00:00:00+00:00
-- model: meme_wars.VotingScore
-  pk: 3
-  fields:
-    war: 1
-    label: fine
-    created: 2021-12-05T00:00:00+00:00
-    modified: 2021-12-05T00:00:00+00:00
-- model: meme_wars.VotingScore
-  pk: 4
-  fields:
-    war: 1
-    label: not bad
-    created: 2021-12-05T00:00:00+00:00
-    modified: 2021-12-05T00:00:00+00:00
-- model: meme_wars.VotingScore
-  pk: 5
-  fields:
-    war: 1
-    label: nice one
-    created: 2021-12-05T00:00:00+00:00
-    modified: 2021-12-05T00:00:00+00:00
-
 - model: meme_wars.War
   pk: 2
   fields:
     name: Lame Meme War
-    created: 2021-12-17T00:00:00+00:00
-    modified: 2021-12-17T00:00:00+00:00
-
-- model: meme_wars.VotingScore
-  pk: 6
-  fields:
-    war: 2
-    label: give me a break
-    created: 2021-12-17T00:00:00+00:00
-    modified: 2021-12-17T00:00:00+00:00
-- model: meme_wars.VotingScore
-  pk: 7
-  fields:
-    war: 2
-    label: try harder
-    created: 2021-12-17T00:00:00+00:00
-    modified: 2021-12-17T00:00:00+00:00
-- model: meme_wars.VotingScore
-  pk: 8
-  fields:
-    war: 2
-    label: I'm listening
-    created: 2021-12-17T00:00:00+00:00
-    modified: 2021-12-17T00:00:00+00:00
-- model: meme_wars.VotingScore
-  pk: 9
-  fields:
-    war: 2
-    label: promising
     created: 2021-12-17T00:00:00+00:00
     modified: 2021-12-17T00:00:00+00:00

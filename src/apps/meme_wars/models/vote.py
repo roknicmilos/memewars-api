@@ -1,4 +1,4 @@
-from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
@@ -23,13 +23,12 @@ class Vote(BaseModel):
         verbose_name=_('meme'),
         related_name='votes',
     )
-    score = models.ForeignKey(
-        to='meme_wars.VotingScore',
-        on_delete=models.CASCADE,
+    score = models.IntegerField(
         verbose_name=_('score'),
-        related_name='votes',
-        null=True,
-        blank=True,
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(10),
+        ],
     )
     submission_count = models.IntegerField(
         verbose_name=_('total submissions'),
@@ -37,15 +36,7 @@ class Vote(BaseModel):
     )
 
     def __str__(self):
-        return str(_(f'Vote {self.pk}'))
-
-    def clean(self):
-        if self.meme.enlistment.war.has_ended:
-            raise ValidationError({'meme': _('You can\'t vote for a meme from a war that has ended')})
-
-    @property
-    def score_order(self) -> int | None:
-        return self.score.order if self.score else None
+        return f'Vote {self.pk}'
 
     @property
     def war(self) -> War:
