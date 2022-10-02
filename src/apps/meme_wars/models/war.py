@@ -30,14 +30,9 @@ class War(BaseModel):
         return self.name
 
     @property
-    def memes(self) -> QuerySet:
-        from apps.meme_wars.models import Meme
-        return Meme.objects.filter(enlistment__in=self.enlistments.all())
-
-    @property
     def votes(self) -> QuerySet:
         from apps.meme_wars.models import Vote
-        return Vote.objects.filter(meme__enlistment__war=self)
+        return Vote.objects.filter(meme__war=self)
 
     @property
     def voter_count(self) -> int:

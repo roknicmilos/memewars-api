@@ -7,19 +7,12 @@ from apps.meme_wars.models import War
 @admin.register(War)
 class WarAdmin(ModelAdmin):
     list_display = (
-        'name', 'id', 'phase', 'enlistment_count',
-        'meme_count', 'voter_count', 'vote_count', 'created',
+        'name', 'id', 'phase', 'meme_count', 'voter_count', 'vote_count', 'created',
     )
     readonly_fields = (
-        'id', 'enlistment_count', 'phase', 'meme_count',
-        'voter_count', 'vote_count', 'created', 'modified',
+        'id', 'phase', 'meme_count', 'voter_count', 'vote_count', 'created', 'modified',
     )
     add_form_fields = ('name',)
-
-    def enlistment_count(self, obj: War = None) -> int:
-        return obj.enlistments.count()
-
-    enlistment_count.short_description = _('enlistments')
 
     def meme_count(self, obj: War = None) -> int:
         return obj.memes.count()

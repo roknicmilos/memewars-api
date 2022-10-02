@@ -15,7 +15,7 @@ class VoteAdmin(admin.ModelAdmin):
         'user__first_name',
         'user__last_name',
         'meme__pk',
-        'meme__enlistment__war__name',
+        'meme__war__name',
     )
     fields = (
         'id', 'user', 'meme', 'score', 'submission_count', 'war', 'created', 'modified',

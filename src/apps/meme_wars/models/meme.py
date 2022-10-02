@@ -1,9 +1,7 @@
 from django.db import models
 from django.db.models import Sum
 from django.utils.translation import gettext_lazy as _
-from apps.users.models import User
 from apps.common.models import BaseModel
-from apps.meme_wars.models import War
 
 
 class Meme(BaseModel):
@@ -11,10 +9,16 @@ class Meme(BaseModel):
         verbose_name = _('Meme')
         verbose_name_plural = _('Memes')
 
-    enlistment = models.ForeignKey(
-        to='meme_wars.Enlistment',
-        on_delete=models.CASCADE,
-        verbose_name=_('enlistment'),
+    war = models.ForeignKey(
+        verbose_name=_('war'),
+        to='meme_wars.War',
+        on_delete=models.PROTECT,
+        related_name='memes',
+    )
+    user = models.ForeignKey(
+        verbose_name=_('user'),
+        to='users.User',
+        on_delete=models.PROTECT,
         related_name='memes',
     )
     image = models.ImageField(
@@ -24,14 +28,6 @@ class Meme(BaseModel):
 
     def __str__(self):
         return self.image.name
-
-    @property
-    def war(self) -> War:
-        return self.enlistment.war
-
-    @property
-    def user(self) -> User:
-        return self.enlistment.user
 
     @property
     def total_score(self) -> float:

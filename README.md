@@ -28,11 +28,10 @@
   `docker exec -it meme-wars-django sh -c 'python manage.py create_superuser'`
 
 
-- **Load fixtures**. Fixtures should already be loaded after running `docker compose up`.
-  To load them again, run the comment below (**NOTE: this will override table raws with the same
-  primary keys as those specified in fixtures**):
+- **Load fixtures**. To load the fixtures, run the comment below (**NOTE: this will override table 
+- raws with the same primary keys as those specified in fixtures**):
 
-  `docker exec -it qwerty-django sh -c 'python manage.py loaddata users wars enlistments memes votes'`
+  `docker exec -it qwerty-django sh -c 'python manage.py loaddata users wars memes votes'`
 
 
 ## Production setup
