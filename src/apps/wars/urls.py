@@ -19,5 +19,5 @@ api_urlpatterns = [
 ]
 
 urlpatterns = [
-    path('api/v1/', include((api_urlpatterns, 'apps.wars'), namespace='api'))
+    path('', include((api_urlpatterns, 'apps.wars'), namespace='wars'))
 ]
