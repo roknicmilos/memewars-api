@@ -31,7 +31,7 @@ class War(BaseModel):
 
     @property
     def votes(self) -> QuerySet:
-        from apps.meme_wars.models import Vote
+        from apps.wars.models import Vote
         return Vote.objects.filter(meme__war=self)
 
     @property

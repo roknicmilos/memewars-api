@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from apps.common.models import BaseModel
-from apps.meme_wars.models import War
+from apps.wars.models import War
 
 
 class Vote(BaseModel):
@@ -18,7 +18,7 @@ class Vote(BaseModel):
         related_name='votes',
     )
     meme = models.ForeignKey(
-        to='meme_wars.Meme',
+        to='wars.Meme',
         on_delete=models.CASCADE,
         verbose_name=_('meme'),
         related_name='votes',

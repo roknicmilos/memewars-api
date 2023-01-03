@@ -1,11 +1,11 @@
-- model: meme_wars.War
+- model: wars.War
   pk: 1
   fields:
     name: The Great Meme War
     created: 2021-12-05T00:00:00+00:00
     modified: 2021-12-05T00:00:00+00:00
 
-- model: meme_wars.War
+- model: wars.War
   pk: 2
   fields:
     name: Lame Meme War

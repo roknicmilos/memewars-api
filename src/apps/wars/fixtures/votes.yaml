@@ -1,4 +1,4 @@
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 1
   fields:
     user: 1
@@ -6,7 +6,7 @@
     score: 7
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 2
   fields:
     user: 1
@@ -14,7 +14,7 @@
     score: 6
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 3
   fields:
     user: 1
@@ -22,7 +22,7 @@
     score: 1
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 4
   fields:
     user: 1
@@ -30,7 +30,7 @@
     score: 1
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 5
   fields:
     user: 1
@@ -38,7 +38,7 @@
     score: 1
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 6
   fields:
     user: 1
@@ -46,7 +46,7 @@
     score: 1
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 7
   fields:
     user: 1
@@ -54,7 +54,7 @@
     score: 1
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 8
   fields:
     user: 1
@@ -62,7 +62,7 @@
     score: 1
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 9
   fields:
     user: 1
@@ -70,7 +70,7 @@
     score: 1
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 10
   fields:
     user: 1
@@ -78,7 +78,7 @@
     score: 1
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 11
   fields:
     user: 1
@@ -86,7 +86,7 @@
     score: 1
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 12
   fields:
     user: 1
@@ -94,7 +94,7 @@
     score: 1
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 13
   fields:
     user: 1
@@ -102,7 +102,7 @@
     score: 1
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 14
   fields:
     user: 1
@@ -111,7 +111,7 @@
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
 
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 15
   fields:
     user: 2
@@ -119,7 +119,7 @@
     score: 8
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 16
   fields:
     user: 2
@@ -127,7 +127,7 @@
     score: 9
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 17
   fields:
     user: 2
@@ -135,7 +135,7 @@
     score: 3
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 18
   fields:
     user: 2
@@ -143,7 +143,7 @@
     score: 4
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 19
   fields:
     user: 2
@@ -151,7 +151,7 @@
     score: 1
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 20
   fields:
     user: 2
@@ -159,7 +159,7 @@
     score: 4
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 21
   fields:
     user: 2
@@ -167,7 +167,7 @@
     score: 1
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 22
   fields:
     user: 2
@@ -175,7 +175,7 @@
     score: 5
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 23
   fields:
     user: 2
@@ -183,7 +183,7 @@
     score: 1
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 24
   fields:
     user: 2
@@ -191,7 +191,7 @@
     score: 3
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 25
   fields:
     user: 2
@@ -199,7 +199,7 @@
     score: 2
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 26
   fields:
     user: 2
@@ -207,7 +207,7 @@
     score: 5
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 27
   fields:
     user: 2
@@ -215,7 +215,7 @@
     score: 1
     created: 2021-12-11T00:00:00+00:00
     modified: 2021-12-11T00:00:00+00:00
-- model: meme_wars.Vote
+- model: wars.Vote
   pk: 28
   fields:
     user: 2

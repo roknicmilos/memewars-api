@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from apps.meme_wars.views import WarViewSet, VoteViewSet
+from apps.wars.views import WarViewSet, VoteViewSet
 from apps.users.urls import urlpatterns as auth_urlpatterns
 
 router = DefaultRouter()
@@ -19,5 +19,5 @@ api_urlpatterns = [
 ]
 
 urlpatterns = [
-    path('api/v1/', include((api_urlpatterns, 'apps.meme_wars'), namespace='api'))
+    path('api/v1/', include((api_urlpatterns, 'apps.wars'), namespace='api'))
 ]

@@ -22,14 +22,17 @@
 
 ### Initial Data
 
-- **Create a superuser**. Superuser should already be created after running `docker compose up`
-  with the credentials from `.env` file. If you want to create a new one, run:
+#### Create a superuser
+
+Superuser should already be created after running `docker compose up`
+with the credentials from `.env` file. If you want to create a new one, run:
 
   `docker exec -it meme-wars-django sh -c 'python manage.py create_superuser'`
 
+#### Load fixtures
 
-- **Load fixtures**. To load the fixtures, run the comment below (**NOTE: this will override table 
-- raws with the same primary keys as those specified in fixtures**):
+To load the fixtures, run the comment below (**NOTE: this will override table
+raws with the same primary keys as those specified in fixtures**):
 
   `docker exec -it meme-wars-django sh -c 'python manage.py loaddata users wars memes votes'`
 

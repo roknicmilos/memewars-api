@@ -11,7 +11,7 @@ class Meme(BaseModel):
 
     war = models.ForeignKey(
         verbose_name=_('war'),
-        to='meme_wars.War',
+        to='wars.War',
         on_delete=models.PROTECT,
         related_name='memes',
     )
