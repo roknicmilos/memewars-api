@@ -1,0 +1,113 @@
+- model: wars.Meme
+  pk: 1
+  fields:
+    user: 1
+    war: 1
+    image: /fixtures/meme_example_1.jpg
+    created: 2021-12-05T00:00:00+00:00
+    modified: 2021-12-05T00:00:00+00:00
+- model: wars.Meme
+  pk: 2
+  fields:
+    user: 1
+    war: 1
+    image: /fixtures/meme_example_2.jpg
+    created: 2021-12-05T00:00:00+00:00
+    modified: 2021-12-05T00:00:00+00:00
+
+- model: wars.Meme
+  pk: 3
+  fields:
+    user: 2
+    war: 1
+    image: /fixtures/roki_meme_1.jpg
+    created: 2021-12-05T00:00:00+00:00
+    modified: 2021-12-05T00:00:00+00:00
+- model: wars.Meme
+  pk: 4
+  fields:
+    user: 2
+    war: 1
+    image: /fixtures/roki_meme_2.jpg
+    created: 2021-12-05T00:00:00+00:00
+    modified: 2021-12-05T00:00:00+00:00
+- model: wars.Meme
+  pk: 5
+  fields:
+    user: 3
+    war: 1
+    image: /fixtures/smiljke_meme_1.jpg
+    created: 2021-12-05T00:00:00+00:00
+    modified: 2021-12-05T00:00:00+00:00
+- model: wars.Meme
+  pk: 6
+  fields:
+    user: 3
+    war: 1
+    image: /fixtures/smiljke_meme_2.jpg
+    created: 2021-12-05T00:00:00+00:00
+    modified: 2021-12-05T00:00:00+00:00
+- model: wars.Meme
+  pk: 7
+  fields:
+    user: 3
+    war: 1
+    image: /fixtures/smiljke_meme_3.jpg
+    created: 2021-12-05T00:00:00+00:00
+    modified: 2021-12-05T00:00:00+00:00
+- model: wars.Meme
+  pk: 8
+  fields:
+    user: 3
+    war: 1
+    image: /fixtures/smiljke_meme_4.jpg
+    created: 2021-12-05T00:00:00+00:00
+    modified: 2021-12-05T00:00:00+00:00
+- model: wars.Meme
+  pk: 9
+  fields:
+    user: 4
+    war: 1
+    image: /fixtures/mara_meme_1.jpg
+    created: 2021-12-05T00:00:00+00:00
+    modified: 2021-12-05T00:00:00+00:00
+- model: wars.Meme
+  pk: 10
+  fields:
+    user: 4
+    war: 1
+    image: /fixtures/mara_meme_2.jpg
+    created: 2021-12-05T00:00:00+00:00
+    modified: 2021-12-05T00:00:00+00:00
+- model: wars.Meme
+  pk: 11
+  fields:
+    user: 5
+    war: 1
+    image: /fixtures/jovo_meme_1.jpg
+    created: 2021-12-05T00:00:00+00:00
+    modified: 2021-12-05T00:00:00+00:00
+- model: wars.Meme
+  pk: 12
+  fields:
+    user: 5
+    war: 1
+    image: /fixtures/jovo_meme_2.jpg
+    created: 2021-12-05T00:00:00+00:00
+    modified: 2021-12-05T00:00:00+00:00
+- model: wars.Meme
+  pk: 13
+  fields:
+    user: 5
+    war: 1
+    image: /fixtures/jovo_meme_3.jpg
+    created: 2021-12-05T00:00:00+00:00
+    modified: 2021-12-05T00:00:00+00:00
+- model: wars.Meme
+  pk: 14
+  fields:
+    user: 5
+    war: 1
+    image: /fixtures/jovo_meme_4.jpg
+    created: 2021-12-05T00:00:00+00:00
+    modified: 2021-12-05T00:00:00+00:00

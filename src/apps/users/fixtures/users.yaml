@@ -1,7 +1,7 @@
 - model: users.User
   pk: 1
   fields:
-    email: jon.show@qwerty.com
+    email: jon.show@memewars.com
     password: pbkdf2_sha256$260000$2IjFBdqCkWpi0Hs7la0UFG$UOGWoe6P41gCTfCmmbWoS/slytH+vpy3pf6wguCR/d0= # raw: pass4user
     first_name: Jon
     last_name: Snow
@@ -10,7 +10,7 @@
 - model: users.User
   pk: 2
   fields:
-    email: m.roknic@qwerty.com
+    email: m.roknic@memewars.com
     password: pbkdf2_sha256$260000$2IjFBdqCkWpi0Hs7la0UFG$UOGWoe6P41gCTfCmmbWoS/slytH+vpy3pf6wguCR/d0= # raw: pass4user
     first_name: Miloš
     last_name: Roknić
@@ -19,7 +19,7 @@
 - model: users.User
   pk: 3
   fields:
-    email: n.smiljanic@qwerty.com
+    email: n.smiljanic@memewars.com
     password: pbkdf2_sha256$260000$2IjFBdqCkWpi0Hs7la0UFG$UOGWoe6P41gCTfCmmbWoS/slytH+vpy3pf6wguCR/d0= # raw: pass4user
     first_name: Nikola
     last_name: Smiljanić
@@ -28,7 +28,7 @@
 - model: users.User
   pk: 4
   fields:
-    email: m.lazarevic@qwerty.com
+    email: m.lazarevic@memewars.com
     password: pbkdf2_sha256$260000$2IjFBdqCkWpi0Hs7la0UFG$UOGWoe6P41gCTfCmmbWoS/slytH+vpy3pf6wguCR/d0= # raw: pass4user
     first_name: Marija
     last_name: Lazarević
@@ -37,7 +37,7 @@
 - model: users.User
   pk: 5
   fields:
-    email: j.vucetic@qwerty.com
+    email: j.vucetic@memewars.com
     password: pbkdf2_sha256$260000$2IjFBdqCkWpi0Hs7la0UFG$UOGWoe6P41gCTfCmmbWoS/slytH+vpy3pf6wguCR/d0= # raw: pass4user
     first_name: Jovan
     last_name: Vučetić
