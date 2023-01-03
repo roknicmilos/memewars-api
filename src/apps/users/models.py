@@ -7,15 +7,20 @@ from apps.common.models import BaseModel
 
 class UserManager(BaseUserManager):
 
-    def create_superuser(self, email: str = None, password: str = None, **kwargs):
+    def create_superuser(self, email: str = None, **kwargs):
+        return self._create_user(email=email, is_staff=True, is_superuser=True, **kwargs)
+
+    def create_user(self, email: str = None, **kwargs):
+        return self._create_user(email=email, is_staff=False, is_superuser=False, **kwargs)
+
+    def _create_user(self, email: str = None, password: str = None, **kwargs):
         email = self.normalize_email(email)
-        user = self.model(email=email, is_staff=True, is_superuser=True, **kwargs)
-        user.password = make_password(password)
-        user.save()
+        user = self.model(email=email, **kwargs)
+        user.update(password=make_password(password))
         return user
 
 
-class User(BaseModel, AbstractUser):  # AbstractUser
+class User(BaseModel, AbstractUser):
     class Meta:
         verbose_name = _('User')
         verbose_name_plural = _('Users')
