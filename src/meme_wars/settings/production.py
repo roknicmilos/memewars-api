@@ -5,7 +5,7 @@ from .development import *
 DEBUG = False
 
 # You will have to determine, which hostnames should be served by Django
-ALLOWED_HOSTS = ['qwertymania.com']
+ALLOWED_HOSTS = ['roknicmilos.com']
 
 # ##### SECURITY CONFIGURATION ############################
 
