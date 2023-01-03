@@ -1,12 +1,8 @@
-# Python imports
-from os.path import join
-
-# project imports
-from .common import *
+# Common settings:
+from .common import *  # noqa: F403
 
 # uncomment the following line to include i18n
 # from .i18n import *
-
 
 # ##### DEBUG CONFIGURATION ###############################
 DEBUG = True
@@ -21,4 +17,4 @@ LOGOUT_REDIRECT_URL = 'core_login'
 
 # ##### APPLICATION CONFIGURATION #########################
 
-INSTALLED_APPS = DEFAULT_APPS
+INSTALLED_APPS = DEFAULT_APPS  # noqa: F405
