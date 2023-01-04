@@ -1,0 +1,15 @@
+name: Tests
+on: [pull_request]
+jobs:
+  check-project:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Prepare environment variables
+        run: cp example.env .env
+      - name: Start Docker containers
+        run: docker-compose up -d
+      - name: Run tests
+        run: docker exec meme-wars-django sh -c 'python -m pytest'
+      - name: Check quality of the Python code
+        run: docker exec meme-wars-django sh -c 'python -m flake8'

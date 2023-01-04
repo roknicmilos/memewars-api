@@ -1,8 +1,10 @@
+import pytest
 from unittest import TestCase
 
 from apps.users.models import User
 
 
+@pytest.mark.django_db
 class TestUser(TestCase):
 
     def tearDown(self) -> None:
