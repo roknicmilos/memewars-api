@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models import Sum
 from django.utils.translation import gettext_lazy as _
 from apps.common.models import BaseModel
+from apps.common.utils import FilePath, compress_image_file
 from apps.wars.models import War
 from apps.wars.validators import WarPhaseValidator
 
@@ -18,7 +19,7 @@ class Meme(BaseModel):
         related_name='memes',
         validators=[
             WarPhaseValidator(War.Phases.SUBMISSION),
-        ]
+        ],
     )
     user = models.ForeignKey(
         verbose_name=_('user'),
@@ -28,7 +29,7 @@ class Meme(BaseModel):
     )
     image = models.ImageField(
         verbose_name=_('image'),
-        upload_to='memes',
+        upload_to=FilePath('wars/meme/'),
     )
     is_approved = models.BooleanField(
         verbose_name=_('is approved'),
@@ -40,9 +41,17 @@ class Meme(BaseModel):
 
     @property
     def total_score(self) -> float:
-        scores_sum = self.votes.aggregate(Sum('score')).get('score__sum') or 0
+        if not self.votes.exists():
+            return 0
+
+        scores_sum = self.votes.aggregate(Sum('score')).get('score__sum')
         return round(scores_sum / self.votes.count(), 2)
 
     @property
     def vote_count(self) -> int:
         return self.votes.count()
+
+    def save(self, **kwargs):
+        if self.image != self.original.image:
+            self.image = compress_image_file(image=self.image)
+        super().save(**kwargs)

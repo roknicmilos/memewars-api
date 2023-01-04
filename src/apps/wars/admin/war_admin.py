@@ -10,7 +10,7 @@ class WarAdmin(ModelAdmin):
         'name', 'requires_meme_approval', 'phase', 'meme_count', 'voter_count', 'vote_count', 'created',
     )
     readonly_fields = (
-        'phase', 'meme_count', 'voter_count', 'vote_count', 'created', 'modified',
+        'meme_count', 'voter_count', 'vote_count', 'created', 'modified',
     )
     add_form_fields = (
         'name',

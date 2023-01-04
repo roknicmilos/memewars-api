@@ -10,10 +10,10 @@ class War(BaseModel):
         verbose_name_plural = _('Wars')
 
     class Phases(models.TextChoices):
-        PREPARATION = 'preparation', _('preparation')
-        SUBMISSION = 'submission', _('submission')
-        VOTING = 'voting', _('voting')
-        FINISHED = 'finished', _('finished')
+        PREPARATION = 'preparation', _('Preparation')
+        SUBMISSION = 'submission', _('Submission')
+        VOTING = 'voting', _('Voting')
+        FINISHED = 'finished', _('Finished')
 
     name = models.CharField(
         verbose_name=_('name'),

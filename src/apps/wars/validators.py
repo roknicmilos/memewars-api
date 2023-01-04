@@ -1,14 +1,14 @@
 from django.core.validators import BaseValidator
 from django.utils.translation import gettext_lazy as _
+from apps.common.utils import get_text_choice_by_value
 from apps.wars.models import War
 
 
 class WarPhaseValidator(BaseValidator):
     code = 'limit_war_phase'
 
-    def __init__(self, war_phase: War.Phases, message=None):
-        if war_phase not in War.Phases:
-            raise ValueError('Invalid War Phase')
+    def __init__(self, phase_value: str, message=None):
+        war_phase = get_text_choice_by_value(value=phase_value, text_choices=War.Phases)
 
         if not message:
             message = _(f'War must be in "{war_phase.label}" phase in order to add a meme to it')
@@ -16,4 +16,4 @@ class WarPhaseValidator(BaseValidator):
         super().__init__(war_phase, message)
 
     def compare(self, a, b):
-        return a is not b
+        return not War.objects.filter(pk=a, phase=b).exclude()
