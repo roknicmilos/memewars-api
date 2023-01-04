@@ -1,12 +1,14 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
+
+from apps.common.admin import ModelAdmin
 from apps.common.utils import get_model_admin_change_details_url
 from apps.wars.models import Vote
 
 
 @admin.register(Vote)
-class VoteAdmin(admin.ModelAdmin):
+class VoteAdmin(ModelAdmin):
     list_display = (
         'admin_id', 'user', 'meme_id', 'score', 'submission_count', 'war', 'created', 'modified',
     )
@@ -18,7 +20,7 @@ class VoteAdmin(admin.ModelAdmin):
         'meme__war__name',
     )
     fields = (
-        'id', 'user', 'meme', 'score', 'submission_count', 'war', 'created', 'modified',
+        'user', 'meme', 'score', 'submission_count', 'war', 'created', 'modified',
     )
 
     def admin_id(self, obj: Vote = None) -> str:
