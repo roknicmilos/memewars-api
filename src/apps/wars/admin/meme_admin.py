@@ -12,8 +12,9 @@ class MemeAdmin(ModelAdmin):
         'user__last_name',
         'war__name',
     )
-    list_display = ('admin_id', 'image', 'user', 'war', 'vote_count', 'total_score',)
-    add_form_fields = ('user', 'war', 'image',)
+    list_filter = ('is_approved',)
+    list_display = ('admin_id', 'is_approved', 'image', 'user', 'war', 'vote_count', 'total_score',)
+    add_form_fields = ('user', 'war', 'image', 'is_approved',)
 
     def admin_id(self, obj: Meme = None) -> str:
         return _(f'Meme {obj.pk}') if obj else None
