@@ -7,16 +7,13 @@ services:
     build:
       context: .
       dockerfile: django.Dockerfile
-      target: development
+      target: production
     env_file:
       - .env
     ports:
       - "${DJANGO_PORT}:8000"
     depends_on:
       - postgres
-    volumes:
-      - ./scripts:/app/scripts/
-      - ./src:/app/src/
 
   postgres:
     container_name: meme-wars-postgres
