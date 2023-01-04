@@ -2,6 +2,8 @@ from django.db import models
 from django.db.models import Sum
 from django.utils.translation import gettext_lazy as _
 from apps.common.models import BaseModel
+from apps.wars.models import War
+from apps.wars.validators import WarPhaseValidator
 
 
 class Meme(BaseModel):
@@ -14,6 +16,9 @@ class Meme(BaseModel):
         to='wars.War',
         on_delete=models.PROTECT,
         related_name='memes',
+        validators=[
+            WarPhaseValidator(War.Phases.SUBMISSION),
+        ]
     )
     user = models.ForeignKey(
         verbose_name=_('user'),
@@ -24,6 +29,10 @@ class Meme(BaseModel):
     image = models.ImageField(
         verbose_name=_('image'),
         upload_to='memes',
+    )
+    is_approved = models.BooleanField(
+        verbose_name=_('is approved'),
+        default=False,
     )
 
     def __str__(self):
