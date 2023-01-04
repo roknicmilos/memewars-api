@@ -21,6 +21,18 @@ class ModelAdmin(BaseModelAdmin):
             return self.add_form_fields
 
         if obj and self.change_form_fields is not None:
-            return self.change_form_fields
+            fields = self.change_form_fields
+        else:
+            fields = super(ModelAdmin, self).get_fields(request=request, obj=obj)
 
-        return super(ModelAdmin, self).get_fields(request=request, obj=obj)
+        fields = list(fields)
+        if 'id' in fields:
+            fields.remove('id')
+        fields.insert(0, 'id')
+        return tuple(fields)
+
+    def get_readonly_fields(self, request, obj=None):
+        readonly_fields = list(super(ModelAdmin, self).get_readonly_fields(request=request, obj=obj))
+        if 'id' not in readonly_fields:
+            readonly_fields.append('id')
+        return readonly_fields

@@ -25,6 +25,10 @@ class War(BaseModel):
         choices=Phases.choices,
         default=Phases.PREPARATION,
     )
+    requires_meme_approval = models.BooleanField(
+        verbose_name=_('requires meme approval'),
+        default=False,
+    )
 
     def __str__(self):
         return self.name
