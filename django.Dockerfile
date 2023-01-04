@@ -1,4 +1,4 @@
-FROM python:3.11
+FROM python:3.11 as base
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
@@ -17,8 +17,27 @@ COPY --chown=app:app ./src              /app/src
 
 
 RUN pip install --upgrade pip
-RUN pip install -r /app/requirements/development.txt
 
 WORKDIR /app/src
 
-EXPOSE 8000
+ENTRYPOINT ["sh", "/app/scripts/entrypoint.sh"]
+
+########################
+### PRODUCTION image ###
+########################
+
+FROM base AS production
+
+ENV APP_ENV='production'
+
+RUN pip install -r /app/requirements/production.txt
+
+#########################
+### DEVELOPMENT image ###
+#########################
+
+FROM base AS development
+
+ENV APP_ENV='development'
+
+RUN pip install -r /app/requirements/development.txt
