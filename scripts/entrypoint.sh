@@ -25,6 +25,7 @@ initialize_django_project() {
 
   elif [ "$APP_ENV" = 'production' ]; then
     printc "Starting project in $APP_ENV mode \n\n" "info"
+    python3 manage.py collectstatic --noinput
     python3 manage.py migrate
     python3 manage.py runserver 0.0.0.0:8000
 
