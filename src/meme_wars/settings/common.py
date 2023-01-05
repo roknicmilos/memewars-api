@@ -50,6 +50,7 @@ DEFAULT_APPS = [
     'rest_framework.authtoken',
 
     # Local apps:
+    'apps.common',
     'apps.users',
     'apps.wars',
 ]
@@ -152,3 +153,10 @@ REST_FRAMEWORK = {
 }
 
 ALLOWED_HOSTS = ['0.0.0.0', ]
+
+FIXTURES = (
+    'users',
+    'wars',
+    'memes',
+    'votes',
+)

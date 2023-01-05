@@ -19,3 +19,5 @@ static/*
 media/*
 # except the README
 !media/README
+# do NOT ignore fixture images
+!media/fixtures
