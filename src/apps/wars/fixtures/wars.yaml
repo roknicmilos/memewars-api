@@ -2,12 +2,14 @@
   pk: 1
   fields:
     name: The Great Meme War
-    created: 2021-12-05T00:00:00+00:00
-    modified: 2021-12-05T00:00:00+00:00
+    phase: finished
+    created: 2023-01-05T00:00:00+00:00
+    modified: 2023-01-05T00:00:00+00:00
 
 - model: wars.War
   pk: 2
   fields:
-    name: Lame Meme War
-    created: 2021-12-17T00:00:00+00:00
-    modified: 2021-12-17T00:00:00+00:00
+    name: 'The Great Meme War: Resurrection'
+    phase: submission
+    created: 2023-01-05T00:00:00+00:00
+    modified: 2023-01-05T00:00:00+00:00
