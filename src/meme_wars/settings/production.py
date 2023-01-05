@@ -5,3 +5,4 @@ DEBUG = False
 
 # ##### SECURITY CONFIGURATION ############################
 SESSION_COOKIE_SECURE = True
+CSRF_TRUSTED_ORIGINS = ['https://memewars.roknicmilos.com', ]

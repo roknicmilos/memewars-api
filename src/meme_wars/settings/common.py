@@ -152,5 +152,3 @@ REST_FRAMEWORK = {
 }
 
 ALLOWED_HOSTS = ['0.0.0.0', ]
-
-CSRF_TRUSTED_ORIGINS = ['https://0.0.0.0', ]
