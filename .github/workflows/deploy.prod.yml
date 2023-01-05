@@ -1,0 +1,29 @@
+name: 'PROD Deploy'
+on:
+  push:
+    branches: [ master ]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Prepare environment variables
+        run: cp example.env .env
+      - name: Start Docker containers
+        run: docker-compose up -d
+      - name: Run tests
+        run: docker exec meme-wars-django sh -c 'python -m pytest -n auto'
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Deploy to PRODUCTION server'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_KEY }}
+          script: |
+            cd /var/www/memewars
+            git pull
+            docker compose -f docker-compose.production.yml build
+            docker compose -f docker-compose.production.yml up -d
