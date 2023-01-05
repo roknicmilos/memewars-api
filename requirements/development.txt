@@ -14,3 +14,5 @@ mccabe==0.7.0
 pycodestyle==2.10.0
 pyflakes==3.0.1
 factory-boy==3.2.1
+execnet==1.9.0
+pytest-xdist==3.1.0

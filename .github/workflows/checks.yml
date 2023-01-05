@@ -13,6 +13,6 @@ jobs:
       - name: Start Docker containers
         run: docker-compose up -d
       - name: Run tests
-        run: docker exec meme-wars-django sh -c 'python -m pytest'
+        run: docker exec meme-wars-django sh -c 'python -m pytest -n auto'
       - name: Check quality of the Python code
         run: docker exec meme-wars-django sh -c 'python -m flake8'
