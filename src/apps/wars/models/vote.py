@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from apps.common.models import BaseModel
 from apps.wars.models import War
+from apps.wars.validators import MemeWarPhaseValidator
 
 
 class Vote(BaseModel):
@@ -22,6 +23,9 @@ class Vote(BaseModel):
         on_delete=models.CASCADE,
         verbose_name=_('meme'),
         related_name='votes',
+        validators=[
+            MemeWarPhaseValidator(phase_value=War.Phases.SUBMISSION)
+        ]
     )
     score = models.IntegerField(
         verbose_name=_('score'),

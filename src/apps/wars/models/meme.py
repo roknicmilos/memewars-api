@@ -18,7 +18,7 @@ class Meme(BaseModel):
         on_delete=models.PROTECT,
         related_name='memes',
         validators=[
-            WarPhaseValidator(War.Phases.SUBMISSION),
+            WarPhaseValidator(phase_value=War.Phases.SUBMISSION),
         ],
     )
     user = models.ForeignKey(

@@ -17,11 +17,11 @@ class TestMeme(TestCase):
             meme.full_clean()
         except ValidationError as error:
             war_field_validation_error = error.error_dict.get('war')[0]
-            expected_error_message = (
-                f'War must be in "{War.Phases.SUBMISSION.label}" phase in order to add a meme to it'
-            )
+            expected_error_message = f'War must be in "{War.Phases.SUBMISSION.label}" phase'
             self.assertEqual(war_field_validation_error.message, expected_error_message)
             self.assertEqual(war_field_validation_error.code, 'limit_war_phase')
+        else:
+            self.fail('Did not raise ValidationError')
 
     def test_should_return_correct_total_score(self):
         meme = MemeFactory()
