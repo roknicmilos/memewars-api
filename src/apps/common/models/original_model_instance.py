@@ -1,5 +1,4 @@
 from typing import Type
-
 from django.db.models import Model
 from django.forms import model_to_dict
 
@@ -16,10 +15,7 @@ class OriginalModelInstance:
         self.kwargs = model_to_dict(instance)
         prop_names = [key for key, value in vars(instance.__class__).items() if type(value) is property]
         for prop_name in prop_names:
-            try:
-                self.kwargs[prop_name] = getattr(instance, prop_name)
-            except Exception:
-                self.kwargs[prop_name] = None
+            self.kwargs[prop_name] = getattr(instance, prop_name)
 
     def dict(self) -> dict:
         return self.kwargs

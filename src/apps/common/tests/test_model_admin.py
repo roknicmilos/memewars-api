@@ -1,6 +1,7 @@
 from unittest.mock import patch
 from django.contrib.admin.options import BaseModelAdmin
 from django.contrib.admin.sites import site as admin_site
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from apps.common.admin import ModelAdmin
 from apps.common.tests import TestCase
@@ -77,3 +78,9 @@ class TestModelAdmin(TestCase):
         # When User object is passed to the function:
         actual_fieldsets = self.user_admin.get_fieldsets(request=self.request, obj=User())
         self.assertEqual(actual_fieldsets, expected_fieldsets)
+
+    def test_should_return_correct_admin_id_string_when_object_is_passed(self):
+        user_class = get_user_model()
+        user = user_class.objects.create()
+        actual_admin_id = self.user_admin.admin_id(obj=user)
+        self.assertEqual(actual_admin_id, f'{user.verbose_name} {user.pk}')

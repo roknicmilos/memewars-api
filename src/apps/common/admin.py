@@ -1,4 +1,6 @@
 from django.contrib.admin import ModelAdmin as BaseModelAdmin
+from django.utils.translation import gettext_lazy as _
+from apps.common.models import BaseModel
 
 
 class ModelAdmin(BaseModelAdmin):
@@ -36,3 +38,8 @@ class ModelAdmin(BaseModelAdmin):
         if 'id' not in readonly_fields:
             readonly_fields.append('id')
         return readonly_fields
+
+    def admin_id(self, obj: BaseModel = None) -> str:
+        return f'{obj.verbose_name} {obj.pk}'
+
+    admin_id.short_description = _('id')

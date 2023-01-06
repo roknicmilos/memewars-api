@@ -52,6 +52,6 @@ class Meme(BaseModel):
         return self.votes.count()
 
     def save(self, **kwargs):
-        if self.image and not self.original or self.image != self.original.image:
+        if self.image and (not self.original or self.image != self.original.image):
             self.image = compress_image_file(image=self.image)
         super().save(**kwargs)
