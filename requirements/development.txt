@@ -16,3 +16,6 @@ pyflakes==3.0.1
 factory-boy==3.2.1
 execnet==1.9.0
 pytest-xdist==3.1.0
+coverage==7.0.3
+pytest-cov==4.0.0
+freezegun==1.2.2

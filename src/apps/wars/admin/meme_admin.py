@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.utils.translation import gettext_lazy as _
 from apps.common.admin import ModelAdmin
 from apps.wars.models import Meme
 
@@ -12,14 +11,15 @@ class MemeAdmin(ModelAdmin):
         'user__last_name',
         'war__name',
     )
-    list_filter = ('is_approved',)
-    list_display = ('admin_id', 'is_approved', 'image', 'user', 'war', 'vote_count', 'total_score',)
-    add_form_fields = ('user', 'war', 'image', 'is_approved',)
-
-    def admin_id(self, obj: Meme = None) -> str:
-        return _(f'Meme {obj.pk}') if obj else None
-
-    admin_id.short_description = _('id')
+    list_filter = (
+        'is_approved',
+    )
+    list_display = (
+        'admin_id', 'is_approved', 'image', 'user', 'war', 'vote_count', 'total_score',
+    )
+    add_form_fields = (
+        'user', 'war', 'image', 'is_approved',
+    )
 
     def has_change_permission(self, request, obj=None):
         return False

@@ -25,7 +25,7 @@ class BaseModel(TimeStampedModel):
     @property
     def original(self) -> OriginalModelInstance | None:
         if not self._original and self.pk:
-            self._original = OriginalModelInstance(model_claas=self.__class__, obj_id=self.pk)
+            self._original = OriginalModelInstance(model_class=self.__class__, obj_id=self.pk)
         return self._original
 
     def update(self, **kwargs):

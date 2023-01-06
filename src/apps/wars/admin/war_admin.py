@@ -17,17 +17,17 @@ class WarAdmin(ModelAdmin):
         'requires_meme_approval',
     )
 
-    def meme_count(self, obj: War = None) -> int:
+    def meme_count(self, obj: War = None) -> int:  # pragma: no cover
         return obj.memes.count()
 
     meme_count.short_description = _('memes')
 
-    def voter_count(self, obj: War = None) -> int:
+    def voter_count(self, obj: War = None) -> int:  # pragma: no cover
         return obj.voter_count
 
     voter_count.short_description = _('voters')
 
-    def vote_count(self, obj: War = None) -> int:
+    def vote_count(self, obj: War = None) -> int:  # pragma: no cover
         return obj.votes.count()
 
     vote_count.short_description = _('votes')

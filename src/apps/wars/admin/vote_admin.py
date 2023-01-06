@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-
 from apps.common.admin import ModelAdmin
 from apps.common.utils import get_model_admin_change_details_url
 from apps.wars.models import Vote
@@ -22,11 +21,6 @@ class VoteAdmin(ModelAdmin):
     fields = (
         'user', 'meme', 'score', 'submission_count', 'war', 'created', 'modified',
     )
-
-    def admin_id(self, obj: Vote = None) -> str:
-        return _(f'Vote {obj.pk}') if obj else None
-
-    admin_id.short_description = _('id')
 
     def meme_id(self, obj: Vote = None) -> int | None:
         meme_admin_url = get_model_admin_change_details_url(obj=obj.meme)
