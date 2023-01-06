@@ -122,7 +122,7 @@ DEBUG = False
 # finally grab the SECRET KEY
 try:
     SECRET_KEY = open(SECRET_FILE).read().strip()
-except IOError:
+except IOError:  # pragma: no cover
     try:
         from django.utils.crypto import get_random_string
 
