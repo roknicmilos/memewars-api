@@ -1,5 +1,3 @@
-from django.core.exceptions import ValidationError
-
 from apps.common.tests import TestCase
 from apps.wars.models import War
 from apps.wars.tests.factories import VoteFactory, WarFactory, MemeFactory
@@ -12,12 +10,15 @@ class TestVote(TestCase):
         self.assertNotEqual(war.phase, War.Phases.SUBMISSION)
         meme = MemeFactory(war=war)
         vote = VoteFactory(meme=meme)
-        try:  # TODO: REFACTOR TO ASSERTION FUNCTION ???
-            vote.full_clean()
-        except ValidationError as error:
-            war_field_validation_error = error.error_dict.get('meme')[0]
-            expected_error_message = f'Meme must be in a war that is in "{War.Phases.SUBMISSION}" phase'
-            self.assertEqual(war_field_validation_error.message, expected_error_message)
-            self.assertEqual(war_field_validation_error.code, 'limit_meme_war_phase')
-        else:
-            self.fail('Did not raise ValidationError')
+        self.assertValidationError(
+            obj=vote,
+            expected_message=f'Meme must be in a war that is in "{War.Phases.SUBMISSION}" phase',
+            field_name='meme',
+            expected_code='limit_meme_war_phase',
+        )
+
+    def test_should_return_correct_war(self):
+        war = WarFactory(phase=War.Phases.SUBMISSION)
+        meme = MemeFactory(war=war)
+        vote = VoteFactory(meme=meme)
+        self.assertEqual(vote.war, war)
