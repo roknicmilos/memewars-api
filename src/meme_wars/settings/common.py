@@ -48,6 +48,7 @@ DEFAULT_APPS = [
     # Third party apps:
     'rest_framework',
     'rest_framework.authtoken',
+    'drf_spectacular',
 
     # Local apps:
     'apps.common',
@@ -149,7 +150,8 @@ DATABASES = {
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'apps.users.authentication.TokenAuthentication',
-    ]
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 ALLOWED_HOSTS = ['0.0.0.0', ]
@@ -160,3 +162,10 @@ FIXTURES = (
     'memes',
     'votes',
 )
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Meme Wars API',
+    'DESCRIPTION': 'An API for Meme Wars',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
