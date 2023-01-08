@@ -19,6 +19,13 @@
    For older versions of Docker Compose use: `docker-compose up`
 
 
+#### API
+
+If the project is running, the API documentation should be available at
+[api/schema/swagger-ui/](http://localhost:8000/api/schema/swagger-ui/)
+and [api/schema/redoc/](http://localhost:8000/api/schema/redoc/).
+
+
 ### Tests and linting
 
 
