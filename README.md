@@ -73,12 +73,14 @@ If there are linting errors, the output of the command will be those errors.
 
 #### Simultaneously run tests, coverage and linter
 
-    docker exec meme-wars-django sh -c '/app/scripts/check_project.sh'
+    docker exec -t meme-wars-django sh -c '/app/scripts/check_project.sh'
 
 The above command will run the `check_project.sh` script which will:
 1. run all tests with coverage in parallel 
 2. generate html for the coverage report 
 3. run the linter
+
+The flag `-t` is optional just like when [only running tests](#run-tests).
 
 
 ### Initial Data

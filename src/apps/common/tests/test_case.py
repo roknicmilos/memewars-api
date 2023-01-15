@@ -30,5 +30,5 @@ class TestCase(BaseTestCase):
                 error = error.error_dict.get(field_name)[0]
             self.assertEqual(error.message, expected_message)
             self.assertEqual(error.code, expected_code)
-        else:
+        else:  # pragma: no cover
             self.fail('Did not raise ValidationError')
