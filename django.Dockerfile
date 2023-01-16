@@ -16,7 +16,7 @@ RUN pip install --upgrade pip
 
 WORKDIR /app/src
 
-ENTRYPOINT ["sh", "/app/scripts/entrypoint.sh"]
+CMD ["sh", "/app/scripts/entrypoint.sh"]
 
 ########################
 ### PRODUCTION image ###

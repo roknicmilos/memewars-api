@@ -7,6 +7,7 @@ from apps.wars.utils import generate_vote_fixtures
 
 
 class Command(BaseCommand):
+    help = 'Generates fixtures for Vote model based on the users currently present in DB'
 
     def handle(self, *args, **options):
         file_path = join(settings.PROJECT_ROOT, 'apps', 'wars', 'fixtures', 'votes.yaml')
