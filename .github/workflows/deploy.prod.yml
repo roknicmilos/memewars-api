@@ -1,7 +1,7 @@
 name: 'PROD Deploy'
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 jobs:
   test:
     name: 'Run tests'
@@ -19,7 +19,7 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: 'Pull the changes from the master branch, build Docker services and up the containers'
+      - name: 'Pull the changes from the main branch, build Docker services and up the containers'
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
