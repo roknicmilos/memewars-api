@@ -1,8 +1,8 @@
 import os
 from typing import Type
+from django.core.files.images import ImageFile
 from django.db.models import Model, TextChoices
 from django.contrib.contenttypes.models import ContentType
-from django.db.models.fields.files import ImageFieldFile
 from django.urls import reverse, NoReverseMatch
 from django.utils import timezone
 from django.utils.deconstruct import deconstructible
@@ -40,10 +40,23 @@ def get_text_choice_by_value(value: str, text_choices: Type[TextChoices]) -> Tex
             return choice
 
 
-def compress_image_file(image: ImageFieldFile, image_format: str = 'JPEG') -> File:
+def compress_image_file(image: ImageFile, image_format: str = 'JPEG') -> File:
     prepared_image = Image.open(image)
     prepared_image = prepared_image.convert('RGB')  # Converts Image to RGB color mode
     prepared_image = ImageOps.exif_transpose(prepared_image)  # Auto rotates image according to EXIF data
     image_io = BytesIO()
-    prepared_image.save(image_io, format=image_format, quality=80)
+    quality = get_reduced_file_quality_percentage(file_size=image.size)
+    prepared_image.save(image_io, format=image_format, quality=-1 if quality == 100 else quality)
     return File(file=image_io, name=image.name)
+
+
+def get_reduced_file_quality_percentage(file_size: int) -> int:
+    if file_size < 100000:
+        return 100
+    if file_size < 300000:
+        return 80
+    if file_size < 600000:
+        return 70
+    if file_size < 1000000:
+        return 60
+    return 50
