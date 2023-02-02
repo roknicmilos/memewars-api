@@ -10,6 +10,11 @@ from apps.common.models import BaseModel
 @pytest.mark.django_db
 class TestCase(BaseTestCase):
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.http_host = 'memewars'
+        self.client = Client(HTTP_HOST=self.http_host)
+
     @property
     def request(self) -> WSGIRequest:
         client = Client()
