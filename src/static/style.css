@@ -1,0 +1,66 @@
+body {
+    padding: 5% 10%;
+    font: normal 13px/50px Arial, Helvetica, sans-serif;
+}
+
+.cta-button, .cta-dropdown {
+    border: 1px solid;
+    border-radius: 10px;
+    width: 300px;
+    margin: 20px auto;
+    box-shadow: rgba(0, 0, 0, 0.15) 0 5px 15px 0;
+}
+
+.cta-dropdown {
+    background-color: #6c0000;
+    color: white;
+}
+
+.cta-button, .cta-dropdown__button {
+    border-radius: 10px;
+    height: 100px;
+}
+
+.cta-button a {
+    width: 100%;
+    height: 100%;
+}
+
+.cta-button a, .cta-dropdown__button, .cta-dropdown__option a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.cta-dropdown__options {
+    display: none;
+}
+
+.cta-dropdown__button:hover, .cta-dropdown__option:hover {
+    background-color: #861c1c;
+}
+
+.cta-dropdown__option a {
+    color: white;
+    padding: 10px;
+}
+
+.cta-dropdown__option:last-of-type {
+    border-radius: 0 0 10px 10px;
+}
+
+.cta-button--admin {
+    border-color: #417690;
+    background-color: #417690;
+}
+
+.cta-button--admin:hover {
+    background-color: #79aec8;
+}
+
+.cta-button--admin a {
+    color: white;
+}

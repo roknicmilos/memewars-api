@@ -1,0 +1,43 @@
+{% load static %}
+{% load i18n %}
+{% get_current_language as CURRENT_LANGUAGE_CODE %}
+
+<!DOCTYPE html>
+<html lang="{{ CURRENT_LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <title>{% trans 'Meme Wars' %}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+<div class="cta-wrapper">
+    <div class="cta-button cta-button--admin">
+        <a href="{% url 'admin:index' %}">{% trans 'Administration' %}</a>
+    </div>
+    <div class="cta-dropdown js-dropdown">
+        <div class="cta-dropdown__button js-dropdown__button">{% trans 'Meme Wars API' %}</div>
+        <div class="cta-dropdown__options js-dropdown__options">
+            <div class="cta-dropdown__option">
+                <a href="{% url 'api:index' %}">{% trans 'Base API URL' %}</a>
+            </div>
+            <div class="cta-dropdown__option">
+                <a href="{% url 'api_schema:swagger' %}">{% trans 'Swagger UI' %}</a>
+            </div>
+            <div class="cta-dropdown__option">
+                <a href="{% url 'api_schema:redoc' %}">{% trans 'Redoc UI' %}</a>
+            </div>
+            <div class="cta-dropdown__option">
+                <a href="{% url 'api_schema:download' %}">{% trans 'Download API Schema' %}</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+        crossorigin="anonymous"></script>
+<script src="{% static 'script.js' %}" type="module"></script>
+
+</body>
+</html>
