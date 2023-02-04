@@ -44,6 +44,7 @@ DEFAULT_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.forms',
 
     # Third party apps:
     'rest_framework',
@@ -87,6 +88,8 @@ TEMPLATES = [
         },
     },
 ]
+
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 # Internationalization
 USE_I18N = False
