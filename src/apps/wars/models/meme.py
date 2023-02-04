@@ -12,6 +12,11 @@ class Meme(BaseModel):
         verbose_name = _('Meme')
         verbose_name_plural = _('Memes')
 
+    class ApprovalStatuses(models.TextChoices):
+        PENDING = 'pending', _('Pending')
+        REJECTED = 'rejected', _('Rejected')
+        APPROVED = 'approved', _('Approved')
+
     war = models.ForeignKey(
         verbose_name=_('war'),
         to='wars.War',
@@ -31,9 +36,11 @@ class Meme(BaseModel):
         verbose_name=_('image'),
         upload_to=FilePath('wars/meme/'),
     )
-    is_approved = models.BooleanField(
-        verbose_name=_('is approved'),
-        default=False,
+    approval_status = models.CharField(
+        verbose_name=_('approval status'),
+        max_length=10,
+        choices=ApprovalStatuses.choices,
+        default=ApprovalStatuses.PENDING,
     )
 
     def __str__(self):
