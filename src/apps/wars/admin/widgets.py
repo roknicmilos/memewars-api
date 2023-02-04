@@ -1,5 +1,5 @@
 from django.contrib.admin.widgets import AdminFileWidget
 
 
-class MemeAdminWidget(AdminFileWidget):
+class MemeImageAdminWidget(AdminFileWidget):
     template_name = 'clearable_file_input.html'
