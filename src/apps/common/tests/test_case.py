@@ -16,7 +16,7 @@ class TestCase(BaseTestCase):
         self.client = Client(HTTP_HOST=self.http_host)
 
     @property
-    def request(self) -> WSGIRequest:
+    def request_example(self) -> WSGIRequest:
         client = Client()
         response = client.get('/')
         return response.wsgi_request

@@ -19,7 +19,7 @@ class TestModelAdmin(TestCase):
         self.UserAdmin.add_form_fields = (
             'id', 'username', 'first_name', 'last_name', 'email',
         )
-        actual_fieldsets = self.user_admin.get_fields(request=self.request)
+        actual_fieldsets = self.user_admin.get_fields(request=self.request_example)
         self.assertEqual(actual_fieldsets, self.UserAdmin.add_form_fields)
         self.UserAdmin.add_form_fields = None  # Revert changes added in this test to UserAdmin class
 
@@ -27,14 +27,14 @@ class TestModelAdmin(TestCase):
         self.UserAdmin.change_form_fields = (
             'id', 'username', 'first_name', 'last_name', 'email', 'is_staff', 'is_active',
         )
-        actual_fieldsets = self.user_admin.get_fields(request=self.request, obj=User())
+        actual_fieldsets = self.user_admin.get_fields(request=self.request_example, obj=User())
         self.assertEqual(actual_fieldsets, self.UserAdmin.change_form_fields)
         self.UserAdmin.change_form_fields = None  # Revert changes added in this test to UserAdmin class
 
     @patch.object(BaseModelAdmin, 'formfield_for_manytomany', return_value=None)
     def test_should_return_default_fields(self, _):
         # When User object is not passed to the function:
-        actual_fields = self.user_admin.get_fields(request=self.request)
+        actual_fields = self.user_admin.get_fields(request=self.request_example)
         expected_fields = (
             'id', 'password', 'last_login', 'is_superuser', 'username', 'first_name',
             'last_name', 'email', 'is_staff', 'is_active', 'date_joined'
@@ -42,7 +42,7 @@ class TestModelAdmin(TestCase):
         self.assertEqual(actual_fields, expected_fields)
 
         # When User object is passed to the function:
-        actual_fields = self.user_admin.get_fields(request=self.request, obj=User())
+        actual_fields = self.user_admin.get_fields(request=self.request_example, obj=User())
         self.assertEqual(actual_fields, expected_fields)
 
     def test_should_return_add_form_fieldsets(self):
@@ -50,7 +50,7 @@ class TestModelAdmin(TestCase):
             (None, {'fields': ('id', 'username',)}),
             ('Optional', {'fields': ('first_name', 'last_name', 'email',)}),
         )
-        actual_fieldsets = self.user_admin.get_fieldsets(request=self.request)
+        actual_fieldsets = self.user_admin.get_fieldsets(request=self.request_example)
         self.assertEqual(actual_fieldsets, self.UserAdmin.add_form_fieldsets)
         self.UserAdmin.add_form_fieldsets = None  # Revert changes added in this test to UserAdmin class
 
@@ -59,14 +59,14 @@ class TestModelAdmin(TestCase):
             (None, {'fields': ('id', 'username', 'first_name', 'last_name', 'email',)}),
             ('Additional', {'fields': ('is_staff', 'is_active', 'date_joined',)}),
         )
-        actual_fieldsets = self.user_admin.get_fieldsets(request=self.request, obj=User())
+        actual_fieldsets = self.user_admin.get_fieldsets(request=self.request_example, obj=User())
         self.assertEqual(actual_fieldsets, self.UserAdmin.change_form_fieldsets)
         self.UserAdmin.change_form_fieldsets = None  # Revert changes added in this test to UserAdmin class
 
     @patch.object(BaseModelAdmin, 'formfield_for_manytomany', return_value=None)
     def test_should_return_default_fieldsets(self, _):
         # When User object is not passed to the function:
-        actual_fieldsets = self.user_admin.get_fieldsets(request=self.request)
+        actual_fieldsets = self.user_admin.get_fieldsets(request=self.request_example)
         expected_fieldsets = [
             (None, {'fields': (
                 'id', 'password', 'last_login', 'is_superuser', 'username', 'first_name',
@@ -76,7 +76,7 @@ class TestModelAdmin(TestCase):
         self.assertEqual(actual_fieldsets, expected_fieldsets)
 
         # When User object is passed to the function:
-        actual_fieldsets = self.user_admin.get_fieldsets(request=self.request, obj=User())
+        actual_fieldsets = self.user_admin.get_fieldsets(request=self.request_example, obj=User())
         self.assertEqual(actual_fieldsets, expected_fieldsets)
 
     def test_should_return_correct_admin_id_string_when_object_is_passed(self):

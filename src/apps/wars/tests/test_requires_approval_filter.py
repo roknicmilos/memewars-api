@@ -9,7 +9,6 @@ class TestRequiresApprovalFilter(TestCase):
 
     def setUp(self) -> None:
         super().setUp()
-        self.request_example = self.client.get('/').wsgi_request
         first_war = WarFactory(requires_meme_approval=False)
         second_war = WarFactory(requires_meme_approval=True)
         MemeFactory.create_batch(size=2, war=first_war)
