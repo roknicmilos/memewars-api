@@ -12,6 +12,11 @@
 <body>
 
 <div class="cta-wrapper">
+    {% if app_env == 'development' %}
+        <div class="cta-button cta-button--test-coverage">
+            <a href="{% static 'coverage/index.html' %}">{% trans 'Tests Coverage Report' %}</a>
+        </div>
+    {% endif %}
     <div class="cta-button cta-button--admin">
         <a href="{% url 'admin:index' %}">{% trans 'Administration' %}</a>
     </div>
@@ -33,6 +38,8 @@
         </div>
     </div>
 </div>
+
+<div class="app-env-label app-env-label--{{ app_env }}">{{ app_env }}</div>
 
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"
         integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="

@@ -12,7 +12,7 @@ body {
 }
 
 .cta-dropdown {
-    background-color: #6c0000;
+    background-color: darkred;
     color: white;
 }
 
@@ -40,7 +40,7 @@ body {
 }
 
 .cta-dropdown__button:hover, .cta-dropdown__option:hover {
-    background-color: #861c1c;
+    background-color: #a60000;
 }
 
 .cta-dropdown__option a {
@@ -62,5 +62,39 @@ body {
 }
 
 .cta-button--admin a {
+    color: white;
+}
+
+.cta-button--test-coverage {
+    border-color: lightgreen;
+    background-color: lightgreen;
+}
+
+.cta-button--test-coverage:hover {
+    background-color: #afeeaf;
+}
+
+.cta-button--test-coverage a {
+    color: black;
+}
+
+.app-env-label {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: fit-content;
+    height: 50px;
+    padding: 0 30px;
+    border-radius: 30px 0 0;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.app-env-label--development {
+    background: lightgreen;
+}
+
+.app-env-label--production {
+    background-color: darkred;
     color: white;
 }
