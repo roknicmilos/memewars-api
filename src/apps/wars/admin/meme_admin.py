@@ -1,10 +1,12 @@
 from django.contrib import admin
 from apps.common.admin import ModelAdmin
+from apps.wars.admin.forms import MemeAdminForm
 from apps.wars.models import Meme
 
 
 @admin.register(Meme)
 class MemeAdmin(ModelAdmin):
+    form = MemeAdminForm
     search_fields = (
         'user__email',
         'user__first_name',
@@ -20,6 +22,9 @@ class MemeAdmin(ModelAdmin):
     add_form_fields = (
         'user', 'war', 'image', 'is_approved',
     )
-
-    def has_change_permission(self, request, obj=None):
-        return False
+    fields = (
+        'id', 'user', 'war', 'image', 'is_approved',
+    )
+    readonly_fields = (
+        'user', 'war', 'is_approved',
+    )
