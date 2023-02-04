@@ -4,6 +4,7 @@
     user: 1
     war: 1
     image: fixtures/meme_template_1.jpg
+    approval_status: approved
     created: 2023-01-05T00:00:00+00:00
     modified: 2023-01-05T00:00:00+00:00
 - model: wars.Meme
@@ -19,6 +20,7 @@
   fields:
     user: 1
     war: 1
+    approval_status: rejected
     image: fixtures/meme_template_3.jpg
     created: 2023-01-05T00:00:00+00:00
     modified: 2023-01-05T00:00:00+00:00
@@ -36,6 +38,7 @@
     user: 2
     war: 1
     image: fixtures/meme_template_5.jpg
+    approval_status: approved
     created: 2023-01-05T00:00:00+00:00
     modified: 2023-01-05T00:00:00+00:00
 - model: wars.Meme
@@ -52,6 +55,7 @@
     user: 3
     war: 1
     image: fixtures/meme_template_7.jpg
+    approval_status: approved
     created: 2023-01-05T00:00:00+00:00
     modified: 2023-01-05T00:00:00+00:00
 - model: wars.Meme
@@ -60,6 +64,7 @@
     user: 4
     war: 1
     image: fixtures/meme_template_8.jpg
+    approval_status: approved
     created: 2023-01-05T00:00:00+00:00
     modified: 2023-01-05T00:00:00+00:00
 - model: wars.Meme
@@ -68,6 +73,7 @@
     user: 5
     war: 1
     image: fixtures/meme_template_9.jpg
+    approval_status: rejected
     created: 2023-01-05T00:00:00+00:00
     modified: 2023-01-05T00:00:00+00:00
 - model: wars.Meme
@@ -76,6 +82,7 @@
     user: 1
     war: 1
     image: fixtures/meme_template_10.jpg
+    approval_status: approved
     created: 2023-01-05T00:00:00+00:00
     modified: 2023-01-05T00:00:00+00:00
 - model: wars.Meme
@@ -84,6 +91,7 @@
     user: 6
     war: 1
     image: fixtures/meme_template_11.jpg
+    approval_status: approved
     created: 2023-01-05T00:00:00+00:00
     modified: 2023-01-05T00:00:00+00:00
 - model: wars.Meme
@@ -108,6 +116,7 @@
     user: 10
     war: 1
     image: fixtures/meme_template_14.jpg
+    approval_status: approved
     created: 2023-01-05T00:00:00+00:00
     modified: 2023-01-05T00:00:00+00:00
 - model: wars.Meme
@@ -116,6 +125,7 @@
     user: 10
     war: 1
     image: fixtures/meme_template_15.jpg
+    approval_status: approved
     created: 2023-01-05T00:00:00+00:00
     modified: 2023-01-05T00:00:00+00:00
 - model: wars.Meme
@@ -124,6 +134,7 @@
     user: 10
     war: 1
     image: fixtures/meme_template_16.jpg
+    approval_status: approved
     created: 2023-01-05T00:00:00+00:00
     modified: 2023-01-05T00:00:00+00:00
 - model: wars.Meme
@@ -132,6 +143,7 @@
     user: 11
     war: 1
     image: fixtures/meme_template_17.jpg
+    approval_status: approved
     created: 2023-01-05T00:00:00+00:00
     modified: 2023-01-05T00:00:00+00:00
 - model: wars.Meme
@@ -140,6 +152,7 @@
     user: 12
     war: 1
     image: fixtures/meme_template_18.jpg
+    approval_status: rejected
     created: 2023-01-05T00:00:00+00:00
     modified: 2023-01-05T00:00:00+00:00
 - model: wars.Meme
@@ -148,6 +161,7 @@
     user: 13
     war: 1
     image: fixtures/meme_template_19.jpg
+    approval_status: approved
     created: 2023-01-05T00:00:00+00:00
     modified: 2023-01-05T00:00:00+00:00
 - model: wars.Meme
@@ -156,6 +170,7 @@
     user: 13
     war: 1
     image: fixtures/meme_template_20.jpg
+    approval_status: approved
     created: 2023-01-05T00:00:00+00:00
     modified: 2023-01-05T00:00:00+00:00
 - model: wars.Meme
@@ -180,6 +195,7 @@
     user: 15
     war: 1
     image: fixtures/meme_template_23.jpg
+    approval_status: approved
     created: 2023-01-05T00:00:00+00:00
     modified: 2023-01-05T00:00:00+00:00
 - model: wars.Meme
@@ -188,6 +204,7 @@
     user: 15
     war: 2
     image: fixtures/meme_template_24.jpg
+    approval_status: approved
     created: 2023-01-05T00:00:00+00:00
     modified: 2023-01-05T00:00:00+00:00
 - model: wars.Meme
@@ -196,5 +213,6 @@
     user: 15
     war: 2
     image: fixtures/meme_template_25.jpg
+    approval_status: approved
     created: 2023-01-05T00:00:00+00:00
     modified: 2023-01-05T00:00:00+00:00

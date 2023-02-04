@@ -1,0 +1,22 @@
+.meme-approval-status {
+    text-align: center;
+    border-radius: 5px;
+    padding: 1px 3px;
+    min-width: 75px;
+    width: fit-content;
+}
+
+.meme-approval-status--pending {
+    color: black;
+    background-color: #e0e0e0;
+}
+
+.meme-approval-status--rejected {
+    color: red;
+    background-color: #f7d9d9;
+}
+
+.meme-approval-status--approved {
+    color: green;
+    background-color: #def7d9;
+}

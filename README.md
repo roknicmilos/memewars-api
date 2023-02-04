@@ -42,7 +42,7 @@ To run the same tests in parallel, append `-n auto` to the `pytest` command:
 
 #### Run tests with coverage 
     
-    docker exec meme-wars-django sh -c 'pytest --cov -n auto'    
+    docker exec -t meme-wars-django sh -c 'pytest --cov -n auto'    
 
 This will run all tests in parallel with coverage report. 
 Running tests like this is necessary to generate the tests coverage report.
