@@ -5,8 +5,7 @@ services:
   django:
     container_name: meme-wars-django
     build:
-      context: .
-      dockerfile: django.Dockerfile
+      context: ./api
       target: production
     env_file:
       - .env
@@ -39,6 +38,15 @@ services:
       - postgres
     volumes:
       - meme-wars-pgadmin-data:/var/lib/pgadmin
+
+  react:
+    container_name: meme-wars-react
+    build:
+      context: ./app
+    ports:
+      - "80:3000"
+    volumes:
+      - ./app/src:/app/src
 
 volumes:
   meme-wars-postgres-data:
