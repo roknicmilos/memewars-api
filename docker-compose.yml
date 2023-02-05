@@ -11,12 +11,12 @@ services:
     env_file:
       - .env
     ports:
-      - "${DJANGO_PORT}:8000"
+      - "8000:8000"
     depends_on:
       - postgres
     volumes:
-      - ./scripts:/app/scripts/
-      - ./src:/app/src/
+      - ./api/scripts:/app/scripts/
+      - ./api/src:/app/src/
 
   postgres:
     container_name: meme-wars-postgres
@@ -35,7 +35,7 @@ services:
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
     ports:
-      - "${PGADMIN_PORT}:80"
+      - "8080:80"
     depends_on:
       - postgres
     volumes:
