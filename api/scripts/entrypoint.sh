@@ -22,7 +22,7 @@ initialize_django_project() {
 
   elif [ "$ENVIRONMENT" = 'production' ]; then
     printc "Starting project in $ENVIRONMENT mode \n\n" "info"
-    python3 manage.py collectstatic --noinput
+    python3 manage.py collectstatic --noinput --clear
     python3 manage.py migrate
     gunicorn meme_wars.wsgi --bind 0.0.0.0:8000
 
