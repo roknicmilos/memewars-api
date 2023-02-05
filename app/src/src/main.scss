@@ -1,0 +1,38 @@
+//screen vars
+$desktop-width: 1200px;
+$laptop-width: 1024px;
+$tablet-width: 768px;
+$mobile-width: 480px;
+
+@mixin respond-to($media-args...) {
+    @each $media in $media-args {
+        @if $media == mobile {
+            @media (max-width: $mobile-width) {
+                @content;
+            }
+        }
+        @if $media == tablet {
+            @media (max-width: $tablet-width) {
+                @content;
+            }
+        }
+        @if $media == laptop {
+            @media (max-width: $laptop-width) {
+                @content;
+            }
+        }
+        @if $media == desktop {
+            @media (max-width: $desktop-width) {
+                @content;
+            }
+        }
+        // expects width value:
+        @media (max-width: $media-args) {
+            @content;
+        }
+    }
+}
+
+body {
+    font-family: sans-serif;
+}
