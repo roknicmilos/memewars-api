@@ -12,7 +12,7 @@ jobs:
         run: cp example.env .env
       - name: Start Docker containers
         run: docker-compose up -d
-      - name: Run tests
+      - name: Run Django tests
         run: docker exec meme-wars-django sh -c 'pytest -n auto'
   deploy:
     name: 'Deploy to PRODUCTION server'

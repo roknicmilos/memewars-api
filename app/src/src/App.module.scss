@@ -1,0 +1,46 @@
+@import "main";
+
+.title {
+    margin: 50px 0;
+    color: darkred;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 10% 0;
+
+    @include respond-to(mobile) {
+        text-align: center;
+    }
+}
+
+.googleLoginButton {
+    border: 1px solid darkred;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 65px;
+    padding: 15px 25px;
+    background-color: white;
+    cursor: pointer;
+
+    @include respond-to(mobile) {
+        margin: 0 auto;
+    }
+}
+
+.googleLoginButton:focus {
+    outline: 1.5px solid darkred;
+}
+
+.googleLoginButton img {
+    height: 100%;
+}
+
+.googleLoginButtonLabel {
+    margin-left: 20px;
+    font-size: 20px;
+    color: darkred;
+}
