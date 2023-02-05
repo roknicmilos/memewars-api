@@ -44,7 +44,7 @@ services:
     build:
       context: ./app
     ports:
-      - "80:3000"
+      - "3000:3000"
     volumes:
       - ./app/src:/app/src
 
