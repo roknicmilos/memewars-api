@@ -11,19 +11,19 @@ body {
     box-shadow: rgba(0, 0, 0, 0.15) 0 5px 15px 0;
 }
 
+.cta-button a {
+    width: 100%;
+    height: 100%;
+}
+
 .cta-dropdown {
-    background-color: darkred;
+    background-color: #2C2C2C;
     color: white;
 }
 
 .cta-button, .cta-dropdown__button {
     border-radius: 10px;
     height: 100px;
-}
-
-.cta-button a {
-    width: 100%;
-    height: 100%;
 }
 
 .cta-button a, .cta-dropdown__button, .cta-dropdown__option a {
@@ -40,7 +40,7 @@ body {
 }
 
 .cta-dropdown__button:hover, .cta-dropdown__option:hover {
-    background-color: #a60000;
+    background-color: #424242;
 }
 
 .cta-dropdown__option a {
@@ -58,10 +58,25 @@ body {
 }
 
 .cta-button--admin:hover {
+    border-color: #79aec8;
     background-color: #79aec8;
 }
 
 .cta-button--admin a {
+    color: white;
+}
+
+.cta-button--app {
+    border-color: darkred;
+    background-color: darkred;
+}
+
+.cta-button--app:hover {
+    border-color: #a60000;
+    background-color: #a60000;
+}
+
+.cta-button--app a {
     color: white;
 }
 

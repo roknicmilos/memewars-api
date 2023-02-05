@@ -4,4 +4,7 @@ from django.core.handlers.wsgi import WSGIRequest
 
 
 def meme_wars(request: WSGIRequest) -> dict:
-    return {'app_env': getenv('APP_ENV')}
+    return {
+        'environment': getenv('ENVIRONMENT'),
+        'app_url': getenv('APP_URL'),
+    }

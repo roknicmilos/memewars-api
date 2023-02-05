@@ -3,7 +3,7 @@ import os
 import sys
 
 if __name__ == "__main__":
-    environment = os.getenv('APP_ENV', 'development').lower()
+    environment = os.getenv('ENVIRONMENT', 'development').lower()
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", F"meme_wars.settings.{environment}")
     try:
         from django.core.management import execute_from_command_line

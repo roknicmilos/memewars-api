@@ -14,20 +14,20 @@ wait_for_postgres() {
 }
 
 initialize_django_project() {
-  if [ "$APP_ENV" = 'development' ]; then
-    printc "Starting project in $APP_ENV mode \n\n" "info"
+  if [ "$ENVIRONMENT" = 'development' ]; then
+    printc "Starting project in $ENVIRONMENT mode \n\n" "info"
     python3 manage.py migrate
     python3 manage.py create_superuser --noinput
     python3 manage.py runserver 0.0.0.0:8000
 
-  elif [ "$APP_ENV" = 'production' ]; then
-    printc "Starting project in $APP_ENV mode \n\n" "info"
+  elif [ "$ENVIRONMENT" = 'production' ]; then
+    printc "Starting project in $ENVIRONMENT mode \n\n" "info"
     python3 manage.py collectstatic --noinput
     python3 manage.py migrate
     gunicorn meme_wars.wsgi --bind 0.0.0.0:8000
 
   else
-    printc "[ERROR]: Unknown environment: '$APP_ENV'. Available environments are 'development' and 'production'.\n" "danger"
+    printc "[ERROR]: Unknown environment: '$ENVIRONMENT'\n" "danger"
     printc "Exiting... \n\n"
     exit 1
   fi

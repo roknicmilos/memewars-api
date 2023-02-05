@@ -24,7 +24,7 @@ CMD ["sh", "/app/scripts/entrypoint.sh"]
 
 FROM base AS production
 
-ENV APP_ENV='production'
+ENV ENVIRONMENT='production'
 
 RUN pip install -r /app/requirements/production.txt
 
@@ -34,6 +34,6 @@ RUN pip install -r /app/requirements/production.txt
 
 FROM base AS development
 
-ENV APP_ENV='development'
+ENV ENVIRONMENT='development'
 
 RUN pip install -r /app/requirements/development.txt
