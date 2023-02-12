@@ -31,13 +31,14 @@ class ModelAdmin(BaseModelAdmin):
         if 'id' in fields:
             fields.remove('id')
         fields.insert(0, 'id')
+
         return tuple(fields)
 
     def get_readonly_fields(self, request, obj=None):
         readonly_fields = list(super(ModelAdmin, self).get_readonly_fields(request=request, obj=obj))
         if 'id' not in readonly_fields:
             readonly_fields.append('id')
-        return readonly_fields
+        return tuple(readonly_fields)
 
     def admin_id(self, obj: BaseModel = None) -> str:
         return f'{obj.verbose_name} {obj.pk}'
