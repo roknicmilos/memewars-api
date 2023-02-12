@@ -9,10 +9,16 @@ class Command(LoadDataCommand):
     )
 
     def run_from_argv(self, argv):
-        fixtures = [arg for arg in argv[2:] if not arg.startswith('-')]
-        if not fixtures:
+        prepared_argv = self.prepare_argv(argv=argv)
+        super(Command, self).run_from_argv(argv=prepared_argv)
+
+    @classmethod
+    def prepare_argv(cls, argv: list) -> list:
+        contains_app_labels = bool(next((arg for arg in argv[2:] if not arg.startswith('-')), None))
+        if not contains_app_labels:
             try:
                 argv = argv[:2] + list(settings.FIXTURES) + argv[2:]
             except AttributeError:
                 pass
-        super(Command, self).run_from_argv(argv)
+
+        return argv
