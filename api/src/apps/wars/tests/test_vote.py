@@ -10,12 +10,11 @@ class TestVote(TestCase):
         self.assertNotEqual(war.phase, War.Phases.SUBMISSION)
         meme = MemeFactory(war=war)
         vote = VoteFactory(meme=meme)
-        self.assertValidationError(
-            obj=vote,
-            expected_message=f'Meme must be in a war that is in "{War.Phases.SUBMISSION}" phase',
-            field_name='meme',
-            expected_code='limit_meme_war_phase',
-        )
+        expected_validation_errors = {
+            'meme': [f'Meme must be in a war that is in "{War.Phases.SUBMISSION}" phase'],
+        }
+        with self.raisesValidationError(match=expected_validation_errors):
+            vote.full_clean()
 
     def test_should_return_correct_war(self):
         war = WarFactory(phase=War.Phases.SUBMISSION)

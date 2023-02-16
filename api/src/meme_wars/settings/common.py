@@ -173,3 +173,12 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
 }
+
+GOOGLE_OPENID_CONFIG_URL = 'https://accounts.google.com/.well-known/openid-configuration'
+GOOGLE_OPENID_CLIENT_ID = getenv('GOOGLE_OPENID_CLIENT_ID')
+GOOGLE_OPENID_CLIENT_SECRET = getenv('GOOGLE_OPENID_CLIENT_SECRET')
+
+CLIENT_APP = {
+    'LOGIN_SUCCESS_ROUTE': 'login-success',
+    'LOGIN_FAILURE_ROUTE': 'login-failure',
+}

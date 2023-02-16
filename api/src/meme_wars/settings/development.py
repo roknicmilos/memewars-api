@@ -16,3 +16,5 @@ LOGIN_REDIRECT_URL = '/'
 # ##### APPLICATION CONFIGURATION #########################
 
 INSTALLED_APPS = DEFAULT_APPS  # noqa: F405
+
+CLIENT_APP['URL'] = 'http://localhost:3000'  # noqa: F405

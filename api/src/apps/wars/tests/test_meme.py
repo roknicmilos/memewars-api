@@ -1,23 +1,21 @@
 from unittest.mock import patch
 from apps.common.tests import TestCase
-from apps.users.tests.factories import UserFactory
-from apps.wars.models import Meme, War
+from apps.wars.models import War
 from apps.wars.tests.factories import WarFactory, VoteFactory, MemeFactory
+from apps.wars.models import meme as meme_model_file
 
 
 class TestMeme(TestCase):
 
     def test_should_raise_validation_error_when_war_is_not_in_submission_phase(self):
-        user = UserFactory()
         war = WarFactory()
         self.assertNotEqual(war.phase, War.Phases.SUBMISSION)
-        meme = Meme(war=war, user=user)
-        self.assertValidationError(
-            obj=meme,
-            expected_message=f'War must be in "{War.Phases.SUBMISSION.label}" phase',
-            expected_code='limit_war_phase',
-            field_name='war'
-        )
+        meme = MemeFactory(war=war)
+        expected_validation_errors = {
+            'war': [f'War must be in "{War.Phases.SUBMISSION.label}" phase'],
+        }
+        with self.raisesValidationError(match=expected_validation_errors):
+            meme.full_clean()
 
     def test_should_return_correct_total_score(self):
         meme = MemeFactory()
@@ -46,13 +44,13 @@ class TestMeme(TestCase):
         VoteFactory(meme=meme)
         self.assertEqual(meme.votes.count(), 2)
 
-    @patch('apps.wars.models.meme.compress_image_file')
+    @patch.object(meme_model_file, 'compress_image_file')
     def test_should_compress_image_when_meme_is_created(self, mock_compress_image_file):
         mock_compress_image_file.return_value = None
         MemeFactory(image='fixtures/meme_template_1.jpg')
         mock_compress_image_file.assert_called_once()
 
-    @patch('apps.wars.models.meme.compress_image_file')
+    @patch.object(meme_model_file, 'compress_image_file')
     def test_should_not_compress_image_when_meme_image_is_not_update(self, mock_compress_image_file):
         mock_compress_image_file.return_value = None
         meme = MemeFactory(image='fixtures/meme_template_1.jpg')
@@ -63,7 +61,7 @@ class TestMeme(TestCase):
         meme.update(is_approved=True)
         mock_compress_image_file.assert_not_called()
 
-    @patch('apps.wars.models.meme.compress_image_file')
+    @patch.object(meme_model_file, 'compress_image_file')
     def test_should_compress_image_when_meme_image_is_update(self, mock_compress_image_file):
         mock_compress_image_file.return_value = None
         meme = MemeFactory(image='fixtures/meme_template_1.jpg')

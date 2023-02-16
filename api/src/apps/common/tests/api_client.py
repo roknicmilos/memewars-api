@@ -3,7 +3,7 @@ from rest_framework.test import APIClient as BaseAPIClient
 
 
 def _prepare_kwargs(func):
-    def wrapper(*args, json=None, **kwargs):
+    def wrapper(*args, json=None, **kwargs):  # pragma: no cover
         if json:
             kwargs['data'] = json_utils.dumps(json)
             kwargs['content_type'] = 'application/json'

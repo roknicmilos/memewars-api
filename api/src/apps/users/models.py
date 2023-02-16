@@ -1,6 +1,7 @@
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser, UserManager as BaseUserManager
 from django.contrib.postgres.fields import CIEmailField
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 from apps.common.models import BaseModel
 
@@ -31,6 +32,11 @@ class User(BaseModel, AbstractUser):
         verbose_name=_('email'),
         db_index=True,
         unique=True
+    )
+    image_url = models.URLField(
+        verbose_name=_('image URL'),
+        null=True,
+        blank=True
     )
     username = None
 
