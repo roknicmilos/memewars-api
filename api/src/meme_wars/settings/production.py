@@ -19,6 +19,10 @@ LOGGING = {
 
 # ##### SECURITY CONFIGURATION ############################
 SESSION_COOKIE_SECURE = True
-CSRF_TRUSTED_ORIGINS = ['https://memewars.roknicmilos.com', ]
+CSRF_TRUSTED_ORIGINS = [
+    'https://memewars.roknicmilos.com',
+]
 
 CLIENT_APP['URL'] = 'https://app.memewars.roknicmilos.com'  # noqa: F405
+
+HOST_URL = 'https://memewars.roknicmilos.com'

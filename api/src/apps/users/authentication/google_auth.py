@@ -1,13 +1,12 @@
 import jwt
 import os
 import hashlib
-from urllib.parse import urlencode
-
-from django.urls import reverse
 import requests
+from urllib.parse import urlencode
 from django.conf import settings
 from django.core.handlers.wsgi import WSGIRequest
 
+from apps.common.utils import build_absolute_uri
 from apps.users.authentication import GoogleOpenIDConfig, GoogleUser
 
 
@@ -23,7 +22,7 @@ def _create_login_url_query_params(request: WSGIRequest) -> dict:
         'response_type': 'code',
         'client_id': settings.GOOGLE_OPENID_CLIENT_ID,
         'scope': 'openid email profile',
-        'redirect_uri': request.build_absolute_uri(location=reverse('api:google_auth:callback')),
+        'redirect_uri': build_absolute_uri('api:google_auth:callback'),
         'state': request.session['google_auth_state'],
     }
 
@@ -64,6 +63,6 @@ def _create_token_endpoint_request_data(request: WSGIRequest) -> dict:
         'code': request.query_params.get('code'),
         'client_id': settings.GOOGLE_OPENID_CLIENT_ID,
         'client_secret': settings.GOOGLE_OPENID_CLIENT_SECRET,
-        'redirect_uri': request.build_absolute_uri(location=reverse('api:google_auth:callback')),
+        'redirect_uri': build_absolute_uri('api:google_auth:callback'),
         'grant_type': 'authorization_code'
     }
