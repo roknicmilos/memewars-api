@@ -5,6 +5,7 @@ import requests
 from urllib.parse import urlencode
 from django.conf import settings
 from django.core.handlers.wsgi import WSGIRequest
+from rest_framework.authtoken.models import Token
 
 from apps.common.utils import build_absolute_uri
 from apps.users.authentication import GoogleOpenIDConfig, GoogleUser
@@ -66,3 +67,22 @@ def _create_token_endpoint_request_data(request: WSGIRequest) -> dict:
         'redirect_uri': build_absolute_uri('api:google_auth:callback'),
         'grant_type': 'authorization_code'
     }
+
+
+def build_login_success_url(token: Token) -> str:
+    url_query_params = {
+        'has_authenticated_successfully': True,
+        'toke': token.key,
+        'email': token.user.email,
+        'first_name': token.user.first_name,
+        'last_name': token.user.last_name,
+        'image_url': token.user.image_url,
+    }
+    return f'{settings.CLIENT_APP_URL}?{urlencode(url_query_params)}'
+
+
+def build_login_failure_url() -> str:
+    url_query_params = {
+        'has_authenticated_successfully': False,
+    }
+    return f'{settings.CLIENT_APP_URL}?{urlencode(url_query_params)}'

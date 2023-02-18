@@ -14,4 +14,4 @@ class TestIndexView(TestCase):
 
     def test_should_contain_app_url_variable(self):
         context = context_processors.meme_wars(request=self.get_request_example())
-        self.assertEqual(context.get('app_url'), settings.CLIENT_APP['URL'])
+        self.assertEqual(context.get('app_url'), settings.CLIENT_APP_URL)

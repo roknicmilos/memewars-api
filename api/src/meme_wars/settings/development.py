@@ -176,14 +176,10 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
 }
 
-HOST_URL = 'http://localhost:8000'
-
 GOOGLE_OPENID_CONFIG_URL = 'https://accounts.google.com/.well-known/openid-configuration'
 GOOGLE_OPENID_CLIENT_ID = getenv('GOOGLE_OPENID_CLIENT_ID')
 GOOGLE_OPENID_CLIENT_SECRET = getenv('GOOGLE_OPENID_CLIENT_SECRET')
 
-CLIENT_APP = {
-    'URL': 'http://localhost:3000',
-    'LOGIN_SUCCESS_ROUTE': 'login-success',
-    'LOGIN_FAILURE_ROUTE': 'login-failure',
-}
+HOST_URL = 'http://localhost:8000'
+
+CLIENT_APP_URL = 'http://localhost:3000'

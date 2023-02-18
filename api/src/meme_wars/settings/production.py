@@ -23,6 +23,6 @@ CSRF_TRUSTED_ORIGINS = [
     'https://memewars.roknicmilos.com',
 ]
 
-CLIENT_APP['URL'] = 'https://app.memewars.roknicmilos.com'  # noqa: F405
-
 HOST_URL = 'https://memewars.roknicmilos.com'
+
+CLIENT_APP_URL = 'https://app.memewars.roknicmilos.com'
