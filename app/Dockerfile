@@ -1,7 +1,8 @@
 FROM node:18.14
 
-COPY ./src /app/src
+COPY ./src      /app/src
+COPY ./scripts  /app/scripts
 
 WORKDIR /app/src
 
-CMD ["/bin/sh", "-c", "npm install; npm start"]
+CMD ["sh", "/app/scripts/entrypoint.sh"]

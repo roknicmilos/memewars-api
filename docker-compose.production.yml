@@ -43,6 +43,8 @@ services:
     container_name: meme-wars-react
     build:
       context: ./app
+    env_file:
+      - .env
     ports:
       - "3000:3000"
     volumes:
