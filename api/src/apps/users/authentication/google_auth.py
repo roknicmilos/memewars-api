@@ -72,7 +72,7 @@ def _create_token_endpoint_request_data(request: WSGIRequest) -> dict:
 def build_login_success_url(token: Token) -> str:
     url_query_params = {
         'has_authenticated_successfully': True,
-        'toke': token.key,
+        'token': token.key,
         'email': token.user.email,
         'first_name': token.user.first_name,
         'last_name': token.user.last_name,

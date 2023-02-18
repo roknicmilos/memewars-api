@@ -114,7 +114,7 @@ class TestGoogleAuth(TestCase):
         actual_login_success_url = google_auth.build_login_success_url(token=token)
         url_query_params = {
             'has_authenticated_successfully': True,
-            'toke': token.key,
+            'token': token.key,
             'email': token.user.email,
             'first_name': token.user.first_name,
             'last_name': token.user.last_name,

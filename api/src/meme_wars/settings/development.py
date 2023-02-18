@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.forms',
+    'corsheaders',
 
     # Third party apps:
     'rest_framework',
@@ -61,6 +62,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -180,6 +182,10 @@ GOOGLE_OPENID_CONFIG_URL = 'https://accounts.google.com/.well-known/openid-confi
 GOOGLE_OPENID_CLIENT_ID = getenv('GOOGLE_OPENID_CLIENT_ID')
 GOOGLE_OPENID_CLIENT_SECRET = getenv('GOOGLE_OPENID_CLIENT_SECRET')
 
-HOST_URL = 'http://localhost:8000'
+HOST_URL = getenv('WEB_API_BASE_URL')
 
-CLIENT_APP_URL = 'http://localhost:3000'
+CLIENT_APP_URL = getenv('WEB_APP_BASE_URL')
+
+CORS_ALLOWED_ORIGINS = [
+    CLIENT_APP_URL,
+]
