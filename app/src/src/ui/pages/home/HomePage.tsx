@@ -12,8 +12,7 @@ export function HomePage() {
   const [ isAuthenticated, setIsAuthenticated ] = useState<boolean>(false);
 
   useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
+    if (localStorage.getItem("user")) {
       setIsAuthenticated(true);
     } else if (searchParams.has("has_authenticated_successfully")) {
       handleLoginCallback();
