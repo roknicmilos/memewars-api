@@ -19,6 +19,7 @@ init_react_project() {
 
   elif [ "$ENVIRONMENT" = 'production' ]; then
     print_react_project_init_info
+    npm install
     npm run build
     serve -s build
 
