@@ -14,9 +14,8 @@ export function HomePage() {
   const { user, saveUser } = useAuth();
 
   useEffect(() => {
-    if (user) {
-      setIsAuthenticated(true);
-    } else if (searchParams.has("has_authenticated_successfully")) {
+    setIsAuthenticated(!!user);
+    if (!user && searchParams.has("has_authenticated_successfully")) {
       handleLoginCallback();
     }
     setIsLoading(false);
@@ -33,7 +32,5 @@ export function HomePage() {
     }
   }
 
-  if (isLoading) return <div>loading...</div>;
-
-  return isAuthenticated ? <WarsPage/> : <LoginPage/>;
+  return !isLoading && isAuthenticated ? <WarsPage/> : <LoginPage/>;
 }
