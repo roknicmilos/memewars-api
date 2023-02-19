@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./LoginPage.module.scss";
-import googleColoredSVG from "../../../assets/google-colored.svg";
 import { authService } from "../../../services/authService";
+import { GoogleColoredSVG } from "../../svg/GoogleColoredSVG";
 
 
 export function LoginPage() {
@@ -9,7 +9,7 @@ export function LoginPage() {
     <div className={ styles.container }>
       <h1 className={ styles.title }>Welcome to the Meme Wars</h1>
       <a className={ styles.googleLoginButton } href={ authService.getLoginUrl() }>
-        <img src={ googleColoredSVG } alt="google-colored-logo"/>
+        <GoogleColoredSVG height="40px" width="40px"/>
         <span className={ styles.googleLoginButtonLabel }>Login with Google</span>
       </a>
     </div>

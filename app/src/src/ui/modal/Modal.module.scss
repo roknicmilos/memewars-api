@@ -1,0 +1,51 @@
+@import "../main";
+
+.modalBackground {
+  background-color: rgba(0, 0, 0, 45%);;
+  color: white;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  z-index: 9;
+}
+
+.modal {
+  width: 50%;
+  max-width: 750px;
+  height: 50%;
+  background-color: white;
+  color: $darkred;
+  margin: auto;
+  border-radius: 25px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  position: relative;
+
+  @include respond-to(laptop) {
+    width: 60%;
+  }
+  @include respond-to(tablet) {
+    width: 70%;
+  }
+  @include respond-to(mobile) {
+    width: 80%;
+    margin: 0 auto;
+    top: 100px;
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}

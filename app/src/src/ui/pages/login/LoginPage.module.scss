@@ -1,45 +1,50 @@
 @import "../../main";
 
 .title {
-    margin: 50px 0;
-    font-weight: 400;
+  margin: 50px 0;
+  font-weight: 400;
 }
 
 .container {
-    @extend .container;
-    margin: 10% 0;
+  @extend .container;
+  margin: 10% 0;
 
-    @include respond-to(mobile) {
-        text-align: center;
-    }
+  @include respond-to(mobile) {
+    text-align: center;
+  }
 }
 
 .googleLoginButton {
-    border: 1px solid $darkred;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: fit-content;
-    padding: 15px 25px;
-    background-color: white;
-    text-decoration: none;
+  border: 1px solid $darkred;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  width: fit-content;
+  padding: 10px 30px;
+  background-color: white;
+  text-decoration: none;
 
-    @include respond-to(mobile) {
-        margin: 0 auto;
-    }
+  @include respond-to(mobile) {
+    margin: 0 auto;
+  }
 }
 
 .googleLoginButton:focus {
-    outline: 1.5px solid $darkred;
-}
-
-.googleLoginButton img {
-    height: 45px;
+  outline: 1.5px solid $darkred;
 }
 
 .googleLoginButtonLabel {
-    margin-left: 20px;
-    font-size: 20px;
-    color: $darkred;
+  margin-left: 20px;
+  font-size: 20px;
+  color: $darkred;
+}
+
+.googleLoginButton:hover {
+  background-color: $darkred;
+}
+
+.googleLoginButton:hover .googleLoginButtonLabel {
+  color: white;
 }

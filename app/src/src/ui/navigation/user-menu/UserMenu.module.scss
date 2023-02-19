@@ -16,34 +16,25 @@
   border-radius: 50%;
 }
 
-.dropdownCarrot {
-  height: 20px;
-  margin-left: 5px;
+.modalText {
+  padding: 20px;
+  text-align: center;
 }
 
-.userMenu {
-  background-color: $darkred;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+.modalText p {
+  margin: 5px;
 }
 
-.userMenuItems {
-  width: fit-content;
-}
-
-.userMenuItem {
-  height: 60px;
-  min-width: 125px;
-  padding: 0 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.logoutButton {
+  border: 1px solid $darkred;
+  border-radius: 4px;
+  width: 200px;
+  text-align: center;
+  padding: 10px 0;
   cursor: pointer;
-  border-top: 1px solid white;
 }
 
-.userMenuItem:hover {
-  background-color: #670000;
+.logoutButton:hover {
+  background-color: $darkred;
+  color: white;
 }
