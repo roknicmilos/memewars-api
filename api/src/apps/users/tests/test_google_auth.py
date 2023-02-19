@@ -3,8 +3,8 @@ import pytest
 from unittest.mock import patch
 from urllib.parse import urlencode
 from django.conf import settings
-from django.urls import reverse
 from apps.common.tests import TestCase
+from apps.common.utils import build_absolute_uri
 from apps.users.authentication import google_openid_config, google_auth
 from apps.users.authentication.google_auth import (
     jwt,
@@ -14,6 +14,7 @@ from apps.users.authentication.google_auth import (
     _get_user_id_token,
     _create_token_endpoint_request_data,
 )
+from apps.users.tests.factories import TokenFactory
 
 
 class TestGoogleAuth(TestCase):
@@ -53,7 +54,7 @@ class TestGoogleAuth(TestCase):
         self.assertEqual(url_query_params['response_type'], 'code')
         self.assertEqual(url_query_params['client_id'], settings.GOOGLE_OPENID_CLIENT_ID)
         self.assertEqual(url_query_params['scope'], 'openid email profile')
-        expected_redirect_uri = request.build_absolute_uri(location=reverse('api:google_auth:callback'))
+        expected_redirect_uri = build_absolute_uri(view_name='api:google_auth:callback')
         self.assertEqual(url_query_params['redirect_uri'], expected_redirect_uri)
         self.assertEqual(url_query_params['state'], mock_generate_google_auth_state.return_value)
 
@@ -104,9 +105,31 @@ class TestGoogleAuth(TestCase):
         self.assertEqual(request_data['code'], url_query_params['code'])
         self.assertEqual(request_data['client_id'], settings.GOOGLE_OPENID_CLIENT_ID)
         self.assertEqual(request_data['client_secret'], settings.GOOGLE_OPENID_CLIENT_SECRET)
-        expected_redirect_uri = request.build_absolute_uri(location=reverse('api:google_auth:callback'))
+        expected_redirect_uri = build_absolute_uri(view_name='api:google_auth:callback')
         self.assertEqual(request_data['redirect_uri'], expected_redirect_uri)
         self.assertEqual(request_data['grant_type'], 'authorization_code')
+
+    def test_should_build_and_return_login_success_url(self):
+        token = TokenFactory()
+        actual_login_success_url = google_auth.build_login_success_url(token=token)
+        url_query_params = {
+            'has_authenticated_successfully': True,
+            'token': token.key,
+            'email': token.user.email,
+            'first_name': token.user.first_name,
+            'last_name': token.user.last_name,
+            'image_url': token.user.image_url,
+        }
+        expected_login_success_url = f'{settings.CLIENT_APP_URL}?{urlencode(url_query_params)}'
+        self.assertEqual(actual_login_success_url, expected_login_success_url)
+
+    def test_should_build_and_return_login_failure_url(self):
+        actual_login_failure_url = google_auth.build_login_failure_url()
+        url_query_params = {
+            'has_authenticated_successfully': False,
+        }
+        expected_login_failure_url = f'{settings.CLIENT_APP_URL}?{urlencode(url_query_params)}'
+        self.assertEqual(actual_login_failure_url, expected_login_failure_url)
 
     def tearDown(self) -> None:
         super().tearDown()

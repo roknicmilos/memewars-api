@@ -1,5 +1,7 @@
 import os
 from typing import Type
+
+from django.conf import settings
 from django.core.files.images import ImageFile
 from django.db.models import Model, TextChoices
 from django.contrib.contenttypes.models import ContentType
@@ -60,3 +62,7 @@ def get_reduced_file_quality_percentage(file_size: int) -> int:
     if file_size < 1000000:
         return 60
     return 50
+
+
+def build_absolute_uri(view_name: str, args: tuple = None, kwargs: dict = None) -> str:
+    return f'{settings.HOST_URL}{reverse(viewname=view_name, args=args, kwargs=kwargs)}'

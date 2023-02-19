@@ -1,8 +1,11 @@
-@import "main";
+@import "../../main";
+
+$text-color: #670000;
 
 .title {
     margin: 50px 0;
-    color: darkred;
+    color: $text-color;
+    font-weight: 400;
 }
 
 .container {
@@ -16,15 +19,15 @@
 }
 
 .googleLoginButton {
-    border: 1px solid darkred;
+    border: 1px solid $text-color;
     border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 65px;
+    width: fit-content;
     padding: 15px 25px;
     background-color: white;
-    cursor: pointer;
+    text-decoration: none;
 
     @include respond-to(mobile) {
         margin: 0 auto;
@@ -32,15 +35,15 @@
 }
 
 .googleLoginButton:focus {
-    outline: 1.5px solid darkred;
+    outline: 1.5px solid $text-color;
 }
 
 .googleLoginButton img {
-    height: 100%;
+    height: 45px;
 }
 
 .googleLoginButtonLabel {
     margin-left: 20px;
     font-size: 20px;
-    color: darkred;
+    color: $text-color;
 }

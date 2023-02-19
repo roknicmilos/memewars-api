@@ -5,11 +5,12 @@ ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update && apt-get install -y postgresql-client gettext
 
-COPY ./scripts  /app/scripts
-RUN chmod -R 775  /app/scripts
+COPY ./api/scripts                /app/scripts
+COPY ./scripts/colored_print.sh   /app/scripts/colored_print.sh
+RUN chmod -R 775                  /app/scripts
 
-COPY ./requirements     /app/requirements
-COPY ./src              /app/src
+COPY ./api/requirements     /app/requirements
+COPY ./api/src              /app/src
 
 
 RUN pip install --upgrade pip
