@@ -13,15 +13,21 @@ wait_for_postgres() {
   done
 }
 
-initialize_django_project() {
+print_django_project_init_info() {
+  printc "Starting Django app in $ENVIRONMENT mode \n" "info"
+  printc "WEB API base URL: $WEB_API_BASE_URL \n" "info"
+  printc "WEB APP base URL: $WEB_APP_BASE_URL \n" "info"
+}
+
+init_django_project() {
   if [ "$ENVIRONMENT" = 'development' ]; then
-    printc "Starting project in $ENVIRONMENT mode \n\n" "info"
+    print_django_project_init_info
     python3 manage.py migrate
     python3 manage.py create_superuser --noinput
     python3 manage.py runserver 0.0.0.0:8000
 
   elif [ "$ENVIRONMENT" = 'production' ]; then
-    printc "Starting project in $ENVIRONMENT mode \n\n" "info"
+    print_django_project_init_info
     python3 manage.py collectstatic --noinput
     python3 manage.py migrate
     gunicorn meme_wars.wsgi --bind 0.0.0.0:8000
@@ -34,4 +40,4 @@ initialize_django_project() {
 }
 
 wait_for_postgres
-initialize_django_project
+init_django_project

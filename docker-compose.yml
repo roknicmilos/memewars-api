@@ -5,7 +5,8 @@ services:
   django:
     container_name: meme-wars-django
     build:
-      context: ./api
+      context: .
+      dockerfile: ./api/Dockerfile
       target: development
     env_file:
       - .env
@@ -14,7 +15,6 @@ services:
     depends_on:
       - postgres
     volumes:
-      - ./api/scripts:/app/scripts/
       - ./api/src:/app/src/
 
   postgres:
@@ -43,13 +43,14 @@ services:
   react:
     container_name: meme-wars-react
     build:
-      context: ./app
+      context: .
+      dockerfile: ./app/Dockerfile
+      target: development
     env_file:
       - .env
     ports:
       - "3000:3000"
     volumes:
-      - ./app/scripts:/app/scripts
       - ./app/src:/app/src
 
 volumes:
