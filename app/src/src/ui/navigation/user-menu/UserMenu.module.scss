@@ -1,0 +1,49 @@
+@import "../../main";
+
+.avatarButton {
+  height: 80px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.profileImage {
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.dropdownCarrot {
+  height: 20px;
+  margin-left: 5px;
+}
+
+.userMenu {
+  background-color: $darkred;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.userMenuItems {
+  width: fit-content;
+}
+
+.userMenuItem {
+  height: 60px;
+  min-width: 125px;
+  padding: 0 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-top: 1px solid white;
+}
+
+.userMenuItem:hover {
+  background-color: #670000;
+}

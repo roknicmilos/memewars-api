@@ -1,0 +1,14 @@
+@import "../main";
+
+.navigation {
+  @extend .container;
+  background-color: $darkred;
+  color: white;
+  height: 80px;
+  display: flex;
+  justify-content: flex-end;
+
+  @include respond-to(mobile) {
+    padding: 0;
+  }
+}

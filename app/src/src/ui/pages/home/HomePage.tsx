@@ -4,7 +4,7 @@ import { WarsPage } from "../wars/WarsPage";
 import { LoginPage } from "../login/LoginPage";
 import { UserFriendlyError } from "../../../userFriendlyError";
 import { useAuth } from "../../../context/authContext";
-import { mapURLQueryParamsToUser } from "../../../utils";
+import { authService } from "../../../services/authService";
 
 
 export function HomePage() {
@@ -14,9 +14,8 @@ export function HomePage() {
   const { user, saveUser } = useAuth();
 
   useEffect(() => {
-    if (user) {
-      setIsAuthenticated(true);
-    } else if (searchParams.has("has_authenticated_successfully")) {
+    setIsAuthenticated(!!user);
+    if (!user && searchParams.has("has_authenticated_successfully")) {
       handleLoginCallback();
     }
     setIsLoading(false);
@@ -25,7 +24,7 @@ export function HomePage() {
   function handleLoginCallback(): void {
     const hasAuthenticatedSuccessfully = searchParams.get("has_authenticated_successfully")?.toLowerCase() === "true";
     if (hasAuthenticatedSuccessfully) {
-      const user = mapURLQueryParamsToUser(searchParams);
+      const user = authService.mapURLQueryParamsToUser(searchParams);
       saveUser(user);
       setSearchParams({});
     } else {
@@ -33,7 +32,5 @@ export function HomePage() {
     }
   }
 
-  if (isLoading) return <div>loading...</div>;
-
-  return isAuthenticated ? <WarsPage/> : <LoginPage/>;
+  return !isLoading && isAuthenticated ? <WarsPage/> : <LoginPage/>;
 }
