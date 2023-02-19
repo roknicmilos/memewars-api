@@ -4,7 +4,7 @@ import { WarsPage } from "../wars/WarsPage";
 import { LoginPage } from "../login/LoginPage";
 import { UserFriendlyError } from "../../../userFriendlyError";
 import { useAuth } from "../../../context/authContext";
-import { mapURLQueryParamsToUser } from "../../../utils";
+import { authService } from "../../../services/authService";
 
 
 export function HomePage() {
@@ -25,7 +25,7 @@ export function HomePage() {
   function handleLoginCallback(): void {
     const hasAuthenticatedSuccessfully = searchParams.get("has_authenticated_successfully")?.toLowerCase() === "true";
     if (hasAuthenticatedSuccessfully) {
-      const user = mapURLQueryParamsToUser(searchParams);
+      const user = authService.mapURLQueryParamsToUser(searchParams);
       saveUser(user);
       setSearchParams({});
     } else {
