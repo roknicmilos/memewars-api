@@ -11,6 +11,9 @@ from django.utils.deconstruct import deconstructible
 from io import BytesIO
 from PIL import Image, ImageOps
 from django.core.files import File
+from rest_framework.exceptions import NotAuthenticated, AuthenticationFailed
+from rest_framework.response import Response
+from rest_framework.views import exception_handler
 
 
 def get_model_admin_change_details_url(obj: Model) -> str:
@@ -66,3 +69,11 @@ def get_reduced_file_quality_percentage(file_size: int) -> int:
 
 def build_absolute_uri(view_name: str, args: tuple = None, kwargs: dict = None) -> str:
     return f'{settings.HOST_URL}{reverse(viewname=view_name, args=args, kwargs=kwargs)}'
+
+
+def handle_api_exception(error: Exception, context: dict = None) -> Response:
+    if isinstance(error, NotAuthenticated):
+        return Response(data={'message': 'Authentication token was not provided'}, status=401)
+    if isinstance(error, AuthenticationFailed):
+        return Response(data={'message': 'Authentication token is invalid'}, status=401)
+    return exception_handler(exc=error, context=context)
