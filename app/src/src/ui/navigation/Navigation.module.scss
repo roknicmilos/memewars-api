@@ -4,7 +4,7 @@
   @extend .container;
   background-color: $darkred;
   color: white;
-  height: 80px;
+  height: $nav-height;
   display: flex;
   justify-content: flex-end;
 

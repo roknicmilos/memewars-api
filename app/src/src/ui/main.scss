@@ -1,5 +1,6 @@
 // color vars
 $darkred: #480000;
+$nav-height: 80px;
 
 // screen vars
 $desktop-width: 1200px;
@@ -42,8 +43,8 @@ body {
   "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
   sans-serif;
   color: $darkred;
+  height: 100vh;
 }
-
 
 p {
   margin: 0;
