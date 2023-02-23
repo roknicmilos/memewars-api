@@ -9,4 +9,8 @@
   margin: 0 auto;
   display: flex;
   justify-content: flex-end;
+
+  @include respond-to(mobile) {
+    width: 100%;
+  }
 }

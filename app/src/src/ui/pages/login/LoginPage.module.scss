@@ -3,39 +3,32 @@
 .title {
   margin: 50px 0;
   font-weight: 400;
-}
-
-.googleLoginButton {
-  border: 1px solid $darkred;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 60px;
-  width: fit-content;
-  padding: 10px 30px;
-  background-color: white;
-  text-decoration: none;
-
   @include respond-to(mobile) {
-    margin: 0 auto;
+    text-align: center;
   }
 }
 
-.googleLoginButton:focus {
-  outline: 1.5px solid $darkred;
+.button {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+
+  @include respond-to(mobile) {
+    margin: 0 auto;
+    padding: 10px 20px;
+  }
 }
 
-.googleLoginButtonLabel {
+.buttonLabel {
   margin-left: 20px;
   font-size: 20px;
   color: $darkred;
 }
 
-.googleLoginButton:hover {
-  background-color: $darkred;
+.button:hover .buttonLabel {
+  color: white;
 }
 
-.googleLoginButton:hover .googleLoginButtonLabel {
-  color: white;
+.button:focus .buttonLabel {
+  color: $darkred;
 }

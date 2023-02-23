@@ -2,15 +2,20 @@ import React, { useEffect, useState } from "react";
 import styles from "./WarsPage.module.scss";
 import { War } from "../../../models/war";
 import { warService } from "../../../services/warService";
+import { WarCard } from "./war-card/WarCard";
 
 
 export function WarsPage() {
   const [ isLoading, setIsLoading ] = useState<boolean>(true);
   const [ wars, setWars ] = useState<War[]>([]);
+  const [ containerStyle, setContainerStyle ] = useState<object>({});
 
   useEffect(() => {
     async function fetchWars() {
       const wars = await warService.getWars();
+      if (wars.length < 3) {
+        setContainerStyle({ justifyContent: "center" });
+      }
       setWars(wars);
       setIsLoading(false);
     }
@@ -20,19 +25,10 @@ export function WarsPage() {
     }
   }, [ wars ]);
 
+
   return (
-    <>
-      <div className={ styles.container }>
-        { wars && wars.map(war => {
-          const phaseClasses = [ styles.warPhase, styles[`${ war.phase }Phase`] ].join(" ");
-          return (
-            <div key={ war.id } className={ styles.warCard }>
-              <p className={ styles.warName }>{ war.name }</p>
-              <p className={ phaseClasses }>{ war.phase }</p>
-            </div>
-          );
-        }) }
-      </div>
-    </>
+    <div className={ styles.container } style={ containerStyle }>
+      { wars && wars.map(war => (<WarCard key={ war.id } war={ war }/>)) }
+    </div>
   );
 }
