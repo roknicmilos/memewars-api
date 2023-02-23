@@ -5,15 +5,6 @@
   font-weight: 400;
 }
 
-.container {
-  @extend .container;
-  margin: 10% 0;
-
-  @include respond-to(mobile) {
-    text-align: center;
-  }
-}
-
 .googleLoginButton {
   border: 1px solid $darkred;
   border-radius: 5px;

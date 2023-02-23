@@ -51,15 +51,7 @@ p {
 }
 
 .container {
-  padding: 0 20%;
-
-  @include respond-to(laptop) {
-    padding: 0 15%;
-  }
-  @include respond-to(tablet) {
-    padding: 0 10%;
-  }
-  @include respond-to(mobile) {
-    padding: 0 3%;
-  }
+  width: 80%;
+  margin: 80px auto;
+  max-width: 1200px;
 }

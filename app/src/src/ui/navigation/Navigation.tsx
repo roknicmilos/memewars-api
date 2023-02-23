@@ -9,7 +9,9 @@ export function Navigation() {
 
   return (
     <nav className={ styles.navigation }>
-      { user && <UserMenu/> }
+      <div className={ styles.container }>
+        { user && <UserMenu/> }
+      </div>
     </nav>
   );
 }

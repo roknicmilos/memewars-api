@@ -2,11 +2,13 @@
 
 .container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-content: center;
   flex-wrap: wrap;
-  padding: 100px;
 
+  @include respond-to(1357px) {
+    justify-content: center;
+  }
   @include respond-to(mobile) {
     padding: 20px
   }

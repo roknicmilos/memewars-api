@@ -1,14 +1,12 @@
 @import "../main";
 
 .navigation {
-  @extend .container;
   background-color: $darkred;
-  color: white;
   height: $nav-height;
+}
+
+.container {
+  margin: 0 auto;
   display: flex;
   justify-content: flex-end;
-
-  @include respond-to(mobile) {
-    padding: 0;
-  }
 }

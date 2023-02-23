@@ -20,6 +20,7 @@ export function ErrorPage() {
     <div className={ styles.container }>
       <h1>Oops!</h1>
       <p>{ getMessage() }</p>
+      <a className={ styles.homeButton } href="/">Take me home</a>
     </div>
   );
 }
