@@ -1,15 +1,31 @@
 - model: wars.War
   pk: 1
   fields:
-    name: The Great Meme War
+    name: Finished war
     phase: finished
-    created: 2023-01-05T00:00:00+00:00
-    modified: 2023-01-05T00:00:00+00:00
+    created: 2023-02-23T00:00:00+00:00
+    modified: 2023-02-23T00:00:00+00:00
 
 - model: wars.War
   pk: 2
   fields:
-    name: 'The Great Meme War: Resurrection'
+    name: Voting war
+    phase: voting
+    created: 2023-02-23T00:00:00+00:00
+    modified: 2023-02-23T00:00:00+00:00
+
+- model: wars.War
+  pk: 3
+  fields:
+    name: Submission war
     phase: submission
-    created: 2023-01-05T00:00:00+00:00
-    modified: 2023-01-05T00:00:00+00:00
+    created: 2023-02-23T00:00:00+00:00
+    modified: 2023-02-23T00:00:00+00:00
+
+- model: wars.War
+  pk: 4
+  fields:
+    name: Preparation war
+    phase: preparation
+    created: 2023-02-23T00:00:00+00:00
+    modified: 2023-02-23T00:00:00+00:00
