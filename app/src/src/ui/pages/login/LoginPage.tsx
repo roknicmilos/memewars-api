@@ -8,9 +8,9 @@ export function LoginPage() {
   return (
     <div className={ styles.container }>
       <h1 className={ styles.title }>Welcome to the Meme Wars</h1>
-      <a className={ styles.googleLoginButton } href={ authService.getLoginUrl() }>
+      <a className={ styles.button } href={ authService.getLoginUrl() }>
         <GoogleColoredSVG height="40px" width="40px"/>
-        <span className={ styles.googleLoginButtonLabel }>Login with Google</span>
+        <span className={ styles.buttonLabel }>Login with Google</span>
       </a>
     </div>
   );

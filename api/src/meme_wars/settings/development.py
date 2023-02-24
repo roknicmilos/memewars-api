@@ -158,6 +158,7 @@ REST_FRAMEWORK = {
         'apps.users.authentication.TokenAuthentication',
     ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'EXCEPTION_HANDLER': 'apps.common.utils.handle_api_exception',
 }
 
 ALLOWED_HOSTS = ['*']

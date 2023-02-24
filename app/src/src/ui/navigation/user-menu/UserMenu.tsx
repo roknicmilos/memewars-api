@@ -29,7 +29,7 @@ export function UserMenu() {
             yourself that this is a much better waist of your time...
           </p>
         </div>
-        <div className={ styles.logoutButton } onClick={ clearUser }>LOGOUT</div>
+        <div className={ styles.button } onClick={ clearUser }>LOGOUT</div>
       </Modal>
     </>
   );

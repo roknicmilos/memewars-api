@@ -7,5 +7,5 @@ router.register(r'wars', WarViewSet, basename='wars')
 router.register(r'votes', VoteViewSet, basename='votes')
 
 urlpatterns = [
-    path('', include((router.urls, 'wars'), namespace='wars'))
+    path('', include((router.urls, 'apps.wars'), namespace='wars'))
 ]

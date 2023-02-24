@@ -18,8 +18,9 @@ export function ErrorPage() {
 
   return (
     <div className={ styles.container }>
-      <h1>Oops!</h1>
-      <p>{ getMessage() }</p>
+      <h1 className={ styles.title }>Oops!</h1>
+      <p className={ styles.message }>{ getMessage() }</p>
+      <a className={ styles.button } href="/">Take me home</a>
     </div>
   );
 }

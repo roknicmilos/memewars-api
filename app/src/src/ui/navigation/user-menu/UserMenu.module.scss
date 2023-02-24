@@ -17,24 +17,13 @@
 }
 
 .modalText {
-  padding: 20px;
-  text-align: center;
+  max-width: 500px;
+  margin: 0 0 20px;
 }
 
 .modalText p {
-  margin: 5px;
-}
-
-.logoutButton {
-  border: 1px solid $darkred;
-  border-radius: 4px;
-  width: 200px;
+  font-size: 22px;
+  font-weight: 300;
+  margin: 7px;
   text-align: center;
-  padding: 10px 0;
-  cursor: pointer;
-}
-
-.logoutButton:hover {
-  background-color: $darkred;
-  color: white;
 }
