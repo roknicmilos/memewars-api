@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { WarsPage } from "../wars/WarsPage";
+import { WarsListPage } from "../war-list/WarsListPage";
 import { LoginPage } from "../login/LoginPage";
 import { UserFriendlyError } from "../../../userFriendlyError";
 import { useAuth } from "../../../context/authContext";
@@ -9,7 +9,6 @@ import { userService } from "../../../services/userService";
 
 export function HomePage() {
   const [ searchParams, setSearchParams ] = useSearchParams();
-  const [ isLoading, setIsLoading ] = useState<boolean>(true);
   const [ isAuthenticated, setIsAuthenticated ] = useState<boolean>(false);
   const { user, saveUser } = useAuth();
 
@@ -18,7 +17,6 @@ export function HomePage() {
     if (!user && searchParams.has("has_authenticated_successfully")) {
       handleLoginCallback();
     }
-    setIsLoading(false);
   }, [ user ]);
 
   function handleLoginCallback(): void {
@@ -32,5 +30,5 @@ export function HomePage() {
     }
   }
 
-  return !isLoading && isAuthenticated ? <WarsPage/> : <LoginPage/>;
+  return isAuthenticated ? <WarsListPage/> : <LoginPage/>;
 }
