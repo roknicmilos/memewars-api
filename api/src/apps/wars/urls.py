@@ -1,11 +1,15 @@
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from apps.wars.views import WarViewSet, MemeViewSet
+from apps.wars.views import WarListAPIView, MemeListAPIView
 
-router = DefaultRouter()
-router.register(r'wars', WarViewSet, basename='wars')
-router.register(r'memes', MemeViewSet, basename='memes')
+wars_urlpatterns = [
+    path('', WarListAPIView.as_view(), name='list'),
+]
+
+memes_urlpatterns = [
+    path('', MemeListAPIView.as_view(), name='list'),
+]
 
 urlpatterns = [
-    path('', include((router.urls, 'apps.wars'), namespace='wars'))
+    path('wars/', include((wars_urlpatterns, 'apps.wars'), namespace='wars')),
+    path('memes/', include((memes_urlpatterns, 'apps.wars'), namespace='memes')),
 ]

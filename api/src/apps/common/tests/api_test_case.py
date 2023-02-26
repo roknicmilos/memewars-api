@@ -1,6 +1,7 @@
 import pytest
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+from rest_framework.serializers import ModelSerializer
 
 from apps.common.tests import APIClient, TestCase
 
@@ -23,18 +24,15 @@ class APITestCase(TestCase):
         self.assertEqual(response.status_code, 401)
         self.assertEqual(response.json(), {'message': 'Authentication token is invalid'})
 
-    def assertListResponse(
-            self,
-            response: Response,
-            expected_items: list[dict],
-            expected_total_pages: int = 1
-    ) -> None:
+    def assertListResponse(self, response: Response, serializer: ModelSerializer) -> None:
         self.assertEqual(response.status_code, 200)
-        response_body = response.json()
-        pagination = response_body['pagination']
-        self.assertEqual(pagination['total_pages'], expected_total_pages)
-        self.assertEqual(pagination['total_items'], len(response_body['items']))
-        self.assertEqual(response_body['items'], expected_items)
+        expected_items = []
+        for item in serializer.data:
+            item_dict = dict(item)
+            if 'image' in item_dict:
+                item_dict['image'] = f'http://{self.http_host}{item_dict["image"]}'
+            expected_items.append(item_dict)
+        self.assertEqual(response.json(), expected_items)
 
     def authenticate(self, user) -> None:
         token, _ = Token.objects.get_or_create(user=user)

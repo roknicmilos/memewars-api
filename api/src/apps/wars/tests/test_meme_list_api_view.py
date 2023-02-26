@@ -7,8 +7,8 @@ from apps.wars.serializers import MemeSerializer
 from apps.wars.tests.factories import MemeFactory, WarFactory
 
 
-class TestMemeViewSet(APITestCase):
-    list_url_path = reverse_lazy('api:wars:memes-list')
+class TestMemeListAPIView(APITestCase):
+    list_url_path = reverse_lazy('api:memes:list')
 
     def setUp(self) -> None:
         super().setUp()
@@ -24,4 +24,4 @@ class TestMemeViewSet(APITestCase):
         self.authenticate(user=UserFactory())
         response = self.client.get(path=self.list_url_path)
         serializer = MemeSerializer(instance=Meme.objects.order_by('-created').all(), many=True)
-        self.assertListResponse(response=response, expected_items=serializer.data)
+        self.assertListResponse(response=response, serializer=serializer)

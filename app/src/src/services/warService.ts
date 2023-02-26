@@ -7,7 +7,7 @@ export const warService = {
   async getWars(): Promise<War[]> {
     const apiClient = createAPIClient();
     const response = await apiClient.get("/wars/");
-    return response.data.items;
+    return response.data;
   }
 
 };

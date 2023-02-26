@@ -1,10 +1,9 @@
 from rest_framework import serializers
 
-from apps.common.serializers import ModelSerializer
 from apps.wars.models import War
 
 
-class WarSerializer(ModelSerializer):
+class WarSerializer(serializers.ModelSerializer):
     voter_count = serializers.ReadOnlyField()
     meme_count = serializers.ReadOnlyField()
 
