@@ -11,6 +11,6 @@ class TestGoogleAuthLoginUrlAPIView(TestCase):
     @patch.object(google_auth, 'get_login_url')
     def test_should_redirect_to_google_login_url(self, mock_get_login_url):
         mock_get_login_url.return_value = 'https://mock-google/login'
-        response = self.client.get(path=reverse('api:google_auth:login'))
+        response = self.client.get(path=reverse('api:users:google_auth:login'))
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, mock_get_login_url.return_value)

@@ -1,4 +1,4 @@
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 from apps.common.tests import APITestCase
 from apps.users.tests.factories import UserFactory
@@ -8,6 +8,7 @@ from apps.wars.tests.factories import WarFactory
 
 
 class TestWarViewSet(APITestCase):
+    list_url_path = reverse_lazy('api:wars:wars-list')
 
     def setUp(self) -> None:
         super().setUp()
@@ -19,7 +20,6 @@ class TestWarViewSet(APITestCase):
         WarFactory(phase=War.Phases.VOTING)
         WarFactory(phase=War.Phases.FINISHED)
 
-        self.list_url_path = reverse('api:wars:wars-list')
         self.retrieve_url_path = reverse('api:wars:wars-detail', args=(self.first_war.pk,))
 
     def test_should_return_response_401_for_list_endpoint_when_authentication_headers_are_invalid(self):

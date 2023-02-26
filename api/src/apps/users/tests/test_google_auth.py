@@ -54,7 +54,7 @@ class TestGoogleAuth(TestCase):
         self.assertEqual(url_query_params['response_type'], 'code')
         self.assertEqual(url_query_params['client_id'], settings.GOOGLE_OPENID_CLIENT_ID)
         self.assertEqual(url_query_params['scope'], 'openid email profile')
-        expected_redirect_uri = build_absolute_uri(view_name='api:google_auth:callback')
+        expected_redirect_uri = build_absolute_uri(view_name='api:users:google_auth:callback')
         self.assertEqual(url_query_params['redirect_uri'], expected_redirect_uri)
         self.assertEqual(url_query_params['state'], mock_generate_google_auth_state.return_value)
 
@@ -105,7 +105,7 @@ class TestGoogleAuth(TestCase):
         self.assertEqual(request_data['code'], url_query_params['code'])
         self.assertEqual(request_data['client_id'], settings.GOOGLE_OPENID_CLIENT_ID)
         self.assertEqual(request_data['client_secret'], settings.GOOGLE_OPENID_CLIENT_SECRET)
-        expected_redirect_uri = build_absolute_uri(view_name='api:google_auth:callback')
+        expected_redirect_uri = build_absolute_uri(view_name='api:users:google_auth:callback')
         self.assertEqual(request_data['redirect_uri'], expected_redirect_uri)
         self.assertEqual(request_data['grant_type'], 'authorization_code')
 
