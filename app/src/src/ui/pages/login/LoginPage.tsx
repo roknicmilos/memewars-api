@@ -3,10 +3,13 @@ import styles from "./LoginPage.module.scss";
 import { authService } from "../../../services/authService";
 import { GoogleColoredSVG } from "../../svg/GoogleColoredSVG";
 import { Loader } from "../../loader/Loader";
+import { useAuth } from "../../../context/authContext";
+import { Navigate } from "react-router-dom";
 
 
 export function LoginPage() {
   const [ isLoading, setIsLoading ] = useState<boolean>(false);
+  const { user } = useAuth();
 
   function redirectToLoginURL(): void {
     setIsLoading(true);
@@ -14,6 +17,8 @@ export function LoginPage() {
   }
 
   if (isLoading) return <Loader/>;
+
+  if (user) return <Navigate to="/wars" replace/>;
 
   return (
     <div className={ styles.container }>
