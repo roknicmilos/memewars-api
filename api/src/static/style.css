@@ -1,9 +1,19 @@
 body {
     margin: 10%;
-    font: normal 13px/50px Arial, Helvetica, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
 }
 
-.cta-button, .cta-dropdown {
+.title {
+    text-align: center;
+}
+
+.title--secondary {
+    margin-top: 50px;
+}
+
+.cta-button, .cta-button-group {
     border: 1px solid;
     border-radius: 10px;
     width: 300px;
@@ -11,22 +21,16 @@ body {
     box-shadow: rgba(0, 0, 0, 0.15) 0 5px 15px 0;
 }
 
-.cta-button a {
-    width: 100%;
-    height: 100%;
-}
-
-.cta-dropdown {
-    background-color: #2C2C2C;
-    color: white;
-}
-
-.cta-button, .cta-dropdown__button {
-    border-radius: 10px;
+.cta-button {
     height: 100px;
 }
 
-.cta-button a, .cta-dropdown__button, .cta-dropdown__option a {
+.cta-button-group {
+    background-color: #2C2C2C;
+}
+
+.cta-button a, .cta-button-group a {
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,21 +39,25 @@ body {
     cursor: pointer;
 }
 
-.cta-dropdown__options {
-    display: none;
+.cta-button a {
+    height: 100%;
 }
 
-.cta-dropdown__button:hover, .cta-dropdown__option:hover {
-    background-color: #424242;
-}
-
-.cta-dropdown__option a {
+.cta-button-group a {
     color: white;
-    padding: 10px;
+    padding: 20px 0;
 }
 
-.cta-dropdown__option:last-of-type {
+.cta-button-group a:first-of-type {
+    border-radius: 10px 10px 0 0;
+}
+
+.cta-button-group a:last-of-type {
     border-radius: 0 0 10px 10px;
+}
+
+.cta-button-group a:hover {
+    background-color: #4F4F4FFF;
 }
 
 .cta-button--admin {

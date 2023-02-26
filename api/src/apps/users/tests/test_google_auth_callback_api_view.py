@@ -41,7 +41,7 @@ class TestGoogleAuthCallbackAPIView(TestCase):
 
         self.assertFalse(Token.objects.exists())
 
-        response = self.client.get(path=reverse('api:google_auth:callback'))
+        response = self.client.get(path=reverse('api:users:google_auth:callback'))
 
         self.assertEqual(Token.objects.count(), 1)
         self.assertEqual(Token.objects.first().user, new_user)
@@ -55,7 +55,7 @@ class TestGoogleAuthCallbackAPIView(TestCase):
 
         self.assertEqual(Token.objects.count(), 1)
 
-        response = self.client.get(path=reverse('api:google_auth:callback'))
+        response = self.client.get(path=reverse('api:users:google_auth:callback'))
 
         self.assertEqual(Token.objects.count(), 1)
         self.assertFalse(Token.objects.filter(pk=existing_toke.pk).exists())  # old token is deleted
@@ -66,7 +66,7 @@ class TestGoogleAuthCallbackAPIView(TestCase):
     def test_should_return_redirect_to_client_app_failure_page_after_getting_user_from_google_fails(self):
         self.mock_get_user_from_google.side_effect = Exception('get_user_from_google exception')
 
-        response = self.client.get(path=reverse('api:google_auth:callback'))
+        response = self.client.get(path=reverse('api:users:google_auth:callback'))
 
         self.assertFalse(Token.objects.exists())
         self.mock_get_or_create_user.assert_not_called()

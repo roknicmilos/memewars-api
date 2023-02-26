@@ -1,2 +1,3 @@
 from apps.users.views.google_auth_login_url_api_view import GoogleAuthLoginUrlAPIView
 from apps.users.views.google_auth_callback_api_view import GoogleAuthCallbackAPIView
+from apps.users.views.logout_api_view import LogoutAPIView

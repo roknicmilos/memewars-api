@@ -14,43 +14,27 @@
 </head>
 <body>
 
-<div class="cta-wrapper">
-    {% if environment == 'development' %}
-        <div class="cta-button cta-button--test-coverage">
-            <a href="{% static 'coverage/index.html' %}">{% trans 'Tests Coverage Report' %}</a>
-        </div>
-    {% endif %}
-    <div class="cta-button cta-button--admin">
-        <a href="{% url 'admin:index' %}">{% trans 'Administration' %}</a>
+<h1 class="title">{% trans 'Meme Wars' %}</h1>
+{% if environment == 'development' %}
+    <div class="cta-button cta-button--test-coverage">
+        <a href="{% static 'coverage/index.html' %}">{% trans 'Tests Coverage Report' %}</a>
     </div>
-    <div class="cta-button cta-button--app">
-        <a href="{{ app_url }}">{% trans 'Meme Wars App' %}</a>
-    </div>
-    <div class="cta-dropdown js-dropdown">
-        <div class="cta-dropdown__button js-dropdown__button">{% trans 'Meme Wars API' %}</div>
-        <div class="cta-dropdown__options js-dropdown__options">
-            <div class="cta-dropdown__option">
-                <a href="{% url 'api:index' %}">{% trans 'Base API URL' %}</a>
-            </div>
-            <div class="cta-dropdown__option">
-                <a href="{% url 'api_schema:swagger' %}">{% trans 'Swagger UI' %}</a>
-            </div>
-            <div class="cta-dropdown__option">
-                <a href="{% url 'api_schema:redoc' %}">{% trans 'Redoc UI' %}</a>
-            </div>
-            <div class="cta-dropdown__option">
-                <a href="{% url 'api_schema:download' %}">{% trans 'Download API Schema' %}</a>
-            </div>
-        </div>
-    </div>
+{% endif %}
+<div class="cta-button cta-button--admin">
+    <a href="{% url 'admin:index' %}">{% trans 'Django Administration' %}</a>
+</div>
+<div class="cta-button cta-button--app">
+    <a href="{{ app_url }}">{% trans 'WEB APP' %}</a>
+</div>
+
+<h2 class="title title--secondary">{% trans 'RESTful WEB API' %}</h2>
+<div class="cta-button-group">
+    <a href="{% url 'api_schema:swagger' %}">{% trans 'Swagger UI' %}</a>
+    <a href="{% url 'api_schema:redoc' %}">{% trans 'Redoc UI' %}</a>
+    <a href="{% url 'api_schema:download' %}">{% trans 'Download API Schema' %}</a>
 </div>
 
 <div class="app-env-label app-env-label--{{ environment }}">{{ environment }}</div>
-
-<script src="https://code.jquery.com/jquery-3.6.3.min.js"
-        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
-        crossorigin="anonymous"></script>
-<script src="{% static 'script.js' %}" type="module"></script>
 
 </body>
 </html>

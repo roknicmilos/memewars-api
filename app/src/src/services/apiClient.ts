@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, CreateAxiosDefaults } from "axios";
-import { authService } from "./authService";
+import { localStorageService } from "./localStorageService";
 
 
 export function createAPIClient(): AxiosInstance {
@@ -7,7 +7,7 @@ export function createAPIClient(): AxiosInstance {
     baseURL: process.env.REACT_APP_API_URL,
   };
 
-  const user = authService.getUserFromLocalStorage();
+  const user = localStorageService.getUser();
   if (user) {
     axiosConfig.headers = { "Authorization": `Bearer ${ user.token }` };
   }
