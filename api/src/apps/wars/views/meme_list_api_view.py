@@ -10,3 +10,4 @@ class MemeListAPIView(ListAPIView):
     serializer_class = MemeSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+    filterset_fields = ['war', 'approval_status']

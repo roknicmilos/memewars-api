@@ -33,6 +33,7 @@ class APITestCase(TestCase):
                 item_dict['image'] = f'http://{self.http_host}{item_dict["image"]}'
             expected_results.append(item_dict)
         response_data = response.json()
+        self.assertEqual(len(response_data['results']), len(expected_results))
         self.assertEqual(response_data['results'], expected_results)
 
     def authenticate(self, user) -> None:
