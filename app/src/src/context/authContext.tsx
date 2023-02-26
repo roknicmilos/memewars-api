@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import { User } from "../models/user";
 import { authService } from "../services/authService";
+import { localStorageService } from "../services/localStorageService";
 
 interface AuthContextValues {
   user: User | null;
@@ -21,15 +22,16 @@ const AuthContext = createContext<AuthContextValues>({
 });
 
 export function AuthContextProvider({ children }: { children: ReactNode }) {
-  const [ user, setUser ] = useState<User | null>(authService.getUserFromLocalStorage);
+  const [ user, setUser ] = useState<User | null>(localStorageService.getUser);
 
   function saveUser(user: User): void {
-    localStorage.setItem("user", JSON.stringify(user));
+    localStorageService.saveUser(user);
     setUser(user);
   }
 
-  function clearUser(): void {
-    localStorage.removeItem("user");
+  async function clearUser(): Promise<void> {
+    authService.logout();
+    localStorageService.deleteUser();
     setUser(null);
   }
 
