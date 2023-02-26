@@ -31,7 +31,7 @@ class TestWar(TestCase):
         for a, b in zip(second_war.votes, Vote.objects.filter(meme__war=second_war)):
             self.assertEqual(a, b)
 
-    def test_should_return_vote_count_for_votes_that_belong_to_war(self):
+    def test_should_return_vote_count(self):
         first_war = WarFactory()
         first_memes = MemeFactory.create_batch(size=5, war=first_war)
         second_war = WarFactory()
@@ -61,3 +61,12 @@ class TestWar(TestCase):
 
         self.assertEqual(second_war.votes.count(), 4)
         self.assertEqual(second_war.voter_count, 1)
+
+    def test_should_return_meme_count(self):
+        first_war = WarFactory()
+        MemeFactory.create_batch(size=2, war=first_war)
+        second_war = WarFactory()
+        MemeFactory(war=second_war)
+
+        self.assertEqual(first_war.meme_count, 2)
+        self.assertEqual(second_war.meme_count, 1)

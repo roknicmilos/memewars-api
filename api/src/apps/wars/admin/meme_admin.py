@@ -34,7 +34,6 @@ class MemeAdmin(ModelAdmin):
         readonly_fields = super().get_readonly_fields(request=request, obj=obj)
         return readonly_fields + ('user', 'war',) if obj else readonly_fields
 
+    @admin.display(description=_('approval status'))
     def approval_status_html(self, obj: Meme) -> str:
         return render_to_string(template_name='admin/meme_approval_status.html', context={'meme': obj})
-
-    approval_status_html.short_description = _('approval status')

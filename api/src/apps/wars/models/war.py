@@ -41,3 +41,11 @@ class War(BaseModel):
     @property
     def voter_count(self) -> int:
         return self.votes.distinct('user').count()
+
+    @property
+    def vote_count(self) -> int:
+        return self.votes.count()
+
+    @property
+    def meme_count(self) -> int:
+        return self.memes.count()
