@@ -26,13 +26,14 @@ class APITestCase(TestCase):
 
     def assertListResponse(self, response: Response, serializer: ModelSerializer) -> None:
         self.assertEqual(response.status_code, 200)
-        expected_items = []
+        expected_results = []
         for item in serializer.data:
             item_dict = dict(item)
             if 'image' in item_dict:
                 item_dict['image'] = f'http://{self.http_host}{item_dict["image"]}'
-            expected_items.append(item_dict)
-        self.assertEqual(response.json(), expected_items)
+            expected_results.append(item_dict)
+        response_data = response.json()
+        self.assertEqual(response_data['results'], expected_results)
 
     def authenticate(self, user) -> None:
         token, _ = Token.objects.get_or_create(user=user)
