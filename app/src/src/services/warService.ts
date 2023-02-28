@@ -8,6 +8,12 @@ export const warService = {
     const apiClient = createAPIClient();
     const response = await apiClient.get("/wars/");
     return response.data.results;
+  },
+
+  async getWar(warID: number): Promise<War> {
+    const apiClient = createAPIClient();
+    const response = await apiClient.get(`/wars/${ warID }/`);
+    return response.data;
   }
 
 };

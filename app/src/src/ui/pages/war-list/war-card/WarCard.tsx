@@ -1,4 +1,4 @@
-import styles from "./WarsCard.module.scss";
+import styles from "./WarCard.module.scss";
 import React from "react";
 import { War } from "../../../../models/war";
 import { Link } from "react-router-dom";
