@@ -1,2 +1,0 @@
-from apps.common.serializers.list_model_serializer import ListModelSerializer
-from apps.common.serializers.model_serializer import ModelSerializer

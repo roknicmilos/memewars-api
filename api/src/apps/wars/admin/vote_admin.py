@@ -22,13 +22,12 @@ class VoteAdmin(ModelAdmin):
         'user', 'meme', 'score', 'submission_count', 'war', 'created', 'modified',
     )
 
+    @admin.display(description=_('meme'))
     def meme_id(self, obj: Vote = None) -> int | None:
         meme_admin_url = get_model_admin_change_details_url(obj=obj.meme)
         label = _(f'Meme {obj.meme.pk}')
         html_link = f'<a href="{meme_admin_url}">{label}</a>'
         return mark_safe(html_link)
-
-    meme_id.short_description = _('meme')
 
     def has_change_permission(self, request, obj=None):
         return False

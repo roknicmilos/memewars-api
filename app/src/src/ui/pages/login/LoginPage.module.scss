@@ -22,7 +22,7 @@
 .buttonLabel {
   margin-left: 20px;
   font-size: 20px;
-  color: $darkred;
+  color: $primary-color;
 }
 
 .button:hover .buttonLabel {
@@ -30,5 +30,5 @@
 }
 
 .button:focus .buttonLabel {
-  color: $darkred;
+  color: $primary-color;
 }

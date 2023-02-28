@@ -1,9 +1,9 @@
-from django.contrib.admin import ModelAdmin as BaseModelAdmin
+from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 from apps.common.models import BaseModel
 
 
-class ModelAdmin(BaseModelAdmin):
+class ModelAdmin(admin.ModelAdmin):
     add_form_fieldsets: tuple = None
     change_form_fieldsets: tuple = None
     add_form_fields: tuple = None
@@ -40,7 +40,6 @@ class ModelAdmin(BaseModelAdmin):
             readonly_fields.append('id')
         return tuple(readonly_fields)
 
+    @admin.display(description=_('id'))
     def admin_id(self, obj: BaseModel = None) -> str:
         return f'{obj.verbose_name} {obj.pk}'
-
-    admin_id.short_description = _('id')

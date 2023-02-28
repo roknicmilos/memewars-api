@@ -19,12 +19,12 @@ class TestMemeAdmin(TestCase):
         )
         self.assertIn(expected_html_string_part, html_string)
 
-    def test_should_declared_readonly_fields_when_adding_meme(self):
+    def test_should_return_declared_readonly_fields_when_adding_meme(self):
         actual_readonly_fields = self.meme_admin.get_readonly_fields(request=self.get_request_example())
         expected_readonly_fields = ('id',) + MemeAdmin.readonly_fields
         self.assertEqual(actual_readonly_fields, expected_readonly_fields)
 
-    def test_should_declared_and_additional_readonly_fields_when_adding_meme(self):
+    def test_should_return_declared_and_additional_readonly_fields_when_adding_meme(self):
         meme = MemeFactory()
         actual_readonly_fields = self.meme_admin.get_readonly_fields(request=self.get_request_example(), obj=meme)
         expected_readonly_fields = ('id',) + MemeAdmin.readonly_fields + ('user', 'war')

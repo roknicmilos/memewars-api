@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { WarsPage } from "../wars/WarsPage";
-import { LoginPage } from "../login/LoginPage";
+import { Navigate, useSearchParams } from "react-router-dom";
 import { UserFriendlyError } from "../../../userFriendlyError";
 import { useAuth } from "../../../context/authContext";
 import { userService } from "../../../services/userService";
+import { Loader } from "../../loader/Loader";
 
 
-export function HomePage() {
-  const [ searchParams, setSearchParams ] = useSearchParams();
+export function IndexPage() {
   const [ isLoading, setIsLoading ] = useState<boolean>(true);
+  const [ searchParams, setSearchParams ] = useSearchParams();
   const [ isAuthenticated, setIsAuthenticated ] = useState<boolean>(false);
   const { user, saveUser } = useAuth();
 
@@ -32,5 +31,7 @@ export function HomePage() {
     }
   }
 
-  return !isLoading && isAuthenticated ? <WarsPage/> : <LoginPage/>;
+  if (isLoading) return <Loader/>;
+
+  return <Navigate to={ isAuthenticated ? "/wars" : "/login" } replace/>;
 }

@@ -1,5 +1,5 @@
 // color vars
-$darkred: #480000;
+$primary-color: #222222;
 $nav-height: 80px;
 
 // screen vars
@@ -42,7 +42,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
   "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
   sans-serif;
-  color: $darkred;
+  color: $primary-color;
   height: 100vh;
 }
 
@@ -66,8 +66,8 @@ p {
 }
 
 .button {
-  border: 2px solid $darkred;
-  color: $darkred;
+  border: 2px solid $primary-color;
+  color: $primary-color;
   text-decoration: none;
   border-radius: 6px;
   padding: 10px 50px;
@@ -78,11 +78,11 @@ p {
 
 .button:hover {
   color: white;
-  background-color: $darkred;
+  background-color: $primary-color;
 }
 
 .button:focus {
-  outline: 2px solid $darkred;
-  color: $darkred;
+  outline: 2px solid $primary-color;
+  color: $primary-color;
   background-color: white;
 }
