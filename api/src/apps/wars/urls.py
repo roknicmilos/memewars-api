@@ -1,8 +1,9 @@
 from django.urls import path, include
-from apps.wars.views import WarListAPIView, MemeListAPIView
+from apps.wars.views import WarListAPIView, MemeListAPIView, WarDetailsAPIView
 
 wars_urlpatterns = [
     path('', WarListAPIView.as_view(), name='list'),
+    path('<int:pk>/', WarDetailsAPIView.as_view(), name='details'),
 ]
 
 memes_urlpatterns = [

@@ -17,7 +17,7 @@ class TestWarListAPIView(APITestCase):
         WarFactory(phase=War.Phases.VOTING)
         WarFactory(phase=War.Phases.FINISHED)
 
-    def test_should_return_response_401_for_list_endpoint_when_authentication_headers_are_invalid(self):
+    def test_should_return_response_401_when_authentication_headers_are_invalid(self):
         self.assertProtectedGETEndpoint(url_path=self.url_path)
 
     def test_should_return_all_wars(self):

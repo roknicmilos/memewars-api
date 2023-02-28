@@ -5,6 +5,7 @@ from django.conf import settings
 from django.core.files.images import ImageFile
 from django.db.models import Model, TextChoices
 from django.contrib.contenttypes.models import ContentType
+from django.http import Http404
 from django.urls import reverse, NoReverseMatch
 from django.utils import timezone
 from django.utils.deconstruct import deconstructible
@@ -14,6 +15,8 @@ from django.core.files import File
 from rest_framework.exceptions import NotAuthenticated, AuthenticationFailed
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
+
+from apps.common.responses import ErrorResponse
 
 
 def get_model_admin_change_details_url(obj: Model) -> str:
@@ -73,7 +76,9 @@ def build_absolute_uri(view_name: str, args: tuple = None, kwargs: dict = None) 
 
 def handle_api_exception(error: Exception, context: dict = None) -> Response:
     if isinstance(error, NotAuthenticated):
-        return Response(data={'message': 'Authentication token was not provided'}, status=401)
+        return ErrorResponse(message='Authentication token was not provided', status=401)
     if isinstance(error, AuthenticationFailed):
-        return Response(data={'message': 'Authentication token is invalid'}, status=401)
+        return ErrorResponse(message='Authentication token is invalid', status=401)
+    if isinstance(error, Http404):
+        return ErrorResponse(message='Not found', status=404)
     return exception_handler(exc=error, context=context)
