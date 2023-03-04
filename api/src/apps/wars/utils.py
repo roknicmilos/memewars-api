@@ -36,7 +36,7 @@ def generate_vote_fixtures() -> str:
     output = ''
 
     current_vote_id = 1
-    for user in User.objects.all():
+    for user in User.objects.exclude(pk=1).all():
         for meme in Meme.objects.filter(war__pk=1).all():
             output += _render_vote_fixture(pk=current_vote_id, user=user, meme=meme)
             current_vote_id += 1
