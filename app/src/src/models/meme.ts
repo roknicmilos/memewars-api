@@ -4,6 +4,8 @@ export interface Meme {
   war: number;
   user: number;
   approval_status: ApprovalStatus;
+  total_score: number;
+  vote_count: number;
   created: string;
   modified: string;
 }

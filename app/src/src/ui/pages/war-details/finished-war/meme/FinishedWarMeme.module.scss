@@ -1,0 +1,44 @@
+@import "../../../../main";
+
+.meme {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 20px;
+  margin: 30px 0;
+  width: 85%;
+  max-width: 500px;
+
+  @include respond-to(mobile) {
+    width: 90%;
+  }
+}
+
+.memeImage {
+  width: 100%;
+  box-shadow: rgb(38 57 77) 0 20px 30px -10px;
+  cursor: pointer;
+}
+
+.memeScore {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  padding: 10px;
+  text-align: center;
+  position: absolute;
+  right: -30px;
+  bottom: -20px;
+  background: $primary-color;
+  border: 3px solid #fcc92c;
+  color: #fcc92c;
+  font-size: 20px;
+
+  @include respond-to(mobile) {
+    right: -10px;
+    bottom: -30px;
+  }
+}
