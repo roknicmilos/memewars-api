@@ -1,25 +1,26 @@
 import styles from "./ErrorPage.module.scss";
 import React from "react";
 import { useRouteError } from "react-router-dom";
-import { UserFriendlyError } from "../../../userFriendlyError";
+import { useAuth } from "../../../context/authContext";
+import { ErrorMessage } from "./error-message/ErrorMessage";
+import { AxiosError } from "axios";
+import { AxiosErrorMessage } from "./axios-error-message/AxiosErrorMessage";
 
 export function ErrorPage() {
   const error: any = useRouteError();
-
-  const getMessage = function (): string {
-    if (error.status === 404) {
-      return "We couldn't find this page";
-    }
-    if (error instanceof UserFriendlyError) {
-      return error.message;
-    }
-    return "Sorry, an unexpected error has occurred.";
-  };
+  const { user } = useAuth();
 
   return (
     <div className={ styles.container }>
-      <h1 className={ styles.title }>Oops!</h1>
-      <p className={ styles.message }>{ getMessage() }</p>
+      <h1 className={ styles.title }>Oops</h1>
+      <div className={ styles.message }>
+        { error instanceof AxiosError ? (
+          <AxiosErrorMessage error={ error } isAuthenticated={ !!user }/>
+        ) : (
+          <ErrorMessage error={ error }/>
+        ) }
+      </div>
+      { !user && <a className={ styles.button } href="/login">Login</a> }
       <a className={ styles.button } href="/">Take me home</a>
     </div>
   );

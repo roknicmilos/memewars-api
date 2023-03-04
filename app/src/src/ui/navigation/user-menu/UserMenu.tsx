@@ -3,11 +3,19 @@ import styles from "./UserMenu.module.scss";
 import avatarSVG from "../../../assets/avatar.svg";
 import { useAuth } from "../../../context/authContext";
 import { Modal } from "../../modal/Modal";
+import { useLoader } from "../../../context/loaderContext";
 
 
 export function UserMenu() {
+  const { setIsLoading } = useLoader();
   const { user, clearUser } = useAuth();
   const [ isOpened, setIsOpened ] = useState<boolean>(false);
+
+  function logout() {
+    setIsLoading(true);
+    clearUser();
+    window.location.href = "/";
+  }
 
   return (
     <>
@@ -29,7 +37,7 @@ export function UserMenu() {
             yourself that this is a much better waist of your time...
           </p>
         </div>
-        <div className={ styles.button } onClick={ clearUser }>LOGOUT</div>
+        <div className={ styles.button } onClick={ logout }>Logout</div>
       </Modal>
     </>
   );
