@@ -8,9 +8,22 @@
 .container {
   margin: 0 auto;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 
   @include respond-to(mobile) {
     width: 100%;
   }
+}
+
+.homeButton {
+  width: 100px;
+  height: $nav-height;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.homeButton img {
+  height: 90%;
 }

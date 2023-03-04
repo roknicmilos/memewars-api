@@ -1,6 +1,6 @@
 import React, { MouseEvent } from "react";
 import styles from "./Modal.module.scss";
-import { CloseSVG } from "../svg/CloseSVG";
+import closeSVG from "./../../assets/close.svg";
 
 
 interface ModalProps {
@@ -23,7 +23,7 @@ export function Modal({ children, isOpened, onClose }: ModalProps) {
     <div className={ styles.modalBackground } onClick={ handleBackgroundClicked }>
       <div className={ styles.modal }>
         <div className={ styles.closeButton } onClick={ onClose }>
-          <CloseSVG/>
+          <img src={ closeSVG } alt="close icon"/>
         </div>
         { children }
       </div>
