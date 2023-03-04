@@ -1,7 +1,7 @@
 - model: wars.Meme
   pk: 1
   fields:
-    user: 1
+    user: 2
     war: 1
     image: fixtures/meme_template_1.jpg
     approval_status: approved
@@ -10,7 +10,7 @@
 - model: wars.Meme
   pk: 2
   fields:
-    user: 1
+    user: 2
     war: 1
     image: fixtures/meme_template_2.jpg
     created: 2023-01-05T00:00:00+00:00
@@ -18,7 +18,7 @@
 - model: wars.Meme
   pk: 3
   fields:
-    user: 1
+    user: 2
     war: 1
     approval_status: rejected
     image: fixtures/meme_template_3.jpg
@@ -27,7 +27,7 @@
 - model: wars.Meme
   pk: 4
   fields:
-    user: 1
+    user: 2
     war: 1
     image: fixtures/meme_template_4.jpg
     created: 2023-01-05T00:00:00+00:00
@@ -79,7 +79,7 @@
 - model: wars.Meme
   pk: 10
   fields:
-    user: 1
+    user: 2
     war: 1
     image: fixtures/meme_template_10.jpg
     approval_status: approved

@@ -23,7 +23,7 @@ init_django_project() {
   if [ "$ENVIRONMENT" = 'development' ]; then
     print_django_project_init_info
     python3 manage.py migrate
-    python3 manage.py create_superuser --noinput
+    python3 manage.py createsuperuser --noinput || true
     python3 manage.py runserver 0.0.0.0:8000
 
   elif [ "$ENVIRONMENT" = 'production' ]; then

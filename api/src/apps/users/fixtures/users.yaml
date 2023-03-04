@@ -1,12 +1,5 @@
-- model: users.User
-  pk: 1
-  fields:
-    email: jon.show@memewars.com
-    password: pbkdf2_sha256$260000$2IjFBdqCkWpi0Hs7la0UFG$UOGWoe6P41gCTfCmmbWoS/slytH+vpy3pf6wguCR/d0= # raw: pass4user
-    first_name: Jon
-    last_name: Snow
-    created: 2023-01-05T00:00:00+00:00
-    modified: 2023-01-05T00:00:00+00:00
+# Skip PK 1 in case superuser is created in an empty DB
+
 - model: users.User
   pk: 2
   fields:
@@ -131,5 +124,14 @@
     password: pbkdf2_sha256$260000$2IjFBdqCkWpi0Hs7la0UFG$UOGWoe6P41gCTfCmmbWoS/slytH+vpy3pf6wguCR/d0= # raw: pass4user
     first_name: Tom
     last_name: Riddle
+    created: 2023-01-05T00:00:00+00:00
+    modified: 2023-01-05T00:00:00+00:00
+- model: users.User
+  pk: 16
+  fields:
+    email: jon.show@memewars.com
+    password: pbkdf2_sha256$260000$2IjFBdqCkWpi0Hs7la0UFG$UOGWoe6P41gCTfCmmbWoS/slytH+vpy3pf6wguCR/d0= # raw: pass4user
+    first_name: Jon
+    last_name: Snow
     created: 2023-01-05T00:00:00+00:00
     modified: 2023-01-05T00:00:00+00:00
