@@ -1,37 +1,41 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, useSearchParams } from "react-router-dom";
+import { Outlet, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { UserFriendlyError } from "../../../userFriendlyError";
 import { useAuth } from "../../../context/authContext";
 import { userService } from "../../../services/userService";
-import { Loader } from "../../loader/Loader";
 
 
 export function IndexPage() {
   const [ isLoading, setIsLoading ] = useState<boolean>(true);
-  const [ searchParams, setSearchParams ] = useSearchParams();
-  const [ isAuthenticated, setIsAuthenticated ] = useState<boolean>(false);
+  const [ searchParams ] = useSearchParams();
   const { user, saveUser } = useAuth();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    setIsAuthenticated(!!user);
-    if (!user && searchParams.has("has_authenticated_successfully")) {
-      handleLoginCallback();
+    if (pathname === "/" && isLoading) {
+      if (user) {
+        navigate("/wars");
+      } else {
+        if (searchParams.has("has_authenticated_successfully")) {
+          handleLoginCallback();
+        } else {
+          navigate("/login");
+        }
+      }
+      setIsLoading(false);
     }
-    setIsLoading(false);
-  }, [ user ]);
+  }, [ isLoading, user ]);
 
   function handleLoginCallback(): void {
-    const hasAuthenticatedSuccessfully = searchParams.get("has_authenticated_successfully")?.toLowerCase() === "true";
-    if (hasAuthenticatedSuccessfully) {
+    if (searchParams.get("has_authenticated_successfully")?.toLowerCase() === "true") {
       const user = userService.mapURLQueryParamsToUser(searchParams);
       saveUser(user);
-      setSearchParams({});
+      navigate("/wars");
     } else {
       throw new UserFriendlyError("Looks like there was a login error.");
     }
   }
 
-  if (isLoading) return <Loader/>;
-
-  return <Navigate to={ isAuthenticated ? "/wars" : "/login" } replace/>;
+  return <Outlet/>;
 }

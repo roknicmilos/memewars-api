@@ -19,6 +19,22 @@
   }
 }
 
+.darkGoogleIcon, .whiteGoogleIcon {
+  width: 40px;
+}
+
+.whiteGoogleIcon {
+  display: none;
+}
+
+.button:hover .darkGoogleIcon {
+  display: none;
+}
+
+.button:hover .whiteGoogleIcon {
+  display: block;
+}
+
 .buttonLabel {
   margin-left: 20px;
   font-size: 20px;
@@ -32,3 +48,5 @@
 .button:focus .buttonLabel {
   color: $primary-color;
 }
+
+

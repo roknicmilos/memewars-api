@@ -18,7 +18,8 @@
   height: 50%;
   background-color: white;
   color: $primary-color;
-  margin: auto;
+  margin: 0 auto;
+  top: calc($nav-height + 50px);
   border-radius: 25px;
   padding: 20px;
   display: flex;
@@ -35,9 +36,10 @@
     width: 70%;
   }
   @include respond-to(mobile) {
-    width: 80%;
-    margin: 0 auto;
-    top: 100px;
+    top: calc($nav-height + 15px);
+    width: 100%;
+    height: calc(100% - $nav-height - 50px);
+    border-radius: 25px 25px 0 0;
   }
 }
 
@@ -48,4 +50,8 @@
   width: 40px;
   height: 40px;
   cursor: pointer;
+}
+
+.closeButton img {
+  width: 100%;
 }

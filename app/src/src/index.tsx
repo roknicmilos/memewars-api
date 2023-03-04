@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import { AuthContextProvider } from "./context/authContext";
 import { App } from "./ui/App";
+import { LoaderContextProvider } from "./context/loaderContext";
 
 
 const root = ReactDOM.createRoot(
@@ -11,9 +12,11 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <AuthContextProvider>
-      <App/>
-    </AuthContextProvider>
+    <LoaderContextProvider>
+      <AuthContextProvider>
+        <App/>
+      </AuthContextProvider>
+    </LoaderContextProvider>
   </React.StrictMode>
 );
 

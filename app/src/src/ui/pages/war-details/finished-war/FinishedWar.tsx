@@ -3,6 +3,7 @@ import { Meme } from "../../../../models/meme";
 import { War } from "../../../../models/war";
 import { memeService } from "../../../../services/memeService";
 import styles from "./FinishedWar.module.scss";
+import { FinishedWarMeme } from "./meme/FinishedWarMeme";
 
 interface FinishedWarProps {
   war: War;
@@ -26,9 +27,9 @@ export function FinishedWar({ war }: FinishedWarProps) {
 
   return (
     <div className={ styles.memes }>
-      { memes.map(meme => (
-        <img className={ styles.meme } key={ meme.id } src={ meme.image } alt={ `meme ${ meme.id }` }/>)
-      ) }
+      { memes.sort(memeService.sortMemesByTotalScore).map(meme => (
+        <FinishedWarMeme key={ meme.id } meme={ meme }/>
+      )) }
     </div>
   );
 }
