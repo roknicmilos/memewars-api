@@ -1,3 +1,5 @@
+import uuid
+
 import pytest
 import re
 import contextlib
@@ -28,3 +30,9 @@ class TestCase(BaseTestCase):
             match = re.escape(str(match))
         with pytest.raises(expected_exception=ValidationError, match=match):
             yield
+
+    def assertUUIDString(self, value: str) -> None:
+        try:
+            uuid.UUID(value)
+        except ValueError:  # pragma: no cover
+            self.fail(f'{value} is not a valid UUID')
