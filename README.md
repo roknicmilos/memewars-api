@@ -90,12 +90,12 @@ The flag `-t` is optional just like when [only running tests](#run-tests).
 Superuser should already be created after running `docker compose up`
 with the credentials from `.env` file. If you want to create a new one, run:
 
-    docker exec -t meme-wars-django sh -c 'python3 manage.py create_superuser'
+    docker exec -t meme-wars-django sh -c 'python3 manage.py createsuperuser'
 
 If the superuser with the credentials from the `.env` file does not exist, you 
 can create it by running: 
 
-    docker exec meme-wars-django sh -c 'python3 manage.py create_superuser --noinput'
+    docker exec meme-wars-django sh -c 'python3 manage.py createsuperuser --noinput'
 
 #### Load fixtures
 
