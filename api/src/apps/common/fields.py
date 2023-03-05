@@ -1,5 +1,4 @@
-import os
-
+from django.conf import settings
 from rest_framework.fields import ImageField as BaseImageField
 from rest_framework.settings import api_settings
 
@@ -12,5 +11,5 @@ class ImageField(BaseImageField):
         value = super().to_representation(value=value)
         if value and getattr(self, 'use_url', api_settings.UPLOADED_FILES_USE_URL):
             parsed_url = urlparse(url=value)
-            return f"{os.getenv('WEB_API_BASE_URL')}{parsed_url.path}"
+            return f'{settings.HOST_URL}{parsed_url.path}'
         return value
