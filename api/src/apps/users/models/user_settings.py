@@ -4,6 +4,8 @@ from apps.common.models.singleton_model import SingletonModel
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from apps.common.validators import UniqueArrayValuesValidator, AsteriskValidator
+
 
 class UserSettings(SingletonModel):
     class Meta:
@@ -11,10 +13,14 @@ class UserSettings(SingletonModel):
         verbose_name_plural = _('User Settings')
 
     allowed_email_domains = ArrayField(
+        verbose_name=_('allowed email domains'),
         base_field=models.CharField(
-            verbose_name=_('allowed email domains'),
-            max_length=500,
+            max_length=100
         ),
+        validators=[
+            UniqueArrayValuesValidator(),
+            AsteriskValidator()
+        ],
         default=list,
         blank=True,
         help_text=_(
@@ -24,10 +30,11 @@ class UserSettings(SingletonModel):
         ),
     )
     allowed_emails = ArrayField(
-        base_field=models.CharField(
-            verbose_name=_('allowed emails'),
-            max_length=500,
-        ),
+        verbose_name=_('allowed emails'),
+        base_field=models.EmailField(),
+        validators=[
+            UniqueArrayValuesValidator(),
+        ],
         default=list,
         blank=True,
         help_text=_(
