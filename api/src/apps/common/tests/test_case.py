@@ -1,5 +1,6 @@
 import uuid
 
+from django.contrib.auth import get_user_model
 import pytest
 import re
 import contextlib
@@ -36,3 +37,9 @@ class TestCase(BaseTestCase):
             uuid.UUID(value)
         except ValueError:  # pragma: no cover
             self.fail(f'{value} is not a valid UUID')
+
+    def create_and_login_superuser(self) -> None:
+        credentials = {'email': 'superuser@example.com', 'password': 'password'}
+        get_user_model().objects.create_superuser(**credentials)
+        if not self.client.login(**credentials):
+            self.fail('Failed to login superuser')
