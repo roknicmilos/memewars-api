@@ -20,6 +20,9 @@ class TestGetOrCreateUser(TestCase):
             picture='https://mock-google-domain/jon-snow.jpg'
         )
 
+        self.validate_email_patcher = patch.object(UserSettings, 'validate_email')
+        self.mock_validate_email = self.validate_email_patcher.start()
+
     def test_should_create_user_when_they_do_not_exist(self):
         self.assertFalse(User.objects.exists())
 
@@ -62,3 +65,4 @@ class TestGetOrCreateUser(TestCase):
     def tearDown(self) -> None:
         super().tearDown()
         self.get_google_user_patcher.stop()
+        self.validate_email_patcher.stop()

@@ -1,4 +1,5 @@
 from django.contrib.postgres.fields import ArrayField
+from django.core.exceptions import ValidationError
 
 from apps.common.models.singleton_model import SingletonModel
 from django.db import models
@@ -50,5 +51,7 @@ class UserSettings(SingletonModel):
 
     @classmethod
     def validate_email(cls, email: str) -> None:
-        # TODO: raises ValidationError if email not in allowed_email_domains or allowed_emails
-        pass
+        user_settings = cls.load()
+        email_domain = email.split('@')[-1]
+        if email not in user_settings.allowed_emails and email_domain not in user_settings.allowed_email_domains:
+            raise ValidationError(_('This email is not allowed'), code='forbidden_email')
