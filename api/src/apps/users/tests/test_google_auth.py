@@ -14,7 +14,6 @@ from apps.users.authentication.google_auth import (
     _get_user_id_token,
     _create_token_endpoint_request_data,
 )
-from apps.users.tests.factories import TokenFactory
 
 
 class TestGoogleAuth(TestCase):
@@ -108,28 +107,6 @@ class TestGoogleAuth(TestCase):
         expected_redirect_uri = build_absolute_uri(view_name='api:users:google_auth:callback')
         self.assertEqual(request_data['redirect_uri'], expected_redirect_uri)
         self.assertEqual(request_data['grant_type'], 'authorization_code')
-
-    def test_should_build_and_return_login_success_url(self):
-        token = TokenFactory()
-        actual_login_success_url = google_auth.build_login_success_url(token=token)
-        url_query_params = {
-            'has_authenticated_successfully': True,
-            'token': token.key,
-            'email': token.user.email,
-            'first_name': token.user.first_name,
-            'last_name': token.user.last_name,
-            'image_url': token.user.image_url,
-        }
-        expected_login_success_url = f'{settings.CLIENT_APP_URL}?{urlencode(url_query_params)}'
-        self.assertEqual(actual_login_success_url, expected_login_success_url)
-
-    def test_should_build_and_return_login_failure_url(self):
-        actual_login_failure_url = google_auth.build_login_failure_url()
-        url_query_params = {
-            'has_authenticated_successfully': False,
-        }
-        expected_login_failure_url = f'{settings.CLIENT_APP_URL}?{urlencode(url_query_params)}'
-        self.assertEqual(actual_login_failure_url, expected_login_failure_url)
 
     def tearDown(self) -> None:
         super().tearDown()

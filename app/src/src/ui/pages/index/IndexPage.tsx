@@ -7,7 +7,7 @@ import { userService } from "../../../services/userService";
 
 export function IndexPage() {
   const [ isLoading, setIsLoading ] = useState<boolean>(true);
-  const [ searchParams ] = useSearchParams();
+  const [ searchParams, setSearchParams ] = useSearchParams();
   const { user, saveUser } = useAuth();
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -33,7 +33,11 @@ export function IndexPage() {
       saveUser(user);
       navigate("/wars");
     } else {
-      throw new UserFriendlyError("Looks like there was a login error.");
+      // TODO: remove URL query params without reloading before raising an error
+      if (searchParams.get("code") == "forbidden_email") {
+        throw new UserFriendlyError("That email address is not allowed 🥲");
+      }
+      throw new UserFriendlyError("Looks like there was a login error 🥲");
     }
   }
 
