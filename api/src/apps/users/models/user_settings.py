@@ -47,3 +47,8 @@ class UserSettings(SingletonModel):
 
     def __str__(self):
         return str(self.verbose_name)
+
+    @classmethod
+    def validate_email(cls, email: str) -> None:
+        # TODO: raises ValidationError if email not in allowed_email_domains or allowed_emails
+        pass
