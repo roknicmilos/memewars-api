@@ -1,0 +1,1 @@
+from apps.wars.fixtures.vote_fixtures_generator import VoteFixturesGenerator
