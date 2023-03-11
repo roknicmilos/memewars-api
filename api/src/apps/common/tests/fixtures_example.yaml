@@ -1,0 +1,14 @@
+- model: app.Model
+  pk: 1
+  fields:
+    name: Fixture A
+
+- model: app.Model
+  pk: 2
+  fields:
+    name: Fixture B
+
+- model: app.Model
+  pk: 2 # duplicate
+  fields:
+    name: Fixture C
