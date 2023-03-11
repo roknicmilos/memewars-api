@@ -82,3 +82,15 @@ def handle_api_exception(error: Exception, context: dict = None) -> Response:
     if isinstance(error, Http404):
         return ErrorResponse(message='Not found', status=404)
     return exception_handler(exc=error, context=context)
+
+
+def get_fixture_ids(fixtures_file_path: str) -> list[int]:
+    ids = []
+    with open(fixtures_file_path, 'r') as file:
+        for line in file.readlines():
+            stripped_line = line.strip()
+            id_suffix = 'pk: '
+            if stripped_line.startswith(id_suffix):
+                last_index = stripped_line.index('#') if '#' in stripped_line else None
+                ids.append(int(stripped_line[len(id_suffix):last_index]))
+    return ids

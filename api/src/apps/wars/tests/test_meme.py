@@ -47,13 +47,13 @@ class TestMeme(TestCase):
     @patch.object(meme_model_file, 'compress_image_file')
     def test_should_compress_image_when_meme_is_created(self, mock_compress_image_file):
         mock_compress_image_file.return_value = None
-        MemeFactory(image='fixtures/meme_template_1.jpg')
+        MemeFactory(image='fixtures/memes/meme_template_1.jpg')
         mock_compress_image_file.assert_called_once()
 
     @patch.object(meme_model_file, 'compress_image_file')
     def test_should_not_compress_image_when_meme_image_is_not_update(self, mock_compress_image_file):
         mock_compress_image_file.return_value = None
-        meme = MemeFactory(image='fixtures/meme_template_1.jpg')
+        meme = MemeFactory(image='fixtures/memes/meme_template_1.jpg')
         mock_compress_image_file.assert_called_once()
 
         mock_compress_image_file.reset_mock()
@@ -64,10 +64,10 @@ class TestMeme(TestCase):
     @patch.object(meme_model_file, 'compress_image_file')
     def test_should_compress_image_when_meme_image_is_update(self, mock_compress_image_file):
         mock_compress_image_file.return_value = None
-        meme = MemeFactory(image='fixtures/meme_template_1.jpg')
+        meme = MemeFactory(image='fixtures/memes/meme_template_1.jpg')
         mock_compress_image_file.assert_called_once()
 
         mock_compress_image_file.reset_mock()
 
-        meme.update(image='fixtures/meme_template_2.jpg')
+        meme.update(image='fixtures/memes/meme_template_2.jpg')
         mock_compress_image_file.assert_called_once()
