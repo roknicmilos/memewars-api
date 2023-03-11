@@ -1,6 +1,6 @@
 import React, { MouseEvent } from "react";
 import styles from "./Modal.module.scss";
-import closeSVG from "./../../assets/close.svg";
+import closeSVG from "../../../assets/close.svg";
 
 
 interface ModalProps {

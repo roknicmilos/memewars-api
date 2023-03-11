@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./Navigation.module.scss";
-import burgerSVG from "./../../assets/burger.svg";
+import burgerSVG from "../../../assets/burger.svg";
 import { UserMenu } from "./user-menu/UserMenu";
-import { useAuth } from "../../context/authContext";
+import { useAuth } from "../../../context/authContext";
 
 
 export function Navigation() {

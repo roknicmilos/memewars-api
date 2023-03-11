@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from "react";
-import { Loader } from "../ui/loader/Loader";
+import { Loader } from "../ui/components/loader/Loader";
 
 interface LoaderContextValues {
   isLoading: boolean;

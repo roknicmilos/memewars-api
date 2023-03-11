@@ -1,8 +1,62 @@
 @import "../../../main";
 
+
+.header {
+  border: 1px solid $primary-color;
+  border-radius: 5px;
+  margin: 30px auto 10px;
+  width: 85%;
+  max-width: 500px;
+
+  @include respond-to(mobile) {
+    width: 95%;
+    margin: 20px auto 10px;
+  }
+}
+
+.titleDropdownButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.title {
+  font-weight: 300;
+  text-align: center;
+  margin: 20px 50px;
+}
+
+.dropdownArrow {
+  width: 30px;
+  margin: 10px 20px;
+}
+
+.titleDropdownContent {
+  margin: 6px;
+  padding: 10px;
+  border-radius: 5px;
+  background: $primary-color;
+  color: white;
+}
+
+.titleItem {
+  margin: 5px;
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.boolIcon {
+  width: 30px;
+}
+
 .memes {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 50px 0;
+  padding: 20px 0 50px;
+
+  @include respond-to(mobile) {
+    padding-top: 10px;
+  }
 }
