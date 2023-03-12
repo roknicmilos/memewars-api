@@ -75,6 +75,10 @@ export function FinishedWar({ war }: FinishedWarProps) {
           <FinishedWarMeme key={ meme.id } meme={ meme }/>
         )) }
       </div>
+      <div className={ styles.rockBottom }>
+        <p>You've finally hit rock bottom!</p>
+        <p>At least you can't get lower that this 🥲</p>
+      </div>
     </>
   );
 }
