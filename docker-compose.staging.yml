@@ -6,7 +6,7 @@ services:
     container_name: meme-wars-django--staging
     build:
       dockerfile: ./api/Dockerfile
-      target: production
+      target: staging
     env_file:
       - .env
     ports:
