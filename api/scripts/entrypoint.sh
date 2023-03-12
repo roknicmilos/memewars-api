@@ -30,6 +30,7 @@ init_django_project() {
     print_django_project_init_info
     python3 manage.py collectstatic --noinput
     python3 manage.py migrate
+    python3 manage.py createsuperuser --noinput || true
     gunicorn meme_wars.wsgi --bind 0.0.0.0:8000
 
   else
