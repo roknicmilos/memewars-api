@@ -3,21 +3,27 @@ version: '3.7'
 services:
 
   django:
-    container_name: meme-wars-django-staging
+    ports:
+      - "8001:8000"
+    container_name: meme-wars-django--staging
 
   postgres:
-    container_name: meme-wars-postgres-staging
+    container_name: meme-wars-postgres--staging
     volumes:
-      - meme-wars-postgres-data-staging:/var/lib/postgresql/data
+      - meme-wars-postgres-data--staging:/var/lib/postgresql/data
 
   pgadmin:
-    container_name: meme-wars-pgadmin-staging
+    container_name: meme-wars-pgadmin--staging
+    ports:
+      - "8081:80"
     volumes:
-      - meme-wars-pgadmin-data-staging:/var/lib/pgadmin
+      - meme-wars-pgadmin-data--staging:/var/lib/pgadmin
 
   react:
-    container_name: meme-wars-react-staging
+    ports:
+      - "3001:3000"
+    container_name: meme-wars-react--staging
 
 volumes:
-  meme-wars-postgres-data-staging:
-  meme-wars-pgadmin-data-staging:
+  meme-wars-postgres-data--staging:
+  meme-wars-pgadmin-data--staging:

@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   django:
-    container_name: meme-wars-django-prod
+    container_name: meme-wars-django--prod
     build:
       dockerfile: ./api/Dockerfile
       target: production
@@ -17,18 +17,18 @@ services:
       - ./api/src/run:/app/src/run/
 
   postgres:
-    container_name: meme-wars-postgres-prod
+    container_name: meme-wars-postgres--prod
     image: postgres:14
     environment:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_USER=${DB_USERNAME}
       - POSTGRES_DB=${DB_NAME}
     volumes:
-      - meme-wars-postgres-data-prod:/var/lib/postgresql/data
+      - meme-wars-postgres-data--prod:/var/lib/postgresql/data
 
   pgadmin:
     image: dpage/pgadmin4
-    container_name: meme-wars-pgadmin-prod
+    container_name: meme-wars-pgadmin--prod
     environment:
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
@@ -37,10 +37,10 @@ services:
     depends_on:
       - postgres
     volumes:
-      - meme-wars-pgadmin-data-prod:/var/lib/pgadmin
+      - meme-wars-pgadmin-data--prod:/var/lib/pgadmin
 
   react:
-    container_name: meme-wars-react-prod
+    container_name: meme-wars-react--prod
     build:
       dockerfile: ./app/Dockerfile
       target: production
@@ -50,5 +50,5 @@ services:
       - "3000:3000"
 
 volumes:
-  meme-wars-postgres-data-prod:
-  meme-wars-pgadmin-data-prod:
+  meme-wars-postgres-data--prod:
+  meme-wars-pgadmin-data--prod:
