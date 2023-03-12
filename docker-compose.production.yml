@@ -24,7 +24,7 @@ services:
       - POSTGRES_USER=${DB_USERNAME}
       - POSTGRES_DB=${DB_NAME}
     volumes:
-      - meme-wars-postgres-data--prod:/var/lib/postgresql/data
+      - meme-wars-postgres-data:/var/lib/postgresql/data
 
   pgadmin:
     image: dpage/pgadmin4
@@ -37,7 +37,7 @@ services:
     depends_on:
       - postgres
     volumes:
-      - meme-wars-pgadmin-data--prod:/var/lib/pgadmin
+      - meme-wars-pgadmin-data:/var/lib/pgadmin
 
   react:
     container_name: meme-wars-react--prod
@@ -50,5 +50,5 @@ services:
       - "3000:3000"
 
 volumes:
-  meme-wars-postgres-data--prod:
-  meme-wars-pgadmin-data--prod:
+  meme-wars-postgres-data:
+  meme-wars-pgadmin-data:
