@@ -34,8 +34,7 @@
     <a href="{% url 'api_schema:download' %}">{% trans 'Download API Schema' %}</a>
 </div>
 
-<div class="app-env-label app-env-label--staging">{{ environment }}</div>
-{#<div class="app-env-label app-env-label--{{ environment }}">{{ environment }}</div>#}
+<div class="app-env-label app-env-label--{{ environment }}">{{ environment }}</div>
 
 </body>
 </html>
