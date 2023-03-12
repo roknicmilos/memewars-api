@@ -16,7 +16,7 @@ SITE_NAME = basename(DJANGO_ROOT)
 
 DEBUG = getenv('ENVIRONMENT').lower() == 'development'
 
-if not DEBUG:
+if not DEBUG:  # pragma: no cover
     LOGGING = {
         'version': 1,
         'disable_existing_loggers': False,
