@@ -14,6 +14,25 @@ PROJECT_ROOT = dirname(DJANGO_ROOT)
 # the name of the whole site
 SITE_NAME = basename(DJANGO_ROOT)
 
+DEBUG = getenv('ENVIRONMENT').lower() == 'development'
+
+if not DEBUG:
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'console': {
+                'class': 'logging.StreamHandler',
+            },
+        },
+        'root': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    }
+
+    SESSION_COOKIE_SECURE = True
+
 # collect static files here
 STATIC_ROOT = join(PROJECT_ROOT, 'run', 'static')
 
@@ -124,9 +143,6 @@ STATIC_URL = '/static/'
 # the URL for media files
 MEDIA_URL = '/media/'
 
-# ##### DEBUG CONFIGURATION ###############################
-DEBUG = True
-
 # finally grab the SECRET KEY
 try:
     SECRET_KEY = open(SECRET_FILE).read().strip()
@@ -154,45 +170,6 @@ DATABASES = {
     }
 }
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'apps.users.authentication.TokenAuthentication',
-    ],
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-    'EXCEPTION_HANDLER': 'apps.common.utils.handle_api_exception',
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 50,
-    'DEFAULT_FILTER_BACKENDS': [
-        'django_filters.rest_framework.DjangoFilterBackend'
-    ],
-}
-
 ALLOWED_HOSTS = ['*']
 
 LOGIN_REDIRECT_URL = '/'
-
-FIXTURES = (
-    'users',
-    'wars',
-    'memes',
-    'votes',
-)
-
-SPECTACULAR_SETTINGS = {
-    'TITLE': 'Meme Wars API',
-    'DESCRIPTION': 'An API for Meme Wars',
-    'VERSION': '1.0.0',
-    'SERVE_INCLUDE_SCHEMA': False,
-}
-
-GOOGLE_OPENID_CONFIG_URL = 'https://accounts.google.com/.well-known/openid-configuration'
-GOOGLE_OPENID_CLIENT_ID = getenv('GOOGLE_OPENID_CLIENT_ID')
-GOOGLE_OPENID_CLIENT_SECRET = getenv('GOOGLE_OPENID_CLIENT_SECRET')
-
-HOST_URL = getenv('WEB_API_BASE_URL')
-
-CLIENT_APP_URL = getenv('WEB_APP_BASE_URL')
-
-CORS_ALLOWED_ORIGINS = [
-    CLIENT_APP_URL,
-]
