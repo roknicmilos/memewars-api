@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styles from "./UserMenu.module.scss";
-import avatarSVG from "../../../assets/avatar.svg";
-import { useAuth } from "../../../context/authContext";
+import avatarSVG from "../../../../assets/avatar.svg";
+import { useAuth } from "../../../../context/authContext";
 import { Modal } from "../../modal/Modal";
-import { useLoader } from "../../../context/loaderContext";
+import { useLoader } from "../../../../context/loaderContext";
 
 
 export function UserMenu() {

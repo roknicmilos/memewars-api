@@ -3,6 +3,8 @@ export interface War {
   name: string;
   phase: WarPhases;
   requires_meme_approval: boolean;
+  voter_count: number;
+  meme_count: number;
   created: string;
   modified: string;
 }
