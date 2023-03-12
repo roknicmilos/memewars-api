@@ -28,5 +28,5 @@ jobs:
           script: |
             cd /var/www/memewars-staging
             git pull
-            docker compose -f docker-compose.production.yml -f docker-compose.staging.yml build
-            docker compose -f docker-compose.production.yml -f docker-compose.staging.yml up -d
+            docker compose -f docker-compose.staging.yml build
+            docker compose -f docker-compose.staging.yml up -d
