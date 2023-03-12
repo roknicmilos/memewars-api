@@ -1,6 +1,5 @@
 @import "../../../main";
 
-
 .header {
   border: 1px solid $primary-color;
   border-radius: 5px;
@@ -9,7 +8,7 @@
   max-width: 500px;
 
   @include respond-to(mobile) {
-    width: 95%;
+    width: 90%;
     margin: 20px auto 10px;
   }
 }
@@ -30,14 +29,30 @@
 .dropdownArrow {
   width: 30px;
   margin: 10px 20px;
+  transition: transform 0.5s ease-in-out;
+}
+
+.dropdownArrowRotated {
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
 }
 
 .titleDropdownContent {
-  margin: 6px;
-  padding: 10px;
+  overflow: hidden;
+  transition: height 0.5s ease-in-out;
+  height: 0;
+}
+
+.titleDropdownContentOpened {
+  height: 141px;
+}
+
+.warInfo {
   border-radius: 5px;
   background: $primary-color;
   color: white;
+  margin: 6px;
+  padding: 10px;
 }
 
 .titleItem {
