@@ -120,6 +120,11 @@ body {
     background: lightgreen;
 }
 
+.app-env-label--staging {
+    background-color: #417690;
+    color: white;
+}
+
 .app-env-label--production {
     background-color: darkred;
     color: white;

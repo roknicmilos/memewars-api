@@ -29,6 +29,14 @@ ENV ENVIRONMENT='production'
 
 RUN pip install -r /app/requirements/production.txt
 
+########################
+### STAGING image ###
+########################
+
+FROM production AS staging
+
+ENV ENVIRONMENT='staging'
+
 #########################
 ### DEVELOPMENT image ###
 #########################

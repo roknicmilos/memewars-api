@@ -19,6 +19,14 @@ print_django_project_init_info() {
   printc "WEB APP base URL: $WEB_APP_BASE_URL \n" "info"
 }
 
+init_production() {
+  print_django_project_init_info
+  python3 manage.py collectstatic --noinput
+  python3 manage.py migrate
+  python3 manage.py createsuperuser --noinput || true
+  gunicorn meme_wars.wsgi --bind 0.0.0.0:8000
+}
+
 init_django_project() {
   if [ "$ENVIRONMENT" = 'development' ]; then
     print_django_project_init_info
@@ -26,12 +34,11 @@ init_django_project() {
     python3 manage.py createsuperuser --noinput || true
     python3 manage.py runserver 0.0.0.0:8000
 
+  elif [ "$ENVIRONMENT" = 'staging' ]; then
+    init_production
+
   elif [ "$ENVIRONMENT" = 'production' ]; then
-    print_django_project_init_info
-    python3 manage.py collectstatic --noinput
-    python3 manage.py migrate
-    python3 manage.py createsuperuser --noinput || true
-    gunicorn meme_wars.wsgi --bind 0.0.0.0:8000
+    init_production
 
   else
     printc "[ERROR]: Unknown environment: '$ENVIRONMENT'\n" "danger"
