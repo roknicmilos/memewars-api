@@ -36,7 +36,7 @@ class MemeFixturesGenerator(AbstractFixturesGenerator):
         for index in range(self.quantity_level):
             for war_id in self.war_ids:
                 for image_filename in self.meme_fixture_image_filenames:
-                    random_user_id = self.user_ids[random.randint(0, len(self.user_ids) - 1)]
+                    random_user_id = self.user_ids[random.randint(0, len(self.user_ids) - 1)]  # nosec B311
                     items.append({
                         'pk': len(items) + 1,
                         'user': random_user_id,

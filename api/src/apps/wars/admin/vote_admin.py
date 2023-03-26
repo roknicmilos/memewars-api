@@ -27,7 +27,7 @@ class VoteAdmin(ModelAdmin):
         meme_admin_url = get_model_admin_change_details_url(obj=obj.meme)
         label = _(f'Meme {obj.meme.pk}')
         html_link = f'<a href="{meme_admin_url}">{label}</a>'
-        return mark_safe(html_link)
+        return mark_safe(html_link)  # nosec B703, B308
 
     def has_change_permission(self, request, obj=None):
         return False

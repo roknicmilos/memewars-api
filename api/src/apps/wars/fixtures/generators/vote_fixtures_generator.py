@@ -35,7 +35,7 @@ class VoteFixturesGenerator(AbstractFixturesGenerator):
                     'pk': len(items) + 1,
                     'user': user_id,
                     'meme': meme_id,
-                    'score': randint(1, 10)
+                    'score': randint(1, 10)  # nosec B311
                 })
 
         return items

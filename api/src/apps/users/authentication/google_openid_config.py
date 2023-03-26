@@ -11,5 +11,5 @@ class GoogleOpenIDConfig:
 
 
 def _fetch_google_openid_config() -> dict:  # pragma: no cover
-    response = requests.get(url=settings.GOOGLE_OPENID_CONFIG_URL)
+    response = requests.get(url=settings.GOOGLE_OPENID_CONFIG_URL, timeout=5)
     return response.json()

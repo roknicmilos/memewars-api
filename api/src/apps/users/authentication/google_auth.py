@@ -52,7 +52,8 @@ def _get_user_id_token(request: WSGIRequest) -> str:
     response = requests.post(
         url=openid_config.token_endpoint,
         data=request_data,
-        headers={'Content-Type': 'application/x-www-form-urlencoded'}
+        headers={'Content-Type': 'application/x-www-form-urlencoded'},
+        timeout=5
     )
     response_data = response.json()
     return response_data['id_token']
