@@ -30,3 +30,4 @@ jobs:
             git pull
             docker compose -f docker-compose.staging.yml build
             docker compose -f docker-compose.staging.yml up -d
+            docker exec -t meme-wars-django--staging sh -c 'python3 -m pytest --cov -n auto && python3 -m coverage html'

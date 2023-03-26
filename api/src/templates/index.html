@@ -15,7 +15,7 @@
 <body>
 
 <h1 class="title">{% trans 'Meme Wars' %}</h1>
-{% if environment == 'development' %}
+{% if environment == 'development' or environment == 'staging' %}
     <div class="cta-button cta-button--test-coverage">
         <a href="{% static 'coverage/index.html' %}">{% trans 'Tests Coverage Report' %}</a>
     </div>
