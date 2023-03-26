@@ -1,0 +1,22 @@
+@import "../../Meme.module";
+
+.deleteButton {
+  @extend .button;
+  border-color: $red;
+  color: $red;
+}
+
+.deleteButton:hover {
+  background-color: $red;
+}
+
+.fileModalInfo {
+  padding: 30px;
+  font-size: 20px;
+  font-weight: 300;
+  text-align: center;
+}
+
+.label {
+  font-weight: 600;
+}

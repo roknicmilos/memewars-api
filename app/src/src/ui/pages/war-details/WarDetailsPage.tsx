@@ -1,9 +1,10 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
 import { War, WarPhases } from "../../../models/war";
-import { FinishedWar } from "./finished-war/FinishedWar";
 import { UserFriendlyError } from "../../../userFriendlyError";
+import { FinishedWar } from "./finished-war/FinishedWar";
 import { WarInPreparation } from "./war-in-preparation/WarInPreparation";
+import { WarInSubmission } from "./war-in-submission/WarInSubmission";
 
 export function WarDetailsPage() {
   const war = useLoaderData() as War;
@@ -14,6 +15,8 @@ export function WarDetailsPage() {
       return <FinishedWar war={ war }/>;
     case WarPhases.preparation:
       return <WarInPreparation war={ war }/>;
+    case WarPhases.submission:
+      return <WarInSubmission war={ war }/>;
   }
 
   // TODO: render other war phases
