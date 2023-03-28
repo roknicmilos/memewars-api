@@ -6,7 +6,7 @@ from apps.wars.models import War
 from apps.wars.serializers import WarSerializer
 
 
-class WarDetailsAPIView(RetrieveAPIView):
+class WarRetrieveAPIView(RetrieveAPIView):
     queryset = War.objects.all()
     serializer_class = WarSerializer
     authentication_classes = [TokenAuthentication]
