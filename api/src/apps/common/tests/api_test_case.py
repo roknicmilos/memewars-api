@@ -16,11 +16,26 @@ class APITestCase(TestCase):
     def assertProtectedGETEndpoint(self, url_path: str) -> None:
         # When Bearer token is not provided:
         response = self.client.get(path=url_path)
-        self.assertEqual(response.status_code, 401)
-        self.assertEqual(response.json(), {'message': 'Authentication token was not provided'})
+        self.assertMissingAuthToken(response=response)
 
         # When Bearer token is invalid:
         response = self.client.get(path=url_path, HTTP_AUTHORIZATION='Bearer XYZ')
+        self.assertInvalidAuthToken(response=response)
+
+    def assertProtectedPOSTEndpoint(self, url_path: str, data: dict) -> None:
+        # When Bearer token is not provided:
+        response = self.client.post(path=url_path, data=data)
+        self.assertMissingAuthToken(response=response)
+
+        # When Bearer token is invalid:
+        response = self.client.post(path=url_path, data=data, HTTP_AUTHORIZATION='Bearer XYZ')
+        self.assertInvalidAuthToken(response=response)
+
+    def assertMissingAuthToken(self, response: Response) -> None:
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.json(), {'message': 'Authentication token was not provided'})
+
+    def assertInvalidAuthToken(self, response: Response) -> None:
         self.assertEqual(response.status_code, 401)
         self.assertEqual(response.json(), {'message': 'Authentication token is invalid'})
 
