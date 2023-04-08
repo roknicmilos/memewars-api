@@ -16,4 +16,6 @@ class WarPhaseValidator(BaseValidator):
         super().__init__(war_phase, message)
 
     def compare(self, a, b):
-        return not War.objects.filter(pk=a, phase=b).exclude()
+        if isinstance(a, War):
+            return a.phase != b
+        return not War.objects.filter(pk=a, phase=b).exists()

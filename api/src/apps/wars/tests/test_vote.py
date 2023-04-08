@@ -11,7 +11,7 @@ class TestVote(TestCase):
         meme = MemeFactory(war=war)
         vote = VoteFactory(meme=meme)
         expected_validation_errors = {
-            'meme': [f'Meme must be in a war that is in "{War.Phases.SUBMISSION}" phase'],
+            'meme': [f'Meme must be in a war that is in "{War.Phases.SUBMISSION.label}" phase'],
         }
         with self.raisesValidationError(match=expected_validation_errors):
             vote.full_clean()
