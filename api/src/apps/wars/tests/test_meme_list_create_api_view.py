@@ -13,53 +13,91 @@ class TestMemeListCreateAPIView(APITestCase):
     def setUp(self) -> None:
         super().setUp()
         self.user = UserFactory()
-        self.wars = [WarFactory(phase=phase) for phase in War.Phases]
-        self.war_in_submission_phase = next(war for war in self.wars if war.phase is War.Phases.SUBMISSION)
+        self.war_in_preparation_phase = WarFactory(phase=War.Phases.PREPARATION)
+        self.war_in_submission_phase = WarFactory(phase=War.Phases.SUBMISSION)
+        self.war_in_voting_phase = WarFactory(phase=War.Phases.VOTING)
+        self.war_in_finished_phase = WarFactory(phase=War.Phases.FINISHED)
+        self.all_wars = [
+            self.war_in_preparation_phase,
+            self.war_in_submission_phase,
+            self.war_in_voting_phase,
+            self.war_in_finished_phase,
+        ]
         self.valid_data = {
             'image': get_image_file_example(),
             'war': self.war_in_submission_phase.pk,
-            'user': self.user.pk,
         }
 
     def test_list_endpoint_should_return_response_401_when_authentication_headers_are_invalid(self):
         self.assertProtectedGETEndpoint(url_path=self.url_path)
 
-    def test_list_endpoint_should_return_all_memes(self):
+    def test_list_endpoint_should_return_all_memes_automatically_filtered_by_approval_status(self):
+        for war in self.all_wars:
+            MemeFactory(war=war, approval_status=Meme.ApprovalStatuses.PENDING)
+            MemeFactory(war=war, approval_status=Meme.ApprovalStatuses.REJECTED)
+            MemeFactory(war=war, approval_status=Meme.ApprovalStatuses.APPROVED)
+            MemeFactory(war=war, approval_status=Meme.ApprovalStatuses.PENDING, user=self.user)
+            MemeFactory(war=war, approval_status=Meme.ApprovalStatuses.REJECTED, user=self.user)
+            MemeFactory(war=war, approval_status=Meme.ApprovalStatuses.APPROVED, user=self.user)
+
         self.authenticate(user=self.user)
+
+        # When all wars do not require meme approval:
         response = self.client.get(path=self.url_path)
-        serializer = MemeSerializer(instance=Meme.objects.order_by('-created').all(), many=True)
-        self.assertListResponse(response=response, serializer=serializer)
+
+        self.assertEqual(response.status_code, 200)
+        results = response.json()['results']
+        # Expected memes:
+        #   0 from the war in PREPARATION phase
+        #   3 from the war in SUBMISSION phase (authenticated user memes only, regardless of approval status)
+        #   6 from the war in VOTING phase (all memes)
+        #   6 from the war in FINISHED phase (all memes)
+        self.assertEqual(len(results), 15)
+        for meme_dict in results:
+            # There shouldn't be a meme from the war that's in the PREPARATION phase:
+            self.assertNotEquals(meme_dict['war'], self.war_in_preparation_phase.pk)
+            # If the meme is from the war that's in SUBMISSION phase,
+            # it should belong to the authenticated user:
+            if meme_dict['war'] == self.war_in_submission_phase.pk:
+                self.assertEqual(meme_dict['user'], self.user.pk)
+
+        # When all wars require meme approval:
+        for war in self.all_wars:
+            war.update(requires_meme_approval=True)
+
+        response = self.client.get(path=self.url_path)
+
+        self.assertEqual(response.status_code, 200)
+        results = response.json()['results']
+        # Expected memes:
+        #   0 from the war in PREPARATION phase
+        #   3 from the war in SUBMISSION phase (authenticated user memes only, regardless of approval status)
+        #   2 from the war in VOTING phase (approved memes only)
+        #   2 from the war in FINISHED phase (approved memes only)
+        self.assertEqual(len(results), 7)
+        for meme_dict in results:
+            # There shouldn't be a meme from the war that's in the PREPARATION phase:
+            self.assertNotEquals(meme_dict['war'], self.war_in_preparation_phase.pk)
+            # If the meme is from the war that's in SUBMISSION phase,
+            # it should belong to the authenticated user:
+            if meme_dict['war'] == self.war_in_submission_phase.pk:
+                self.assertEqual(meme_dict['user'], self.user.pk)
+            else:
+                self.assertEqual(meme_dict['approval_status'], Meme.ApprovalStatuses.APPROVED.value)
 
     def test_list_endpoint_should_return_memes_filtered_by_war(self):
         self.authenticate(user=self.user)
-        MemeFactory.create_batch(size=3, war=self.wars[0])
-        MemeFactory.create_batch(size=2, war=self.wars[1])
-        response = self.client.get(path=f'{self.url_path}?war={self.wars[0].pk}')
-        serializer = MemeSerializer(instance=Meme.objects.order_by('-created').filter(war=self.wars[0]), many=True)
+        MemeFactory.create_batch(size=3, war=self.war_in_voting_phase)
+        MemeFactory.create_batch(size=2, war=self.war_in_finished_phase)
+        response = self.client.get(path=f'{self.url_path}?war={self.war_in_voting_phase.pk}')
+        serializer = MemeSerializer(instance=self.war_in_voting_phase.memes.order_by('-created'), many=True)
         self.assertListResponse(response=response, serializer=serializer)
 
-    def test_list_endpoint_should_return_memes_filtered_by_approval_status(self):
-        self.authenticate(user=self.user)
-        MemeFactory.create_batch(size=2, approval_status=Meme.ApprovalStatuses.PENDING)
-        MemeFactory.create_batch(size=3, approval_status=Meme.ApprovalStatuses.APPROVED)
-        MemeFactory.create_batch(size=4, approval_status=Meme.ApprovalStatuses.REJECTED)
-
-        # "Pending" approval status:
-        response = self.client.get(path=f'{self.url_path}?approval_status={Meme.ApprovalStatuses.PENDING}')
-        queryset = Meme.objects.order_by('-created').filter(approval_status=Meme.ApprovalStatuses.PENDING)
-        serializer = MemeSerializer(instance=queryset, many=True)
-        self.assertListResponse(response=response, serializer=serializer)
-
-        # "Approved" approval status:
-        response = self.client.get(path=f'{self.url_path}?approval_status={Meme.ApprovalStatuses.APPROVED}')
-        queryset = Meme.objects.order_by('-created').filter(approval_status=Meme.ApprovalStatuses.APPROVED)
-        serializer = MemeSerializer(instance=queryset, many=True)
-        self.assertListResponse(response=response, serializer=serializer)
-
-        # "Rejected" approval status:
-        response = self.client.get(path=f'{self.url_path}?approval_status={Meme.ApprovalStatuses.REJECTED}')
-        queryset = Meme.objects.order_by('-created').filter(approval_status=Meme.ApprovalStatuses.REJECTED)
-        serializer = MemeSerializer(instance=queryset, many=True)
+        # When war requires meme approval:
+        self.war_in_voting_phase.update(requires_meme_approval=True)
+        self.war_in_voting_phase.memes.first().update(approval_status=Meme.ApprovalStatuses.APPROVED)
+        response = self.client.get(path=f'{self.url_path}?war={self.war_in_voting_phase.pk}')
+        serializer = MemeSerializer(instance=[self.war_in_voting_phase.memes.first()], many=True)
         self.assertListResponse(response=response, serializer=serializer)
 
     def test_post_endpoint_should_return_response_401_when_authentication_headers_are_invalid(self):
@@ -80,9 +118,7 @@ class TestMemeListCreateAPIView(APITestCase):
         self.assertBadRequestResponse(data=data, errors=expected_errors)
 
         # When War is not in submission phase:
-        for war in self.wars:
-            if war.phase is War.Phases.SUBMISSION:
-                continue
+        for war in [self.war_in_preparation_phase, self.war_in_voting_phase, self.war_in_finished_phase]:
             data['war'] = war.pk
             # Make sure image file is fresh and valid for each request:
             data['image'] = get_image_file_example()
@@ -91,7 +127,7 @@ class TestMemeListCreateAPIView(APITestCase):
             }
             self.assertBadRequestResponse(data=data, errors=expected_errors)
 
-        # When image is invalid
+        # When image is invalid:
         data = {
             **self.valid_data,
             'image': 'not-an-image',
