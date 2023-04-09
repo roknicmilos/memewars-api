@@ -1,38 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./WarInSubmissionMeme.module.scss";
-import { Modal } from "../../../../components/modal/Modal";
+import { fileService } from "../../../../../services/fileService";
 
 interface WarInSubmissionMemeProps {
-  image: any;
-  index: number;
+  file: File;
 
-  onImageRemove(): void;
+  onImageRemove?(): void;
 }
 
-export function WarInSubmissionMeme({ image, index, onImageRemove }: WarInSubmissionMemeProps) {
-  const [ hasOpenedOptions, setHasOpenedOptions ] = useState<boolean>(false);
+export function WarInSubmissionMeme({ file }: WarInSubmissionMemeProps) {
+  const [ base64image, setBase64image ] = useState<string>("");
 
-  console.log(image);
+  useEffect(() => {
+    fileService.file2Base64(file).then(base64value => setBase64image(base64value));
+  }, []);
 
   return (
-    <div key={ index } className={ styles.meme }>
+    <div className={ styles.meme }>
       <img
         className={ styles.memeImage }
-        src={ image.dataURL }
-        alt={ image.name }
-        onClick={ () => setHasOpenedOptions(true) }
+        src={ base64image }
+        alt={ file.name }
       />
-      <Modal isOpened={ hasOpenedOptions } onClose={ () => setHasOpenedOptions(false) }>
-        <div className={ styles.fileModalInfo }>
-          <p>
-            <span className={ styles.label }>File name:</span> { image.file.name }
-          </p>
-          <p>
-            <span className={ styles.label }>File size:</span> { (image.file.size / 1000).toFixed(2) } KB
-          </p>
-        </div>
-        <div className={ styles.deleteButton } onClick={ () => alert("deleeete") }>Delete meme</div>
-      </Modal>
     </div>
   );
 }

@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { War } from "../../../../models/war";
 import styles from "./WarInSubmission.module.scss";
-import ImageUploading, { ImageListType } from "react-images-uploading";
 import { WarInSubmissionMeme } from "./meme/WarInSubmissionMeme";
 
 interface WarInSubmissionProps {
@@ -9,31 +8,21 @@ interface WarInSubmissionProps {
 }
 
 export function WarInSubmission({ war }: WarInSubmissionProps) {
+  const [ newImages, setNewImages ] = useState<File[]>([]);
+  // TODO: init existing images (useEffect)
+  // TODO: init deleted images
 
-  const [ images, setImages ] = React.useState<ImageListType>([]);
-
-  function onMemeUploadChange(imageList: ImageListType, addUpdateIndex?: Array<number>) {
-    setImages(imageList);
+  function onImageUpload(event: any): void {
+    setNewImages([ event.target.files[0], ...newImages ]);
   }
 
   return (
-      <ImageUploading
-        multiple
-        value={ images }
-        onChange={ onMemeUploadChange }
-        maxNumber={ 12 }
-        dataURLKey="dataURL"
-      >
-        { ({ imageList, onImageUpload, onImageRemove }) => (
-          <div className={styles.uploadedMemes}>
-            <button onClick={ onImageUpload }>
-              Upload a new meme
-            </button>
-            { imageList.map((image, index) => (
-              <WarInSubmissionMeme image={ image } index={ index } onImageRemove={ () => onImageRemove(index) }/>
-            )) }
-          </div>
-        ) }
-      </ImageUploading>
+    <form className={ styles.uploadedMemesForm }>
+      <label htmlFor="file-upload" className={ styles.uploadFileButton }>
+        <input id="file-upload" type="file" onChange={ onImageUpload }/>
+        Upload new meme
+      </label>
+      { newImages.map(file => <WarInSubmissionMeme key={ file.name } file={ file }/>) }
+    </form>
   );
 }
