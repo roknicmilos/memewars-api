@@ -17,12 +17,21 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+
+  @include respond-to(mobile) {
+    justify-content: space-between;
+  }
 }
 
 .title {
   font-weight: 300;
   text-align: center;
   margin: 20px 50px;
+
+  @include respond-to(mobile) {
+    margin: 20px;
+    font-size: 24px;
+  }
 }
 
 .dropdownArrow {

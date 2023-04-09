@@ -29,6 +29,18 @@ export function FinishedWar({ war }: FinishedWarProps) {
         onClick={ toggleHeader }
         extraInfoItems={ [ { label: "Voters", value: war.voter_count } ] }
       />
+      <div className={ styles.explanatoryText }>
+        <p>
+          Check the voting results of <span className={ styles.boldText }>{ war.name }</span>.
+        </p>
+        { war.requires_meme_approval && (
+          <p>
+            Because this war requires approval of all memes,
+            only the approved memes are listed below.
+          </p>
+        ) }
+        <p>Memes are sorted by their score where those with the highest scores are at the top</p>
+      </div>
       <div className={ styles.memes }>
         { memes.sort(memeService.sortMemesByTotalScore).map(meme => (
           <FinishedWarMeme key={ meme.id } meme={ meme }/>

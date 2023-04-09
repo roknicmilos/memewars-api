@@ -33,7 +33,8 @@ export function WarInSubmission({ war }: WarInSubmissionProps) {
       />
       <div className={ styles.explanatoryText }>
         <p>
-          Upload or remove memes that are going to be a part of { war.name } war.
+          Upload or remove memes that are going to be a part
+          of <span className={ styles.boldText }>{ war.name }</span>.
         </p>
         { war.requires_meme_approval && (
           <p>
