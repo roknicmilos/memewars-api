@@ -1,27 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./WarInSubmissionMeme.module.scss";
-import { fileService } from "../../../../../services/fileService";
+import { Meme } from "../../../../../models/meme";
 
 interface WarInSubmissionMemeProps {
-  file: File;
-
-  onImageRemove?(): void;
+  meme: Meme;
 }
 
-export function WarInSubmissionMeme({ file }: WarInSubmissionMemeProps) {
-  const [ base64image, setBase64image ] = useState<string>("");
-
-  useEffect(() => {
-    fileService.file2Base64(file).then(base64value => setBase64image(base64value));
-  }, []);
+export function WarInSubmissionMeme({ meme }: WarInSubmissionMemeProps) {
 
   return (
     <div className={ styles.meme }>
-      <img
-        className={ styles.memeImage }
-        src={ base64image }
-        alt={ file.name }
-      />
+      <img className={ styles.memeImage } src={ meme.image } alt="meme"/>
     </div>
   );
 }

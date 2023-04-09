@@ -17,7 +17,6 @@ const LoaderContext = createContext<LoaderContextValues>({
 export function LoaderContextProvider({ children }: { children: ReactNode }) {
   const [ isLoading, setIsLoading ] = useState<boolean>(false);
 
-
   return (
     <LoaderContext.Provider value={ { isLoading, setIsLoading } }>
       <>
@@ -31,3 +30,5 @@ export function LoaderContextProvider({ children }: { children: ReactNode }) {
 export function useLoader() {
   return useContext(LoaderContext);
 }
+
+// TODO: Check if this context is necessary! If not, REMOVE it!

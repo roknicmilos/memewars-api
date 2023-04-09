@@ -1,7 +1,24 @@
 @import "../../../main.module";
 
+.explanatoryText {
+  max-width: 700px;
+  text-align: center;
+  margin: 40px auto 10px;
+  padding: 5px 20px;
+  font-size: 20px;
+  font-weight: 300;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.explanatoryText p {
+  padding: 5px;
+}
+
 .uploadedMemesForm {
-  padding: 50px 0;
+  padding: 0 0 50px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,10 +27,6 @@
 .uploadFileButton {
   @extend .button;
   margin: 30px 0;
-
-  @include respond-to(mobile) {
-    margin-top: 10px;
-  }
 }
 
 .uploadFileButton input {

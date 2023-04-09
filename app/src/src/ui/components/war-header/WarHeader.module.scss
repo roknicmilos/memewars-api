@@ -1,0 +1,57 @@
+@import "../../main.module";
+
+.warHeader {
+  border: 1px solid $primary-color;
+  border-radius: 5px;
+  margin: 30px auto 10px;
+  width: 85%;
+  max-width: 500px;
+
+  @include respond-to(mobile) {
+    width: 90%;
+  }
+}
+
+.titleDropdownButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.title {
+  font-weight: 300;
+  text-align: center;
+  margin: 20px 50px;
+}
+
+.dropdownArrow {
+  width: 30px;
+  margin: 10px 20px;
+  transition: transform 0.5s ease-in-out;
+}
+
+.dropdownArrowRotated {
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+}
+
+.titleDropdownContent {
+  overflow: hidden;
+  height: 0;
+  margin: 0;
+  transition: height 0.5s ease-in-out, margin 0.5s ease-in-out;
+}
+
+.warInfo {
+  border-radius: 5px;
+  background: $primary-color;
+  color: white;
+  padding: 10px;
+}
+
+.infoItem {
+  padding: 5px;
+  font-size: 18px;
+  font-weight: 300;
+}
