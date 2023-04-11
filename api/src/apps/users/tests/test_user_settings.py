@@ -1,7 +1,6 @@
-from django.core.exceptions import ValidationError
-
 from apps.common.tests import TestCase
 from apps.users.models import UserSettings
+from django.core.exceptions import ValidationError
 
 
 class TestUserSettings(TestCase):
@@ -22,9 +21,12 @@ class TestUserSettings(TestCase):
             self.fail('Did not raise ValidationError')
 
     def test_should_not_raise_any_error_when_email_is_allowed(self):
+        # When all domains are allowed:
+        self.user_settings.update(allowed_email_domains=['*'])
+        self.user_settings.validate_email(email='example@example.com')
+
+        # When only specific domains are allowed:
         self.user_settings.update(allowed_email_domains=['example.com'])
-        self.assertEqual(self.user_settings.allowed_email_domains, ['example.com'])
-        self.assertEqual(self.user_settings.allowed_emails, [])
         self.user_settings.validate_email(email='example@example.com')
 
         # When email address is not allowed by "allowed domain domains", but it is by "allowed emails":
