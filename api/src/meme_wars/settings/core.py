@@ -3,6 +3,8 @@ import sys
 from os import getenv
 from os.path import abspath, basename, dirname, join, normpath
 
+from meme_wars.settings import custom as custom_settings
+
 # ##### PATH CONFIGURATION ################################
 
 # fetch Django's project directory
@@ -125,7 +127,7 @@ SECRET_FILE = normpath(join(PROJECT_ROOT, 'run', 'SECRET.key'))
 
 # these persons receive error notification
 ADMINS = (
-    ('your name', 'your_name@example.com'),
+    ('Admin', getenv('DJANGO_SUPERUSER_EMAIL')),
 )
 MANAGERS = ADMINS
 
@@ -173,3 +175,7 @@ DATABASES = {
 ALLOWED_HOSTS = ['*']
 
 LOGIN_REDIRECT_URL = '/'
+
+CSRF_TRUSTED_ORIGINS = (
+    custom_settings.HOST_URL,
+)
