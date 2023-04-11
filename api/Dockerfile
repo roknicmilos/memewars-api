@@ -33,7 +33,7 @@ RUN pip install -r /app/requirements/production.txt
 ### STAGING image ###
 ########################
 
-FROM production AS staging
+FROM base AS staging
 
 ENV ENVIRONMENT='staging'
 
