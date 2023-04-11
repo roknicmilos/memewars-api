@@ -14,6 +14,7 @@ COPY ./api/src              /app/src
 
 
 RUN pip install --upgrade pip
+RUN pip install -r /app/requirements/base.txt
 
 WORKDIR /app/src
 
@@ -27,8 +28,6 @@ FROM base AS production
 
 ENV ENVIRONMENT='production'
 
-RUN pip install -r /app/requirements/production.txt
-
 ########################
 ### STAGING image ###
 ########################
@@ -37,8 +36,6 @@ FROM base AS staging
 
 ENV ENVIRONMENT='staging'
 
-RUN pip install -r /app/requirements/development.txt
-
 #########################
 ### DEVELOPMENT image ###
 #########################
@@ -46,5 +43,3 @@ RUN pip install -r /app/requirements/development.txt
 FROM base AS development
 
 ENV ENVIRONMENT='development'
-
-RUN pip install -r /app/requirements/development.txt
