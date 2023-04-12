@@ -5,21 +5,21 @@ import { WarInSubmissionMeme } from "./meme/WarInSubmissionMeme";
 import { useWarMemes } from "../../../../hooks/useWarMemes";
 import { Loader } from "../../../components/loader/Loader";
 import { WarHeader } from "../../../components/war-header/WarHeader";
+import { memeService } from "../../../../services/memeService";
 
 interface WarInSubmissionProps {
   war: War;
 }
 
 export function WarInSubmission({ war }: WarInSubmissionProps) {
-  const [ memes, isLoading ] = useWarMemes(war.id);
+  const { memes, setMemes, isLoading, setIsLoading } = useWarMemes(war.id);
   const [ hasOpenedHeader, setHasOpenedHeader ] = useState<boolean>(false);
 
-  function onImageUpload(event: any): void {
-    alert("TODO: request to API to create the meme");
-  }
-
-  function toggleHeader() {
-    setHasOpenedHeader(!hasOpenedHeader);
+  async function uploadMeme(event: any): Promise<void> {
+    setIsLoading(true);
+    const meme = await memeService.uploadMeme(war.id, event.target.files[0]);
+    setMemes([ meme, ...memes ]);
+    setIsLoading(false);
   }
 
   if (isLoading) return <Loader/>;
@@ -29,7 +29,7 @@ export function WarInSubmission({ war }: WarInSubmissionProps) {
       <WarHeader
         war={ war }
         isOpened={ hasOpenedHeader }
-        onClick={ toggleHeader }
+        onClick={ () => setHasOpenedHeader(!hasOpenedHeader) }
       />
       <div className={ styles.explanatoryText }>
         <p>
@@ -45,10 +45,16 @@ export function WarInSubmission({ war }: WarInSubmissionProps) {
       </div>
       <form className={ styles.uploadedMemesForm }>
         <label htmlFor="file-upload" className={ styles.uploadFileButton }>
-          <input id="file-upload" type="file" onChange={ onImageUpload }/>
+          <input id="file-upload" type="file" onChange={ uploadMeme }/>
           Upload new meme
         </label>
-        { memes.map(meme => <WarInSubmissionMeme key={ meme.id } meme={ meme }/>) }
+        { memes.map(meme => (
+          <WarInSubmissionMeme
+            key={ meme.id }
+            meme={ meme }
+            displayApprovalStatus={ war.requires_meme_approval }
+          />
+        )) }
       </form>
     </>
   );

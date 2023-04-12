@@ -2,7 +2,14 @@ import { Meme } from "../models/meme";
 import { useEffect, useState } from "react";
 import { memeService } from "../services/memeService";
 
-export function useWarMemes(warID: number): [ Meme[], boolean ] {
+interface UseWarMemesReturnValue {
+  memes: Meme[];
+  setMemes(memes: Meme[]): void;
+  isLoading: boolean;
+  setIsLoading(isLoading: boolean): void;
+}
+
+export function useWarMemes(warID: number): UseWarMemesReturnValue {
   const [ isLoading, setIsLoading ] = useState<boolean>(true);
   const [ memes, setMemes ] = useState<Meme[]>([]);
 
@@ -18,5 +25,5 @@ export function useWarMemes(warID: number): [ Meme[], boolean ] {
     }
   }, []);
 
-  return [ memes, isLoading ];
+  return { memes, setMemes, isLoading, setIsLoading };
 }

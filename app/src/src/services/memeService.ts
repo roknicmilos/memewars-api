@@ -1,7 +1,6 @@
 import { createAPIClient } from "./apiClient";
 import { Meme } from "../models/meme";
 
-
 export const memeService = {
 
   async getMemes(warID: number): Promise<Meme[]> {
@@ -14,10 +13,13 @@ export const memeService = {
     if (currentMeme.total_score < nextMeme.total_score) {
       return 1;
     }
-    if (currentMeme.total_score > nextMeme.total_score) {
-      return -1;
-    }
-    return 0;
+    return currentMeme.total_score > nextMeme.total_score ? -1 : 0;
+  },
+
+  async uploadMeme(warID: number, image: File): Promise<Meme> {
+    const apiClient = createAPIClient({ "Content-Type": "multipart/form-data" });
+    const response = await apiClient.post(`/memes/`, { war: warID, image: image });
+    return response.data;
   },
 
 };

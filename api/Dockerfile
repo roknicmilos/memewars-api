@@ -36,8 +36,6 @@ FROM base AS staging
 
 ENV ENVIRONMENT='staging'
 
-RUN pip install -r /app/requirements/development.txt
-
 #########################
 ### DEVELOPMENT image ###
 #########################

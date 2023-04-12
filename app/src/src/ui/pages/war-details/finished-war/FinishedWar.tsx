@@ -12,12 +12,8 @@ interface FinishedWarProps {
 }
 
 export function FinishedWar({ war }: FinishedWarProps) {
-  const [ memes, isLoading ] = useWarMemes(war.id);
+  const { memes, isLoading } = useWarMemes(war.id);
   const [ hasOpenedHeader, setHasOpenedHeader ] = useState<boolean>(false);
-
-  function toggleHeader() {
-    setHasOpenedHeader(!hasOpenedHeader);
-  }
 
   if (isLoading) return <Loader/>;
 
@@ -26,7 +22,7 @@ export function FinishedWar({ war }: FinishedWarProps) {
       <WarHeader
         war={ war }
         isOpened={ hasOpenedHeader }
-        onClick={ toggleHeader }
+        onClick={ () => setHasOpenedHeader(!hasOpenedHeader) }
         extraInfoItems={ [ { label: "Voters", value: war.voter_count } ] }
       />
       <div className={ styles.explanatoryText }>

@@ -41,8 +41,8 @@ export function WarHeader({ war, onClick, isOpened, extraInfoItems = [] }: WarHe
       </div>
       <div className={ styles.titleDropdownContent } style={ dropdownContentStyle }>
         <div className={ styles.warInfo }>
-          { infoItems.map(item => (
-            <p className={ styles.infoItem }>
+          { infoItems.map((item, index) => (
+            <p key={ index } className={ styles.infoItem }>
               <span>{ item.label }: </span>
               <span>{ item.value }</span>
             </p>
