@@ -14,21 +14,35 @@ class APITestCase(TestCase):
         self.client = APIClient(HTTP_HOST=self.http_host)
 
     def assertProtectedGETEndpoint(self, url_path: str) -> None:
-        # When Bearer token is not provided:
-        response = self.client.get(path=url_path)
-        self.assertMissingAuthToken(response=response)
-
-        # When Bearer token is invalid:
-        response = self.client.get(path=url_path, HTTP_AUTHORIZATION='Bearer XYZ')
-        self.assertInvalidAuthToken(response=response)
+        self._assert_protected_endpoint(method='get', url_path=url_path)
 
     def assertProtectedPOSTEndpoint(self, url_path: str, data: dict) -> None:
+        self._assert_protected_endpoint(method='post', url_path=url_path, data=data)
+
+    def assertProtectedDELETEEndpoint(self, url_path: str) -> None:
+        self._assert_protected_endpoint(method='delete', url_path=url_path)
+
+    def _assert_protected_endpoint(self, method: str, url_path: str, data: dict = None) -> None:
+        supported_methods = ['get', 'post', 'delete']
+        if method not in supported_methods:
+            self.fail(f'Method "{method}" is not supported')
+        if method == 'post' and data is None:
+            self.fail('Method "post" requires data')
+
+        method_func = getattr(self.client, method)
+        method_kwargs = {
+            'path': url_path,
+        }
+        if data is not None:
+            method_kwargs['data'] = data
+
         # When Bearer token is not provided:
-        response = self.client.post(path=url_path, data=data)
+        response = method_func(**method_kwargs)
         self.assertMissingAuthToken(response=response)
 
         # When Bearer token is invalid:
-        response = self.client.post(path=url_path, data=data, HTTP_AUTHORIZATION='Bearer XYZ')
+        method_kwargs['HTTP_AUTHORIZATION'] = 'Bearer XYZ'
+        response = method_func(**method_kwargs)
         self.assertInvalidAuthToken(response=response)
 
     def assertMissingAuthToken(self, response: Response) -> None:

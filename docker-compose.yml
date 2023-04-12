@@ -16,6 +16,8 @@ services:
       - postgres
     volumes:
       - ./api/src:/app/src/
+      - ./api/scripts/entrypoint.sh:/app/scripts/entrypoint.sh
+      - ./api/scripts/check_project.sh:/app/scripts/check_project.sh
 
   postgres:
     container_name: meme-wars-postgres
