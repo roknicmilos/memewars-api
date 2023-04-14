@@ -19,7 +19,7 @@ export function WarHeader({ war, onClick, isOpened, extraInfoItems = [] }: WarHe
   const infoItems: InfoItem[] = [
     { label: "Phase", value: war.phase },
     { label: "Memes", value: war.meme_count },
-    { label: "Requires approval of memes?", value: war.requires_meme_approval },
+    { label: "Requires approval of memes", value: war.requires_meme_approval ? 'Yes' : 'No' },
     ...extraInfoItems,
   ];
 

@@ -1,0 +1,63 @@
+@import "../../../../main.module";
+
+.options {
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 50px;
+  opacity: 0.6;
+}
+
+.optionsOpened {
+  @extend .options;
+  top: 10px;
+  right: 10px;
+  justify-content: space-between;
+  width: 300px;
+  background: rgba(255, 255, 255, 0.8);
+  opacity: 1;
+  padding: 0 10px;
+}
+
+.status {
+  height: 70px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+}
+
+.statusText {
+  display: none;
+  align-items: center;
+}
+
+.optionsOpened .statusText {
+  display: flex;
+}
+
+.statusIcon {
+  margin: 0 5px;
+  width: 50px;
+  height: 50px;
+}
+
+.deleteButton {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  width: 90px;
+  height: 70px;
+}
+
+.optionsOpened .deleteButton {
+  display: flex;
+}
+
+.deleteIcon {
+  height: 50px;
+}
