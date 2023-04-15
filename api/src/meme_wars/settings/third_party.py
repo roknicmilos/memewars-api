@@ -1,5 +1,6 @@
 from os import getenv
 
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'apps.users.authentication.TokenAuthentication',
@@ -21,5 +22,5 @@ SPECTACULAR_SETTINGS = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    getenv('WEB_APP_BASE_URL'),
+    f'{getenv("WEB_APP_BASE_URL")}:{getenv("WEB_APP_PORT")}',
 ]
