@@ -1,6 +1,5 @@
 # meme wars
 
-
 ## Development setup
 
 ### Setup requirements
@@ -18,6 +17,10 @@
 
    For older versions of Docker Compose use: `docker-compose up`
 
+**NOTE**: There are multiple `docker exec` command in the text that follows. This command is
+executed for a running container, which means that everywhere this command is mentioned, we
+assume that the container for which this command is being executed is running. Check if containers
+are running with `docker ps` command.
 
 #### API
 
@@ -25,33 +28,31 @@ If the project is running, the API documentation should be available at
 [api/schema/swagger-ui/](http://localhost:8000/api/schema/swagger-ui/)
 and [api/schema/redoc/](http://localhost:8000/api/schema/redoc/).
 
-
 ### Tests and linting
-
 
 #### Run tests
 
     docker exec -t meme-wars-django sh -c 'pytest'
 
-The above command will run all tests. 
-Flag `-t` is optional (it provides additional output coloring when used). 
+The above command will run all tests.
+Flag `-t` is optional (it provides additional output coloring when used).
 
 To run the same tests in parallel, append `-n auto` to the `pytest` command:
 
     docker exec -t meme-wars-django sh -c 'pytest -n auto'
 
-#### Run tests with coverage 
-    
+#### Run tests with coverage
+
     docker exec -t meme-wars-django sh -c 'pytest --cov -n auto'    
 
-This will run all tests in parallel with coverage report. 
+This will run all tests in parallel with coverage report.
 Running tests like this is necessary to generate the tests coverage report.
 
 #### Generate tests coverage report
 
     docker exec meme-wars-django sh -c 'coverage html'
 
-This will generate html for the tests coverage report which is useful when trying 
+This will generate html for the tests coverage report which is useful when trying
 to find out exactly which code is not covered by tests.
 You can simply open the generated `index.html` in your browser and explore all files
 and places in those files which are covered, not covered and ignored by tests coverage.
@@ -61,27 +62,40 @@ can run:
 
     docker exec meme-wars-django sh -c 'coverage report'
 
-This will print the coverage report generated the last time tests wer run with the 
+This will print the coverage report generated the last time tests wer run with the
 coverage ([Run tests with coverage](#run-tests-with-coverage)).
 
-#### Run linter
+#### Run linters
 
-    docker exec meme-wars-django sh -c 'flake8'
+- **Code security**:
 
-If there are no linting errors, the command will not have any output.
-If there are linting errors, the output of the command will be those errors.
+        docker exec meme-wars-django sh -c 'bandit .'
 
-#### Simultaneously run tests, coverage and linter
+  The above command will run [Bandit](https://bandit.readthedocs.io/) will check for
+  security issues in Python code.
+
+
+- **Code quality**:
+
+        docker exec meme-wars-django sh -c 'flake8'
+
+  The above command will run [Flake8](https://flake8.pycqa.org/) runs multiple tools to
+  check the quality of Python code.
+  If there are no issues, the command will not have any output.
+  If there are issues, they will be displayed in the output of the command.
+
+#### Simultaneously run tests, coverage and linters
 
     docker exec -t meme-wars-django sh -c '/app/scripts/check_project.sh'
 
 The above command will run the `check_project.sh` script which will:
-1. run all tests with coverage in parallel 
-2. generate html for the coverage report 
-3. run the linter
+
+1. run all tests with coverage in parallel
+2. generate html for the coverage report
+3. run [Bandit](https://bandit.readthedocs.io/) to check security of Python code
+4. run [Flake8](https://flake8.pycqa.org/) to check quality of Python code
 
 The flag `-t` is optional just like when [only running tests](#run-tests).
-
 
 ### Initial Data
 
@@ -92,8 +106,8 @@ with the credentials from `.env` file. If you want to create a new one, run:
 
     docker exec -t meme-wars-django sh -c 'python3 manage.py createsuperuser'
 
-If the superuser with the credentials from the `.env` file does not exist, you 
-can create it by running: 
+If the superuser with the credentials from the `.env` file does not exist, you
+can create it by running:
 
     docker exec meme-wars-django sh -c 'python3 manage.py createsuperuser --noinput'
 
@@ -109,14 +123,17 @@ command. For example, to load `users` fixtures, and then `wars` fixtures:
 
     docker exec meme-wars-django sh -c 'python3 manage.py load_data users wars'
 
+## Production and staging setup
 
-## Production setup
-
-Production setup requirements and steps are the same as for [Development setup](#development-setup), 
-and the only thing that differs is that you have to specify a different Docker Compose file when 
+Production and setup requirements and steps are the same as for [Development setup](#development-setup),
+and the only thing that differs is that you have to specify a different Docker Compose file when
 starting the app:
 
     docker compose -f docker-compose.production.yml up
 
-None of the [Initial data](#initial-data) will be loaded in this case, but you can load it manually.
+or
 
+    docker compose -f docker-compose.staging.yml up
+
+Check [api/scripts/entrypoint.sh](api/scripts/entrypoint.sh) and
+[app/scripts/entrypoint.sh](app/scripts/entrypoint.sh) for differences between each environment.

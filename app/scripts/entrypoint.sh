@@ -17,7 +17,7 @@ init_react_project() {
     npm install
     npm start
 
-  elif [ "$ENVIRONMENT" = 'production' ]; then
+  elif [ "$ENVIRONMENT" = 'production' ] || [ "$ENVIRONMENT" = 'staging' ]; then
     print_react_project_init_info
     npm install
     npm run build

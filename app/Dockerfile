@@ -19,6 +19,14 @@ ENV ENVIRONMENT='production'
 RUN npm install -g serve
 
 #########################
+### STAGING image ###
+#########################
+
+FROM production AS staging
+
+ENV ENVIRONMENT='staging'
+
+#########################
 ### DEVELOPMENT image ###
 #########################
 

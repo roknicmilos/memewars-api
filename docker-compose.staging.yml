@@ -5,49 +5,20 @@ services:
   django:
     container_name: meme-wars-django--staging
     build:
-      dockerfile: ./api/Dockerfile
       target: staging
-    env_file:
-      - .env
-    ports:
-      - "8001:8000"
-    depends_on:
-      - postgres
     volumes:
       - ./api/src/run:/app/src/run/
 
   postgres:
     container_name: meme-wars-postgres--staging
-    image: postgres:14
-    environment:
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_USER=${DB_USERNAME}
-      - POSTGRES_DB=${DB_NAME}
-    volumes:
-      - meme-wars-postgres-data:/var/lib/postgresql/data
 
   pgadmin:
-    image: dpage/pgadmin4
     container_name: meme-wars-pgadmin--staging
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
-      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
-    ports:
-      - "8081:80"
-    depends_on:
-      - postgres
-    volumes:
-      - meme-wars-pgadmin-data:/var/lib/pgadmin
 
   react:
     container_name: meme-wars-react--staging
     build:
-      dockerfile: ./app/Dockerfile
-      target: production
-    env_file:
-      - .env
-    ports:
-      - "3001:3000"
+      target: staging
 
 volumes:
   meme-wars-postgres-data:

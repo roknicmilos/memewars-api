@@ -10,7 +10,11 @@ pytest --cov -n auto
 printc "\nGenerating html for previously checked test coverage...\n" "info"
 coverage html
 
+printc "\nChecking security of the code...\n" "info"
+bandit .
+
 printc "\nReporting linting issues...\n" "info"
-python3 -m flake8 --count
+flake8 --count
+
 
 echo
