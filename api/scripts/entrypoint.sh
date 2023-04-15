@@ -15,8 +15,8 @@ wait_for_postgres() {
 
 print_django_project_init_info() {
   printc "Starting Django app in $ENVIRONMENT mode \n" "info"
-  printc "WEB API URL: $WEB_API_BASE_URL:$WEB_API_PORT \n" "info"
-  printc "WEB APP URL: $WEB_APP_BASE_URL:$WEB_APP_PORT \n" "info"
+  printc "WEB API URL: $WEB_API_BASE_URL \n" "info"
+  printc "WEB APP URL: $WEB_APP_BASE_URL \n" "info"
 }
 
 init_django_project() {

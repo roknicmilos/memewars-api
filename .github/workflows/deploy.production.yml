@@ -27,7 +27,7 @@ jobs:
           key: ${{ secrets.SERVER_KEY }}
           script: |
             cd /var/www/memewars-production
-            git checkout staging
-            git pull || exit
-            docker compose -f docker-compose.production.yml build
-            docker compose -f docker-compose.production.yml up -d
+            git fetch origin
+            git reset --hard origin/main || exit
+            docker compose -f docker-compose.yml -f docker-compose.production.yml build
+            docker compose -f docker-compose.yml -f docker-compose.production.yml up -d
