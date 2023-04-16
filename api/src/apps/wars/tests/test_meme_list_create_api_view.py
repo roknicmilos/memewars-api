@@ -154,4 +154,8 @@ class TestMemeListCreateAPIView(APITestCase):
         self.assertEqual(meme.approval_status, Meme.ApprovalStatuses.PENDING)
         serializer = MemeSerializer(instance=meme)
         # serializer.data['image'] is an absolute URL, and it should contain meme.image.url path:
-        self.assertTrue(serializer.data['image'].endswith(meme.image.url))
+        for key, value in response.json().items():
+            if key == 'image':
+                self.assertTrue(serializer.data['image'].endswith(meme.image.url))
+                continue
+            self.assertEqual(value, serializer.data[key])

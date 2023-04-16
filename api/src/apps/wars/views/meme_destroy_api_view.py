@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from apps.users.authentication import TokenAuthentication
 
 
-class DestroyMemeAPIView(DestroyAPIView):
+class MemeDestroyAPIView(DestroyAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 

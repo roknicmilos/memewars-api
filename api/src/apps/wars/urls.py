@@ -9,7 +9,7 @@ wars_urlpatterns = [
 
 memes_urlpatterns = [
     path('', views.MemeListCreateAPIView.as_view(), name='index'),
-    path('<int:pk>/', views.DestroyMemeAPIView.as_view(), name='details'),
+    path('<int:pk>/', views.MemeDestroyAPIView.as_view(), name='details'),
 ]
 
 urlpatterns = [

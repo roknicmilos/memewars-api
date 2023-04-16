@@ -6,7 +6,7 @@ from apps.wars.models import Meme
 from apps.wars.tests.factories import MemeFactory
 
 
-class TestDestroyMemeAPIView(APITestCase):
+class TestMemeDestroyAPIView(APITestCase):
 
     def test_destroy_endpoint_should_return_response_401_when_authentication_headers_are_invalid(self):
         meme = MemeFactory()

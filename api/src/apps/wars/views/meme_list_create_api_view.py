@@ -5,7 +5,7 @@ from rest_framework.generics import ListCreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from apps.users.authentication import TokenAuthentication
 from apps.wars.models import Meme, War
-from apps.wars.serializers import MemeSerializer, CreateMemeSerializer
+from apps.wars.serializers import MemeSerializer
 
 
 @extend_schema_view(
@@ -17,11 +17,9 @@ from apps.wars.serializers import MemeSerializer, CreateMemeSerializer
         responses=MemeSerializer,
     ),
     post=extend_schema(
-        description=_(
-            'Memes can ony be created by and for authenticated users'
-        ),
-        request=CreateMemeSerializer,
-        responses=CreateMemeSerializer,
+        description=_('Memes can ony be created by and for authenticated users'),
+        request=MemeSerializer,
+        responses=MemeSerializer,
     ),
 )
 class MemeListCreateAPIView(ListCreateAPIView):
@@ -29,9 +27,7 @@ class MemeListCreateAPIView(ListCreateAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     filterset_fields = ['war', ]
-
-    def get_serializer_class(self) -> type[MemeSerializer | CreateMemeSerializer]:
-        return CreateMemeSerializer if self.request.method == 'POST' else MemeSerializer
+    serializer_class = MemeSerializer
 
     def get_queryset(self) -> QuerySet:
         excludes = Q(war__phase=War.Phases.PREPARATION)
@@ -52,7 +48,7 @@ class MemeListCreateAPIView(ListCreateAPIView):
         )
         return Meme.objects.exclude(excludes).filter(filters).order_by('-created').all()
 
-    def get_serializer(self, *args, **kwargs) -> CreateMemeSerializer | MemeSerializer:
+    def get_serializer(self, *args, **kwargs) -> MemeSerializer:
         if self.request.method == 'POST':
             kwargs['data'] = {**kwargs['data'].dict(), 'user': self.request.user.pk}
             return super().get_serializer(*args, **kwargs)
