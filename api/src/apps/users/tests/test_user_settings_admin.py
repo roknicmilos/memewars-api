@@ -9,7 +9,7 @@ from apps.users.admin import UserSettingsAdmin
 from apps.users.models import UserSettings
 
 
-class TestUserSettingsModelAdmin(TestCase):
+class TestUserSettingsAdmin(TestCase):
 
     def setUp(self) -> None:
         super().setUp()
