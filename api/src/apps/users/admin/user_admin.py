@@ -4,7 +4,9 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
 
+from apps.users.admin import MemeAdminInline
 from apps.users.models import User
+
 
 admin.site.unregister(Group)
 
@@ -20,7 +22,9 @@ class UserAdmin(BaseUserAdmin):
     list_display = ('email', 'is_active', 'is_staff', 'is_superuser',)
     search_fields = ('first_name', 'last_name', 'email')
     ordering = ('email',)
-
+    inlines = (
+        MemeAdminInline,
+    )
     add_form = CreateUserForm
     fieldsets = (
         (None, {'fields': ('id', 'email', 'password')}),
