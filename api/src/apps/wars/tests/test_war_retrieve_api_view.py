@@ -7,7 +7,7 @@ from apps.wars.serializers import WarSerializer
 from apps.wars.tests.factories import WarFactory
 
 
-class TestWarDetailsAPIView(APITestCase):
+class TestWarRetrieveAPIView(APITestCase):
 
     def setUp(self) -> None:
         self.war = WarFactory()

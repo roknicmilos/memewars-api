@@ -1,13 +1,15 @@
 from django.urls import path, include
-from apps.wars.views import WarListAPIView, MemeListAPIView, WarDetailsAPIView
+from apps.wars import views
+
 
 wars_urlpatterns = [
-    path('', WarListAPIView.as_view(), name='list'),
-    path('<int:pk>/', WarDetailsAPIView.as_view(), name='details'),
+    path('', views.WarListAPIView.as_view(), name='index'),
+    path('<int:pk>/', views.WarRetrieveAPIView.as_view(), name='details'),
 ]
 
 memes_urlpatterns = [
-    path('', MemeListAPIView.as_view(), name='list'),
+    path('', views.MemeListCreateAPIView.as_view(), name='index'),
+    path('<int:pk>/', views.MemeDestroyAPIView.as_view(), name='details'),
 ]
 
 urlpatterns = [
