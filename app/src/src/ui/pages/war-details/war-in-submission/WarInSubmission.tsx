@@ -13,7 +13,6 @@ interface WarInSubmissionProps {
 
 export function WarInSubmission({ war }: WarInSubmissionProps) {
   const { memes, setMemes, isLoading, setIsLoading } = useWarMemes(war.id);
-  const [ hasOpenedHeader, setHasOpenedHeader ] = useState<boolean>(false);
 
   async function uploadMeme(event: any): Promise<void> {
     setIsLoading(true);
@@ -31,12 +30,7 @@ export function WarInSubmission({ war }: WarInSubmissionProps) {
 
   return (
     <>
-      <WarHeader
-        war={ war }
-        isOpened={ hasOpenedHeader }
-        onClick={ () => setHasOpenedHeader(!hasOpenedHeader) }
-      />
-      <div className={ styles.explanatoryText }>
+      <WarHeader war={ war }>
         <p>
           Upload or remove memes that are going to be a part
           of <span className={ styles.boldText }>{ war.name }</span>.
@@ -47,7 +41,7 @@ export function WarInSubmission({ war }: WarInSubmissionProps) {
             memes that you uploaded will end up in the next phase of the war.
           </p>
         ) }
-      </div>
+      </WarHeader>
       <form className={ styles.uploadedMemesForm }>
         <label htmlFor="file-upload" className={ styles.uploadFileButton }>
           <input id="file-upload" type="file" onChange={ uploadMeme }/>
