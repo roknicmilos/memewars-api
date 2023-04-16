@@ -13,19 +13,13 @@ interface FinishedWarProps {
 
 export function FinishedWar({ war }: FinishedWarProps) {
   const { memes, isLoading } = useWarMemes(war.id);
-  const [ hasOpenedHeader, setHasOpenedHeader ] = useState<boolean>(false);
 
   if (isLoading) return <Loader/>;
 
   return (
     <>
-      <WarHeader
-        war={ war }
-        isOpened={ hasOpenedHeader }
-        onClick={ () => setHasOpenedHeader(!hasOpenedHeader) }
-        extraInfoItems={ [ { label: "Voters", value: war.voter_count } ] }
-      />
-      <div className={ styles.explanatoryText }>
+      <WarHeader war={ war }>
+        <p>Memes are sorted by their score where those with the highest scores are at the top</p>
         <p>
           Check the voting results of <span className={ styles.boldText }>{ war.name }</span>.
         </p>
@@ -35,8 +29,7 @@ export function FinishedWar({ war }: FinishedWarProps) {
             only the approved memes are listed below.
           </p>
         ) }
-        <p>Memes are sorted by their score where those with the highest scores are at the top</p>
-      </div>
+      </WarHeader>
       <div className={ styles.memes }>
         { memes.sort(memeService.sortMemesByTotalScore).map(meme => (
           <FinishedWarMeme key={ meme.id } meme={ meme }/>

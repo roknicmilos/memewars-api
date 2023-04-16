@@ -1,53 +1,41 @@
-import React from "react";
+import React, { CSSProperties, useCallback, useState } from "react";
 import styles from "./WarHeader.module.scss";
 import dropdownVG from "../../../assets/dropdown.svg";
 import { War } from "../../../models/war";
-
-interface InfoItem {
-  label: string;
-  value: string | number | boolean;
-}
+import { htmlService } from "../../../services/htmlService";
 
 interface WarHeaderProps {
+  children?: any;
   war: War;
-  onClick(): void;
-  isOpened?: boolean;
-  extraInfoItems?: InfoItem[];
 }
 
-export function WarHeader({ war, onClick, isOpened, extraInfoItems = [] }: WarHeaderProps) {
-  const infoItems: InfoItem[] = [
-    { label: "Phase", value: war.phase },
-    { label: "Memes", value: war.meme_count },
-    { label: "Requires approval of memes", value: war.requires_meme_approval ? 'Yes' : 'No' },
-    ...extraInfoItems,
-  ];
+export function WarHeader({ children, war }: WarHeaderProps) {
+  const [ isExpended, setIsExpended ] = useState<boolean>(false);
+  const [ dropdownContentStyle, setDropdownContentStyle ] = useState<CSSProperties>({});
 
   const dropdownArrowClasses = [
     styles.dropdownArrow,
-    isOpened ? styles.dropdownArrowRotated : "",
+    isExpended ? styles.dropdownArrowRotated : "",
   ].join(" ");
 
-  const dropdownContentStyle = {
-    height: `${ isOpened ? infoItems.length * 31 + 20 : 0 }px`,
-    margin: `${ isOpened ? 6 : 0 }px`,
-  };
+  const toggleDropdown = useCallback(() => {
+    const shouldExpand = !isExpended;
+    setIsExpended(shouldExpand);
+    const dropdownContentHeight = htmlService.getElementContentHeight("war-header-dropdown-content");
+    setDropdownContentStyle({
+      height: `${ shouldExpand ? dropdownContentHeight : 0 }px`,
+      padding: shouldExpand ? "40px 0 70px" : "0",
+    });
+  }, [ isExpended ]);
 
   return (
     <div className={ styles.warHeader }>
-      <div className={ styles.titleDropdownButton } onClick={ onClick }>
+      <div className={ styles.titleDropdownButton } onClick={ toggleDropdown }>
         <h1 className={ styles.title }>{ war.name }</h1>
         <img className={ dropdownArrowClasses } src={ dropdownVG } alt="carrot"/>
       </div>
-      <div className={ styles.titleDropdownContent } style={ dropdownContentStyle }>
-        <div className={ styles.warInfo }>
-          { infoItems.map((item, index) => (
-            <p key={ index } className={ styles.infoItem }>
-              <span>{ item.label }: </span>
-              <span>{ item.value }</span>
-            </p>
-          )) }
-        </div>
+      <div id="war-header-dropdown-content" className={ styles.titleDropdownContent } style={ dropdownContentStyle }>
+        { children }
       </div>
     </div>
   );
