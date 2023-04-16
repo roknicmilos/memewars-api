@@ -18,8 +18,13 @@ export const memeService = {
 
   async uploadMeme(warID: number, image: File): Promise<Meme> {
     const apiClient = createAPIClient({ "Content-Type": "multipart/form-data" });
-    const response = await apiClient.post(`/memes/`, { war: warID, image: image });
+    const response = await apiClient.post("/memes/", { war: warID, image: image });
     return response.data;
+  },
+
+  async deleteMeme(memeID: number): Promise<void> {
+    const apiClient = createAPIClient();
+    await apiClient.delete(`/memes/${ memeID }`);
   },
 
 };

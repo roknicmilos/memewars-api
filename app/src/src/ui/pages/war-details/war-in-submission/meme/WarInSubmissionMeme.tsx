@@ -6,9 +6,10 @@ import { MemeOptions } from "../meme-approval-status/MemeOptions";
 interface WarInSubmissionMemeProps {
   meme: Meme;
   displayApprovalStatus?: boolean;
+  onDelete(): Promise<void>;
 }
 
-export function WarInSubmissionMeme({ meme, displayApprovalStatus }: WarInSubmissionMemeProps) {
+export function WarInSubmissionMeme({ meme, displayApprovalStatus, onDelete }: WarInSubmissionMemeProps) {
   const [ isShowingDetails, setIsShowingDetails ] = useState<boolean>(false);
 
   return (
@@ -18,6 +19,7 @@ export function WarInSubmissionMeme({ meme, displayApprovalStatus }: WarInSubmis
           approvalStatus={ meme.approval_status }
           isExpanded={ isShowingDetails }
           onStatusClick={ () => setIsShowingDetails(!isShowingDetails) }
+          onDeleteMeme={ onDelete }
         />
       ) }
       <img

@@ -22,6 +22,11 @@ export function WarInSubmission({ war }: WarInSubmissionProps) {
     setIsLoading(false);
   }
 
+  async function deleteMeme(memeID: number): Promise<void> {
+    await memeService.deleteMeme(memeID);
+    setMemes(memes.filter(meme => meme.id != memeID));
+  }
+
   if (isLoading) return <Loader/>;
 
   return (
@@ -53,6 +58,7 @@ export function WarInSubmission({ war }: WarInSubmissionProps) {
             key={ meme.id }
             meme={ meme }
             displayApprovalStatus={ war.requires_meme_approval }
+            onDelete={ () => deleteMeme(meme.id) }
           />
         )) }
       </form>

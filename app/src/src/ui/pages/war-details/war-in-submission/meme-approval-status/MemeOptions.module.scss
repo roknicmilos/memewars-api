@@ -1,24 +1,26 @@
 @import "../../../../main.module";
 
 .options {
+  position: absolute;
+  top: 10px;
+  right: 10px;
   display: flex;
   justify-content: flex-end;
-  position: absolute;
-  top: 0;
-  right: 0;
   border-radius: 50px;
   opacity: 0.6;
+  width: 70px;
+  overflow: hidden;
+  transition: background-color 0.5s ease-in, width 0.5s ease-in;
 }
 
 .optionsOpened {
   @extend .options;
-  top: 10px;
-  right: 10px;
   justify-content: space-between;
   width: 300px;
-  background: rgba(255, 255, 255, 0.8);
   opacity: 1;
   padding: 0 10px;
+  background: rgba(255, 255, 255, 0.8);
+  transition: background-color 0.5s ease-in, width 0.5s ease-in;
 }
 
 .status {
@@ -60,4 +62,68 @@
 
 .deleteIcon {
   height: 50px;
+}
+
+.deleteModalContent {
+  font-size: 22px;
+  font-weight: 300;
+  text-align: center;
+}
+
+.deleteModalButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+
+  @include respond-to(tablet) {
+    flex-direction: column;
+  }
+}
+
+.abortDeletionButton,
+.confirmDeletionButton {
+  @extend .button;
+  width: 200px;
+  margin: 10px 20px;
+  justify-content: center;
+
+  p {
+    width: 50px;
+    margin-top: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @include respond-to(mobile) {
+    width: 100%;
+  }
+}
+
+.abortDeletionButton {
+  background-color: white;
+  border-color: royalblue;
+  color: royalblue;
+}
+
+.abortDeletionButton:hover {
+  background-color: #c3d2ff;
+  color: royalblue;
+}
+
+.confirmDeletionButton {
+  background-color: white;
+  border-color: red;
+  color: red;
+}
+
+.confirmDeletionButton:hover {
+  background-color: #ffd6d6;
+  color: red;
+}
+
+.emoji {
+  font-size: 30px;
+  margin: 0 10px;
 }
