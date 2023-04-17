@@ -1,6 +1,6 @@
 # Python imports
 import sys
-from os import getenv
+from decouple import config
 from os.path import abspath, basename, dirname, join, normpath
 
 from meme_wars.settings import custom as custom_settings
@@ -16,7 +16,7 @@ PROJECT_ROOT = dirname(DJANGO_ROOT)
 # the name of the whole site
 SITE_NAME = basename(DJANGO_ROOT)
 
-DEBUG = getenv('ENVIRONMENT').lower() == 'development'
+DEBUG = config('ENVIRONMENT').lower() == 'development'
 
 if not DEBUG:  # pragma: no cover
     LOGGING = {
@@ -127,7 +127,7 @@ SECRET_FILE = normpath(join(PROJECT_ROOT, 'run', 'SECRET.key'))
 
 # these persons receive error notification
 ADMINS = (
-    ('Admin', getenv('DJANGO_SUPERUSER_EMAIL')),
+    ('Admin', config('DJANGO_SUPERUSER_EMAIL')),
 )
 MANAGERS = ADMINS
 
@@ -164,10 +164,10 @@ AUTH_USER_MODEL = 'users.User'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': getenv('DB_NAME'),
-        'USER': getenv('DB_USERNAME'),
-        'PASSWORD': getenv('DB_PASSWORD'),
-        'HOST': getenv('DB_HOSTNAME'),
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USERNAME'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOSTNAME'),
         'PORT': 5432,
     }
 }

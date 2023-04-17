@@ -1,4 +1,4 @@
-from os import getenv
+from decouple import config
 
 from django.conf import settings
 
@@ -10,7 +10,7 @@ class TestIndexView(TestCase):
 
     def test_should_contain_environment_variable(self):
         context = context_processors.meme_wars(request=self.get_request_example())
-        self.assertEqual(context.get('environment'), getenv('ENVIRONMENT'))
+        self.assertEqual(context.get('environment'), config('ENVIRONMENT'))
 
     def test_should_contain_app_url_variable(self):
         context = context_processors.meme_wars(request=self.get_request_example())
