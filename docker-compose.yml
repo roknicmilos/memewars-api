@@ -18,6 +18,7 @@ services:
       - ./api/src:/app/src/
       - ./api/scripts/entrypoint.sh:/app/scripts/entrypoint.sh
       - ./api/scripts/check_project.sh:/app/scripts/check_project.sh
+      - ./api/requirements:/app/requirements/
 
   postgres:
     container_name: meme-wars-postgres
