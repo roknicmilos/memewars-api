@@ -1,4 +1,4 @@
-from os import getenv
+from decouple import config
 
 
 REST_FRAMEWORK = {
@@ -22,5 +22,5 @@ SPECTACULAR_SETTINGS = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    getenv('WEB_APP_BASE_URL'),
+    config('WEB_APP_BASE_URL'),
 ]
