@@ -19,10 +19,8 @@ export function FinishedWar({ war }: FinishedWarProps) {
   return (
     <>
       <WarHeader war={ war }>
-        <p>Memes are sorted by their score where those with the highest scores are at the top</p>
-        <p>
-          Check the voting results of <span className={ styles.boldText }>{ war.name }</span>.
-        </p>
+        <p>These are the voting results of <span className={ styles.boldText }>{ war.name }</span>.</p>
+        <p>Memes are sorted by their score where those with the highest score are at the top.</p>
         { war.requires_meme_approval && (
           <p>
             Because this war requires approval of all memes,
