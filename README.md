@@ -1,5 +1,16 @@
 # meme wars
 
+Table of Contents
+=================
+
+* [Development setup](#development-setup)
+    * [Setup requirements](#setup-requirements)
+    * [Setup steps](#setup-steps)
+    * [Tests and linting](#tests-and-linting)
+    * [Initial data](#initial-data)
+    * [Updating dependencies](#updating-dependencies)
+* [Production and staging setup](#production-and-staging-setup)
+
 ## Development setup
 
 ### Setup requirements
@@ -122,6 +133,13 @@ Or you can load specific fixtures (in a specific order) by passing them as argum
 command. For example, to load `users` fixtures, and then `wars` fixtures:
 
     docker exec meme-wars-django sh -c 'python3 manage.py load_data users wars'
+
+### Updating dependencies
+
+Execute the following set of commands to interactively upgrade requirements packages:
+
+    docker compose exec django bash -c 'pip install pip-upgrader && 
+        pip-upgrade /app/requirements/*.txt --skip-virtualenv-check --skip-package-installation'
 
 ## Production and staging setup
 
