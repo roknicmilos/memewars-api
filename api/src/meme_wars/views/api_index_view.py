@@ -10,6 +10,7 @@ class APIIndexView(APIView):
     response_data = {'message': _('This is the base URL for the Meme Wars API')}
 
     @extend_schema(
+        description=_('Index endpoint of Meme Wars API'),
         responses=MessageSerializer,
         examples=[
             OpenApiExample(

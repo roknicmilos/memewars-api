@@ -13,6 +13,7 @@ class LogoutAPIView(APIView):
     response_data = {'message': _('Success')}
 
     @extend_schema(
+        description=_('Logs out the authenticated user'),
         responses=MessageSerializer,
         examples=[
             OpenApiExample(

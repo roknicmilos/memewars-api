@@ -12,6 +12,7 @@ from apps.users.utils import build_login_failure_url, build_login_success_url
 class GoogleAuthCallbackAPIView(APIView):
 
     @extend_schema(
+        description=_('The endpoint for a request from Google sent after successful Google login'),
         parameters=[
             GoogleAuthCallbackQuerySerializer
         ],

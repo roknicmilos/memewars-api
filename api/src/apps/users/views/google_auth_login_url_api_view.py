@@ -7,12 +7,13 @@ from rest_framework.views import APIView
 from apps.users.authentication import google_auth
 
 
-class GoogleAuthLoginUrlAPIView(APIView):
+class GoogleAuthLoginURLAPIView(APIView):
 
     @extend_schema(
+        description=_('Redirects the user to a Google login URL'),
         responses={
             302: OpenApiResponse(
-                description=_('Redirects to a Google login URL')
+                description=_('Redirects the user to a Google login URL')
             )
         }
     )
