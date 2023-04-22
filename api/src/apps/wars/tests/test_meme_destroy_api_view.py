@@ -26,7 +26,7 @@ class TestMemeDestroyAPIView(APITestCase):
         user = UserFactory()
         self.authenticate(user=user)
         meme = MemeFactory()
-        self.assertNotEquals(user, meme.user)
+        self.assertNotEqual(user, meme.user)
         url_path = reverse("api:memes:details", args=(meme.pk,))
         response = self.client.delete(path=url_path)
         self.assertEqual(response.status_code, 404)

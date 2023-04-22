@@ -1,15 +1,13 @@
 from urllib.parse import urlencode
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.core.handlers.wsgi import WSGIRequest
 from rest_framework.authtoken.models import Token
 
-from apps.users.authentication import google_auth
+from apps.users.authentication import GoogleUser
 from apps.users.models import User, UserSettings
 
 
-def get_or_create_user(request: WSGIRequest) -> tuple[User, bool]:
-    google_user = google_auth.get_user(request=request)
+def get_or_create_user(google_user: GoogleUser) -> tuple[User, bool]:
     UserSettings.validate_email(email=google_user.email)
     defaults = {
         'first_name': google_user.given_name,
