@@ -20,3 +20,8 @@ class SingletonModel(BaseModel):
     @classmethod
     def exists(cls) -> bool:
         return cls.objects.exists()
+
+    @classmethod
+    def update(cls, **kwargs) -> None:
+        instance = cls.load()
+        super().update(self=instance, **kwargs)

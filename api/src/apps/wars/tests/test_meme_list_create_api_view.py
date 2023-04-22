@@ -55,7 +55,7 @@ class TestMemeListCreateAPIView(APITestCase):
         self.assertEqual(len(results), 15)
         for meme_dict in results:
             # There shouldn't be a meme from the war that's in the PREPARATION phase:
-            self.assertNotEquals(meme_dict['war'], self.war_in_preparation_phase.pk)
+            self.assertNotEqual(meme_dict['war'], self.war_in_preparation_phase.pk)
             # If the meme is from the war that's in SUBMISSION phase,
             # it should belong to the authenticated user:
             if meme_dict['war'] == self.war_in_submission_phase.pk:
@@ -77,7 +77,7 @@ class TestMemeListCreateAPIView(APITestCase):
         self.assertEqual(len(results), 7)
         for meme_dict in results:
             # There shouldn't be a meme from the war that's in the PREPARATION phase:
-            self.assertNotEquals(meme_dict['war'], self.war_in_preparation_phase.pk)
+            self.assertNotEqual(meme_dict['war'], self.war_in_preparation_phase.pk)
             # If the meme is from the war that's in SUBMISSION phase,
             # it should belong to the authenticated user:
             if meme_dict['war'] == self.war_in_submission_phase.pk:

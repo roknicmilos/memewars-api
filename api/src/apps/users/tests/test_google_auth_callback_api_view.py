@@ -3,6 +3,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.reverse import reverse
 
 from apps.common.tests import TestCase
+from apps.users.serializers import GoogleAuthCallbackQuerySerializer
 from apps.users.tests.factories import UserFactory
 from apps.users.views import google_auth_callback_api_view
 
@@ -16,7 +17,7 @@ class TestGoogleAuthCallbackAPIView(TestCase):
         self._patch_build_login_failure_url()
 
     def _patch_get_or_create_user(self) -> None:
-        self.get_or_create_user_patcher = patch.object(google_auth_callback_api_view, 'get_or_create_user')
+        self.get_or_create_user_patcher = patch.object(GoogleAuthCallbackQuerySerializer, 'get_or_create_user')
         self.mock_get_or_create_user = self.get_or_create_user_patcher.start()
 
     def _patch_build_login_success_url(self) -> None:

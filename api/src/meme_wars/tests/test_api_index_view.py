@@ -10,4 +10,4 @@ class TestAPIIndexView(TestCase):
         response = self.client.get(path=reverse('api:index'))
         self.assertIsInstance(response, Response)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), 'This is the base URL for the Meme Wars API')
+        self.assertEqual(response.json(), {'message': 'This is the base URL for the Meme Wars API'})

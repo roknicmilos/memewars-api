@@ -1,3 +1,5 @@
+from django.db import models
+
 from apps.common.models.singleton_model import SingletonModel
 from apps.common.tests import TestCase
 
@@ -6,6 +8,11 @@ class TestSingletonModel(TestCase):
     class ConcreteSingletonModel(SingletonModel):
         class Meta:
             app_label = 'common'
+
+        name = models.CharField(
+            max_length=100,
+            default=''
+        )
 
     def test_should_override_pk_before_saving_instance(self):
         singleton_instance = self.ConcreteSingletonModel(pk=10)
@@ -34,3 +41,10 @@ class TestSingletonModel(TestCase):
         self.assertFalse(self.ConcreteSingletonModel.exists())
         self.ConcreteSingletonModel.load()
         self.assertTrue(self.ConcreteSingletonModel.exists())
+
+    def test_should_update_instance_using_class_method(self):
+        instance = self.ConcreteSingletonModel.load()
+        self.assertEqual(instance.name, '')
+        self.ConcreteSingletonModel.update(name='Miki')
+        instance.refresh_from_db()
+        self.assertEqual(instance.name, 'Miki')
