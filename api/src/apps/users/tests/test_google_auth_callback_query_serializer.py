@@ -1,5 +1,3 @@
-from uuid import uuid4
-
 from faker import Faker
 import pytest
 from unittest.mock import patch
