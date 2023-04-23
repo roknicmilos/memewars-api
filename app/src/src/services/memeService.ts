@@ -4,9 +4,10 @@ import { PageResponse } from "../models/PageResponse";
 
 export const memeService = {
 
-  async getMemes(warID: number, page: number = 1): Promise<PageResponse> {
+  async getMemes(warID: number, page: number = 1, pageSize: number = API.PAGE_SIZE): Promise<PageResponse> {
     const apiClient = API.createClient();
-    const response = await apiClient.get(`/memes/?war=${ warID }&page=${ page }`);
+    const url = `/memes/?war=${ warID }&page=${ page }&ipp=${ pageSize }`;
+    const response = await apiClient.get(url);
     return response.data;
   },
 

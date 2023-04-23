@@ -13,7 +13,7 @@ interface UseWarMemesReturnValue {
   nextPage?: number;
 }
 
-export function useWarMemes(warID: number): UseWarMemesReturnValue {
+export function useWarMemes(warID: number, pageSize: number = API.PAGE_SIZE): UseWarMemesReturnValue {
   const [ isLoading, setIsLoading ] = useState<boolean>(true);
   const [ memes, setMemes ] = useState<Meme[]>([]);
   const [ nextPage, setNextPage ] = useState<number | undefined>(1);
@@ -24,9 +24,9 @@ export function useWarMemes(warID: number): UseWarMemesReturnValue {
     if (nextPage === undefined) {
       throw Error("Unable to fetch the next page of memes because there is no next page");
     }
-    const pageResponse = await memeService.getMemes(warID, nextPage);
+    const pageResponse = await memeService.getMemes(warID, nextPage, pageSize);
     setMemes([ ...memes, ...pageResponse.results ]);
-    const hasNextPage = pageResponse.count / API.PAGE_SIZE > nextPage;
+    const hasNextPage = pageResponse.count / pageSize > nextPage;
     setNextPage(hasNextPage ? nextPage + 1 : undefined);
     setIsLoading(false);
   }

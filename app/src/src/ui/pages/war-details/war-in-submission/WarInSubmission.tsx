@@ -12,7 +12,7 @@ interface WarInSubmissionProps {
 }
 
 export function WarInSubmission({ war }: WarInSubmissionProps) {
-  const { memes, setMemes, isLoading, setIsLoading } = useWarMemes(war.id);
+  const { memes, setMemes, isLoading, setIsLoading } = useWarMemes(war.id, 20);
 
   async function uploadMeme(event: any): Promise<void> {
     setIsLoading(true);
