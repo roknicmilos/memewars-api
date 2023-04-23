@@ -1,6 +1,6 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
-import { War, WarPhases } from "../../../models/war";
+import { War, WarPhases } from "../../../models/War";
 import { UserFriendlyError } from "../../../userFriendlyError";
 import { FinishedWar } from "./finished-war/FinishedWar";
 import { WarInPreparation } from "./war-in-preparation/WarInPreparation";

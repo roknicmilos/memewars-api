@@ -1,5 +1,5 @@
 from django.utils.translation import gettext_lazy as _
-from django.db.models import QuerySet, Q
+from django.db.models import QuerySet, Q, Avg
 from drf_spectacular.utils import extend_schema_view, extend_schema
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.permissions import IsAuthenticated
@@ -46,7 +46,18 @@ class MemeListCreateAPIView(ListCreateAPIView):
             # OR that belong to the authenticated user
             | Q(user=self.request.user)
         )
-        return Meme.objects.exclude(excludes).filter(filters).order_by('-created').all()
+
+        queryset = Meme.objects.exclude(excludes).filter(filters)
+
+        if self._should_order_by_score():
+            return queryset.annotate(score=Avg('votes__score')).order_by('-score', '-created')
+
+        return queryset.order_by('-created')
+
+    def _should_order_by_score(self) -> bool:
+        if war := War.objects.filter(pk=self.request.GET.get('war')).first():
+            return war.phase == War.Phases.FINISHED
+        return False
 
     def get_serializer(self, *args, **kwargs) -> MemeSerializer:
         if self.request.method == 'POST':

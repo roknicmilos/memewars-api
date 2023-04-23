@@ -55,6 +55,7 @@ services:
       - "${WEB_APP_PORT}:3000"
     volumes:
       - ./app/src:/app/src
+      - ./app/scripts/entrypoint.sh:/app/scripts/entrypoint.sh
 
 volumes:
   meme-wars-postgres-data:

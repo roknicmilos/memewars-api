@@ -44,7 +44,7 @@ class Meme(BaseModel):
     )
 
     def __str__(self):
-        return self.image.name
+        return f'{self.image.name} ({self.pk})'
 
     @property
     def total_score(self) -> float:

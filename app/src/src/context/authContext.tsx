@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from "react";
-import { User } from "../models/user";
+import { User } from "../models/User";
 import { authService } from "../services/authService";
 import { localStorageService } from "../services/localStorageService";
 

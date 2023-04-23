@@ -4,7 +4,7 @@ from apps.common.tests.fixtures import get_image_file_example
 from apps.users.tests.factories import UserFactory
 from apps.wars.models import Meme, War
 from apps.wars.serializers import MemeSerializer
-from apps.wars.tests.factories import MemeFactory, WarFactory
+from apps.wars.tests.factories import MemeFactory, WarFactory, VoteFactory
 
 
 class TestMemeListCreateAPIView(APITestCase):
@@ -43,10 +43,12 @@ class TestMemeListCreateAPIView(APITestCase):
         self.authenticate(user=self.user)
 
         # When all wars do not require meme approval:
-        response = self.client.get(path=self.url_path)
+        first_page_response = self.client.get(path=self.url_path)
+        second_page_response = self.client.get(path=f'{self.url_path}?page=2')
 
-        self.assertEqual(response.status_code, 200)
-        results = response.json()['results']
+        self.assertEqual(first_page_response.status_code, 200)
+        self.assertEqual(second_page_response.status_code, 200)
+        results = first_page_response.json()['results'] + second_page_response.json()['results']
         # Expected memes:
         #   0 from the war in PREPARATION phase
         #   3 from the war in SUBMISSION phase (authenticated user memes only, regardless of approval status)
@@ -84,6 +86,50 @@ class TestMemeListCreateAPIView(APITestCase):
                 self.assertEqual(meme_dict['user'], self.user.pk)
             else:
                 self.assertEqual(meme_dict['approval_status'], Meme.ApprovalStatuses.APPROVED.value)
+
+    def test_list_endpoint_should_return_all_memes_ordered_by_correct_fields(self):
+        war = WarFactory(phase=War.Phases.VOTING)
+
+        meme_a = MemeFactory(war=war)
+        VoteFactory(meme=meme_a, score=8)  # 1
+
+        meme_b = MemeFactory(war=war)
+        VoteFactory(meme=meme_b, score=7)  # 3
+
+        meme_c = MemeFactory(war=war)
+        VoteFactory(meme=meme_c, score=5)  # 5
+
+        meme_d = MemeFactory(war=war)
+        VoteFactory(meme=meme_d, score=6)  # 4
+
+        meme_e = MemeFactory(war=war)
+        VoteFactory(meme=meme_e, score=7)  # 2
+
+        self.authenticate(user=self.user)
+        url_path = f'{self.url_path}?war={war.pk}'
+
+        # When war is in not the finished phase, memes should be
+        # ordered by creation datetime:
+        response = self.client.get(path=url_path)
+        self.assertEqual(response.status_code, 200)
+        results = response.json()['results']
+        self.assertEqual(results[0]['id'], meme_e.pk)
+        self.assertEqual(results[1]['id'], meme_d.pk)
+        self.assertEqual(results[2]['id'], meme_c.pk)
+        self.assertEqual(results[3]['id'], meme_b.pk)
+        self.assertEqual(results[4]['id'], meme_a.pk)
+
+        # When war is in the finished phase, meme score should have
+        # ordering priority over creation datetime:
+        war.update(phase=War.Phases.FINISHED)
+        response = self.client.get(path=url_path)
+        self.assertEqual(response.status_code, 200)
+        results = response.json()['results']
+        self.assertEqual(results[0]['id'], meme_a.pk)
+        self.assertEqual(results[1]['id'], meme_e.pk)
+        self.assertEqual(results[2]['id'], meme_b.pk)
+        self.assertEqual(results[3]['id'], meme_d.pk)
+        self.assertEqual(results[4]['id'], meme_c.pk)
 
     def test_list_endpoint_should_return_memes_filtered_by_war(self):
         self.authenticate(user=self.user)

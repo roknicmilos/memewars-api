@@ -1,29 +1,24 @@
-import { createAPIClient } from "./apiClient";
-import { Meme } from "../models/meme";
+import { API } from "./apiClient";
+import { Meme } from "../models/Meme";
+import { PageResponse } from "../models/PageResponse";
 
 export const memeService = {
 
-  async getMemes(warID: number): Promise<Meme[]> {
-    const apiClient = createAPIClient();
-    const response = await apiClient.get(`/memes/?war=${ warID }`);
-    return response.data.results;
-  },
-
-  sortMemesByTotalScore(currentMeme: Meme, nextMeme: Meme): number {
-    if (currentMeme.total_score < nextMeme.total_score) {
-      return 1;
-    }
-    return currentMeme.total_score > nextMeme.total_score ? -1 : 0;
+  async getMemes(warID: number, page: number = 1, pageSize: number = API.PAGE_SIZE): Promise<PageResponse> {
+    const apiClient = API.createClient();
+    const url = `/memes/?war=${ warID }&page=${ page }&ipp=${ pageSize }`;
+    const response = await apiClient.get(url);
+    return response.data;
   },
 
   async uploadMeme(warID: number, image: File): Promise<Meme> {
-    const apiClient = createAPIClient({ "Content-Type": "multipart/form-data" });
+    const apiClient = API.createClient({ "Content-Type": "multipart/form-data" });
     const response = await apiClient.post("/memes/", { war: warID, image: image });
     return response.data;
   },
 
   async deleteMeme(memeID: number): Promise<void> {
-    const apiClient = createAPIClient();
+    const apiClient = API.createClient();
     await apiClient.delete(`/memes/${ memeID }`);
   },
 

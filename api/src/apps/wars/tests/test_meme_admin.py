@@ -27,5 +27,5 @@ class TestMemeAdmin(TestCase):
     def test_should_return_declared_and_additional_readonly_fields_when_adding_meme(self):
         meme = MemeFactory()
         actual_readonly_fields = self.meme_admin.get_readonly_fields(request=self.get_request_example(), obj=meme)
-        expected_readonly_fields = ('id',) + MemeAdmin.readonly_fields + ('user', 'war')
+        expected_readonly_fields = ('id',) + MemeAdmin.readonly_fields + ('user', 'war', 'total_score',)
         self.assertEqual(actual_readonly_fields, expected_readonly_fields)

@@ -6,13 +6,13 @@ from rest_framework import serializers
 
 from apps.common.utils import build_absolute_uri
 from apps.users.authentication import GoogleUser, GoogleOpenIDConfig
-from apps.users.models import User, UserSettings
+from apps.users.models import User
 from apps.users.utils import get_or_create_user
 
 
 class GoogleAuthCallbackQuerySerializer(serializers.Serializer):
     state = serializers.CharField(write_only=True)
-    email = serializers.CharField(validators=[UserSettings.validate_email])
+    email = serializers.CharField()
     given_name = serializers.CharField()
     family_name = serializers.CharField()
     picture = serializers.URLField()

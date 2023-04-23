@@ -1,5 +1,5 @@
 import React from "react";
-import { War } from "../../../../models/war";
+import { War } from "../../../../models/War";
 import styles from "./../../../main.module.scss";
 import { WarHeader } from "../../../components/war-header/WarHeader";
 

@@ -1,7 +1,7 @@
 import React, { CSSProperties, useCallback, useEffect, useState } from "react";
 import styles from "./WarHeader.module.scss";
 import dropdownVG from "../../../assets/dropdown.svg";
-import { War, WarPhases } from "../../../models/war";
+import { War, WarPhases } from "../../../models/War";
 import { htmlService } from "../../../services/htmlService";
 
 interface WarHeaderProps {

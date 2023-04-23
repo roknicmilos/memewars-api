@@ -27,12 +27,12 @@ class MemeAdmin(ModelAdmin):
         'user', 'war', 'image', 'approval_status',
     )
     fields = (
-        'id', 'user', 'war', 'image', 'approval_status',
+        'id', 'user', 'war', 'image', 'approval_status', 'total_score',
     )
 
     def get_readonly_fields(self, request, obj=None) -> tuple:
         readonly_fields = super().get_readonly_fields(request=request, obj=obj)
-        return readonly_fields + ('user', 'war',) if obj else readonly_fields
+        return readonly_fields + ('user', 'war', 'total_score',) if obj else readonly_fields
 
     @admin.display(description=_('approval status'))
     def approval_status_html(self, obj: Meme) -> str:
