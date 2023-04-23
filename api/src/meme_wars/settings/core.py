@@ -3,8 +3,6 @@ import sys
 from decouple import config
 from os.path import abspath, basename, dirname, join, normpath
 
-from meme_wars.settings import custom as custom_settings
-
 # ##### PATH CONFIGURATION ################################
 
 # fetch Django's project directory
@@ -66,25 +64,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.forms',
-    'corsheaders',
-
-    # Third party apps:
-    'rest_framework',
-    'rest_framework.authtoken',
-    'drf_spectacular',
-    'django_filters',
-
-    # Local apps:
-    'apps.common',
-    'apps.users',
-    'apps.wars',
 ]
 
 # Middlewares
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -177,5 +162,5 @@ ALLOWED_HOSTS = ['*']
 LOGIN_REDIRECT_URL = '/'
 
 CSRF_TRUSTED_ORIGINS = (
-    custom_settings.HOST_URL,
+    config('WEB_API_BASE_URL'),
 )

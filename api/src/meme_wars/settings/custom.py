@@ -1,6 +1,12 @@
 from decouple import config
 
 
+CUSTOM_APPS = [
+    'apps.common',
+    'apps.users',
+    'apps.wars',
+]
+
 FIXTURES = (
     'users',
     'wars',
