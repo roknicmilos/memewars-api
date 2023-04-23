@@ -1,4 +1,4 @@
-import { War } from "../../models/war";
+import { War } from "../../models/War";
 import { warService } from "../../services/warService";
 
 export async function warListLoader(): Promise<War[]> {

@@ -4,10 +4,9 @@ import { UserFriendlyError } from "../../../userFriendlyError";
 import { useAuth } from "../../../context/authContext";
 import { userService } from "../../../services/userService";
 
-
 export function IndexPage() {
   const [ isLoading, setIsLoading ] = useState<boolean>(true);
-  const [ searchParams, setSearchParams ] = useSearchParams();
+  const [ searchParams ] = useSearchParams();
   const { user, saveUser } = useAuth();
   const navigate = useNavigate();
   const { pathname } = useLocation();

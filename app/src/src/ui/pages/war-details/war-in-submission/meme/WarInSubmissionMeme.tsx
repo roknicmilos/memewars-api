@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./WarInSubmissionMeme.module.scss";
-import { Meme } from "../../../../../models/meme";
+import { Meme } from "../../../../../models/Meme";
 import { MemeOptions } from "../meme-approval-status/MemeOptions";
 
 interface WarInSubmissionMemeProps {

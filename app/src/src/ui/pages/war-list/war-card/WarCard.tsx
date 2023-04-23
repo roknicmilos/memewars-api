@@ -1,6 +1,6 @@
 import styles from "./WarCard.module.scss";
 import React from "react";
-import { War } from "../../../../models/war";
+import { War } from "../../../../models/War";
 import { Link } from "react-router-dom";
 
 interface WarCardProps {

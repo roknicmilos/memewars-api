@@ -5,6 +5,7 @@ set -e
 . /app/scripts/colored_print.sh
 
 export REACT_APP_API_URL="$WEB_API_BASE_URL/api/v1"
+export REACT_APP_PAGE_SIZE=$DRF_PAGE_SIZE
 
 print_react_project_init_info() {
   printc "Starting React app in $ENVIRONMENT mode \n" "info"

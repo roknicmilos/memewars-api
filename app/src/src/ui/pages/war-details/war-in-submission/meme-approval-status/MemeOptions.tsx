@@ -1,5 +1,5 @@
 import React, { CSSProperties, MouseEvent, useState } from "react";
-import { ApprovalStatus } from "../../../../../models/meme";
+import { ApprovalStatus } from "../../../../../models/Meme";
 import styles from "./MemeOptions.module.scss";
 import awaitingSVG from "../../../../../assets/awaiting.svg";
 import approvedSVG from "../../../../../assets/approved.svg";

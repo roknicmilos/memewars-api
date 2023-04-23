@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./WarListPage.module.scss";
 import { WarCard } from "./war-card/WarCard";
 import { useLoaderData } from "react-router-dom";
-import { War } from "../../../models/war";
+import { War } from "../../../models/War";
 
 
 export function WarListPage() {

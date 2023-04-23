@@ -1,5 +1,5 @@
 import React from "react";
-import { Meme } from "../../../../../models/meme";
+import { Meme } from "../../../../../models/Meme";
 import styles from "./FinishedWarMeme.module.scss";
 
 interface FinishedWarMemeProps {

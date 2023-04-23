@@ -1,4 +1,4 @@
-import { createAPIClient } from "./apiClient";
+import { API } from "./apiClient";
 
 export const authService = {
 
@@ -7,8 +7,8 @@ export const authService = {
   },
 
   async logout(): Promise<void> {
-    const apiClient = createAPIClient();
+    const apiClient = API.createClient();
     await apiClient.get("/logout/");
-  }
+  },
 
 };

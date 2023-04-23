@@ -1,4 +1,4 @@
-import { Meme } from "../models/meme";
+import { Meme } from "../models/Meme";
 import { useEffect, useState } from "react";
 import { memeService } from "../services/memeService";
 
@@ -14,8 +14,8 @@ export function useWarMemes(warID: number): UseWarMemesReturnValue {
   const [ memes, setMemes ] = useState<Meme[]>([]);
 
   async function fetchMemes() {
-    const memes = await memeService.getMemes(warID);
-    setMemes(memes);
+    const pageResponse = await memeService.getMemes(warID);
+    setMemes(pageResponse.results);
     setIsLoading(false);
   }
 

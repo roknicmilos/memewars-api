@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { War } from "../../../../models/war";
+import React from "react";
+import { War } from "../../../../models/War";
 import styles from "./WarInSubmission.module.scss";
 import { WarInSubmissionMeme } from "./meme/WarInSubmissionMeme";
 import { useWarMemes } from "../../../../hooks/useWarMemes";
