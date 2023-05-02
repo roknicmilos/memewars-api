@@ -205,3 +205,13 @@ class TestMemeListCreateAPIView(APITestCase):
                 self.assertTrue(serializer.data['image'].endswith(meme.image.url))
                 continue
             self.assertEqual(value, serializer.data[key])
+
+    def test_post_endpoint_should_return_response_400_when_meme_upload_limit_is_reached(self):
+        self.authenticate(user=self.user)
+        self.war_in_submission_phase.update(meme_upload_limit=1)
+        MemeFactory(war=self.war_in_submission_phase, user=self.user)
+        expected_errors = {
+            'ALL': ['This user already reached Meme upload limit in this war.', ],
+            'code': 'meme_upload_limit_reached',
+        }
+        self.assertBadRequestResponse(data=self.valid_data, errors=expected_errors)

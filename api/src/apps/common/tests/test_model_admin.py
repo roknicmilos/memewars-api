@@ -3,7 +3,7 @@ from django.contrib.admin.options import BaseModelAdmin
 from django.contrib.admin.sites import site as admin_site
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
-from apps.common.admin import ModelAdmin
+from apps.common.admin import ModelAdmin, TimestampableModelAdmin
 from apps.common.tests import TestCase
 
 
@@ -36,9 +36,9 @@ class TestModelAdmin(TestCase):
         # When User object is not passed to the function:
         actual_fields = self.user_admin.get_fields(request=self.get_request_example())
         expected_fields = (
-            'id', 'password', 'last_login', 'is_superuser', 'username', 'first_name',
-            'last_name', 'email', 'is_staff', 'is_active', 'date_joined'
-        )
+                              'id', 'password', 'last_login', 'is_superuser', 'username', 'first_name',
+                              'last_name', 'email', 'is_staff', 'is_active', 'date_joined'
+                          ) + TimestampableModelAdmin.timestampable_fields
         self.assertEqual(actual_fields, expected_fields)
 
         # When User object is passed to the function:
@@ -70,7 +70,8 @@ class TestModelAdmin(TestCase):
         expected_fieldsets = [
             (None, {'fields': (
                 'id', 'password', 'last_login', 'is_superuser', 'username', 'first_name',
-                'last_name', 'email', 'is_staff', 'is_active', 'date_joined'
+                'last_name', 'email', 'is_staff', 'is_active', 'date_joined',
+                *TimestampableModelAdmin.timestampable_fields
             )})
         ]
         self.assertEqual(actual_fieldsets, expected_fieldsets)

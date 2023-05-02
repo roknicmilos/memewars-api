@@ -38,3 +38,21 @@ class TestWarAdmin(TestCase):
 
         self.assertEqual(User.objects.count(), 4)
         self.assertEqual(self.war_admin.voter_count(obj=war), 2)
+
+    def test_should_add_meme_upload_limit_field_in_readonly_fields_when_war_is_not_in_submission_phase(self):
+        wars = []
+        for phase in War.Phases:
+            if phase is War.Phases.SUBMISSION:
+                wars.append(None)  # to simulate adding a new war
+                continue
+            wars.append(WarFactory(phase=phase))
+
+        request = self.get_request_example()
+        for war in wars:
+            readonly_fields = self.war_admin.get_readonly_fields(request=request, obj=war)
+            self.assertIn('meme_upload_limit', readonly_fields)
+
+    def test_should_not_add_meme_upload_limit_field_in_readonly_fields_when_war_is_in_submission_phase(self):
+        war = WarFactory(phase=War.Phases.SUBMISSION)
+        readonly_fields = self.war_admin.get_readonly_fields(request=self.get_request_example(), obj=war)
+        self.assertNotIn('meme_upload_limit', readonly_fields)
