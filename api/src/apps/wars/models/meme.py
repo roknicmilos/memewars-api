@@ -69,6 +69,6 @@ class Meme(BaseModel):
         super().clean()
         if not self.pk and self.user.memes.count() >= self.war.meme_upload_limit:
             raise ValidationError(
-                message=_('This user already reached Meme upload limit in this war'),
+                message=_('This user already reached Meme upload limit in this war.'),
                 code='meme_upload_limit_reached'
             )
