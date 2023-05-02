@@ -29,6 +29,11 @@ class War(BaseModel):
         verbose_name=_('requires meme approval'),
         default=False,
     )
+    meme_upload_limit = models.SmallIntegerField(
+        verbose_name=_('meme upload limit'),
+        default=20,
+        help_text=_('Maximum number of memes that one user can upload'),
+    )
 
     def __str__(self):
         return self.name

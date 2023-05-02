@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
 
+from apps.common.admin import ModelAdmin
 from apps.users.admin import MemeAdminInline
 from apps.users.models import User
 
@@ -18,7 +19,7 @@ class CreateUserForm(UserCreationForm):
 
 
 @admin.register(User)
-class UserAdmin(BaseUserAdmin):
+class UserAdmin(ModelAdmin, BaseUserAdmin):
     list_display = ('email', 'is_active', 'is_staff', 'is_superuser',)
     search_fields = ('first_name', 'last_name', 'email')
     ordering = ('email',)
@@ -40,4 +41,7 @@ class UserAdmin(BaseUserAdmin):
             'fields': ('email', 'password1', 'password2'),
         }),
     )
-    readonly_fields = ('id', 'last_login', 'date_joined', 'created', 'modified',)
+    readonly_fields = ('last_login', 'date_joined',)
+
+    def get_inlines(self, request, obj: User = None) -> tuple:
+        return super().get_inlines(request=request, obj=obj) if obj else ()
