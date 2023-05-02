@@ -6,7 +6,7 @@ class TimestampableModelAdmin(admin.ModelAdmin):
     timestampable_fields = ('created', 'modified',)
 
     def get_fields(self, request, obj=None):
-        fields = super().get_fields(request=request, obj=obj)
+        fields = list(super().get_fields(request=request, obj=obj))
         if issubclass(self.model, BaseModel):
             for field in self.timestampable_fields:
                 if field in fields:

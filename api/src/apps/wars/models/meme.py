@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Sum
 from django.utils.translation import gettext_lazy as _
@@ -59,6 +60,15 @@ class Meme(BaseModel):
         return self.votes.count()
 
     def save(self, **kwargs):
+        self.clean()
         if self.image and (not self.original or self.image != self.original.image):
             self.image = compress_image_file(image=self.image)
         super().save(**kwargs)
+
+    def clean(self):
+        super().clean()
+        if not self.pk and self.user.memes.count() >= self.war.meme_upload_limit:
+            raise ValidationError(
+                message=_('This user already reached Meme upload limit in this war'),
+                code='meme_upload_limit_reached'
+            )

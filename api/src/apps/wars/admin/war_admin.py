@@ -11,7 +11,7 @@ class WarAdmin(ModelAdmin):
         'meme_count', 'voter_count', 'vote_count', 'created',
     )
     readonly_fields = (
-        'meme_count', 'voter_count', 'vote_count', 'created', 'modified',
+        'meme_count', 'voter_count', 'vote_count',
     )
     add_form_fields = (
         'name',
@@ -32,6 +32,6 @@ class WarAdmin(ModelAdmin):
 
     def get_readonly_fields(self, request, obj: War = None) -> tuple:
         readonly_fields = super().get_readonly_fields(request=request, obj=obj)
-        if not obj or obj.phase is not War.Phases.SUBMISSION:
+        if not obj or obj.phase != War.Phases.SUBMISSION:
             readonly_fields += ('meme_upload_limit',)
         return readonly_fields

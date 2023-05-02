@@ -1,4 +1,8 @@
 from unittest.mock import patch
+
+from django.core.exceptions import ValidationError
+import pytest
+
 from apps.common.tests import TestCase
 from apps.wars.models import War
 from apps.wars.tests.factories import WarFactory, VoteFactory, MemeFactory
@@ -71,3 +75,13 @@ class TestMeme(TestCase):
 
         meme.update(image='fixtures/memes/meme_template_2.jpg')
         mock_compress_image_file.assert_called_once()
+
+    def test_should_raise_validation_error_when_meme_upload_limit_is_exceeded(self):
+        war = WarFactory(meme_upload_limit=1)
+        meme = MemeFactory(war=war)  # user has reached meme upload limit
+        MemeFactory(war=war)  # another user has reached meme upload limit
+
+        expected_error_message = 'This user already reached Meme upload limit in this war'
+        with pytest.raises(expected_exception=ValidationError, match=expected_error_message) as exception_info:
+            MemeFactory(war=war, user=meme.user)
+        self.assertEqual(exception_info.value.code, 'meme_upload_limit_reached')
