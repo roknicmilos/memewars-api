@@ -16,12 +16,12 @@ class APIClient(BaseAPIClient):
 
     @_prepare_kwargs
     def post(self, path: str, json: dict = None, **kwargs):
-        return super(APIClient, self).post(path, **kwargs)
+        return super().post(path, **kwargs)
 
     @_prepare_kwargs
     def put(self, path: str, json: dict = None, **kwargs):
-        return super(APIClient, self).put(path, **kwargs)
+        return super().put(path, **kwargs)
 
     @_prepare_kwargs
     def patch(self, path: str, json: dict = None, **kwargs):
-        return super(APIClient, self).patch(path, **kwargs)
+        return super().patch(path, **kwargs)
