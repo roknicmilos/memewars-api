@@ -20,7 +20,11 @@ export function MemeOptions({ approvalStatus, isExpanded, onStatusClick, onDelet
 
   async function handleDeleteMeme(event: MouseEvent) {
     event.preventDefault();
-    await onDeleteMeme();
+    try {
+      await onDeleteMeme();
+    } finally {
+      setHasOpenedDeleteModal(false);
+    }
   }
 
   return (
