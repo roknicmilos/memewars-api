@@ -15,3 +15,22 @@
 .uploadFileButton input {
   display: none;
 }
+
+.errorMessages {
+  font-size: 22px;
+  font-weight: 300;
+  width: 80%;
+
+  @include respond-to(tablet) {
+    width: 90%;
+  }
+
+  @include respond-to(mobile) {
+    width: 95%;
+  }
+
+}
+
+.errorMessages p {
+  margin: 10px 0;
+}
