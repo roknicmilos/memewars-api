@@ -19,7 +19,7 @@ export const memeService = {
 
   async deleteMeme(memeID: number): Promise<void> {
     const apiClient = API.createClient();
-    await apiClient.delete(`/memes/${ memeID }`);
+    await apiClient.delete(`/memes/${ memeID }/`);
   },
 
 };
