@@ -10,7 +10,7 @@ class Command(LoadDataCommand):
 
     def run_from_argv(self, argv):
         prepared_argv = self.prepare_argv(argv=argv)
-        super(Command, self).run_from_argv(argv=prepared_argv)
+        super().run_from_argv(argv=prepared_argv)
 
     @classmethod
     def prepare_argv(cls, argv: list) -> list:

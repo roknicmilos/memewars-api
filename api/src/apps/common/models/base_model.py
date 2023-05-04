@@ -12,14 +12,14 @@ class BaseModel(TimeStampedModel):
     def __new__(cls, *args, **kwargs):
         cls.verbose_name = cls._meta.verbose_name
         cls.verbose_name_plural = cls._meta.verbose_name_plural
-        return super(BaseModel, cls).__new__(cls)
+        return super().__new__(cls)
 
     def __init__(self, *args, **kwargs):
-        super(BaseModel, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self._original = None
 
     def refresh_from_db(self, using=None, fields=None):
-        super(BaseModel, self).refresh_from_db()
+        super().refresh_from_db()
         self._original = None
 
     @property

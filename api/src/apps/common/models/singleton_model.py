@@ -7,7 +7,7 @@ class SingletonModel(BaseModel):
 
     def save(self, **kwargs) -> None:
         self.pk = 1
-        super(SingletonModel, self).save(**kwargs)
+        super().save(**kwargs)
 
     def delete(self, *args, **kwargs) -> None:
         pass
