@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   django:
-    container_name: ${CONTAINERS_SUFFIX}-django
+    container_name: memewars-django
     build:
       context: .
       dockerfile: ./api/Dockerfile
@@ -20,7 +20,7 @@ services:
       - ./api/requirements:/app/requirements/
 
   postgres:
-    container_name: ${CONTAINERS_SUFFIX}-postgres
+    container_name: memewars-postgres
     image: postgres:14
     environment:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
@@ -31,7 +31,7 @@ services:
 
   pgadmin:
     image: dpage/pgadmin4
-    container_name: ${CONTAINERS_SUFFIX}-pgadmin
+    container_name: memewars-pgadmin
     environment:
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
@@ -43,7 +43,7 @@ services:
       - memewars-pgadmin-data:/var/lib/pgadmin
 
   react:
-    container_name: ${CONTAINERS_SUFFIX}-react
+    container_name: memewars-react
     build:
       context: .
       dockerfile: ./app/Dockerfile

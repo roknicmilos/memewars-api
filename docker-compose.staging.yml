@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+
+  django:
+    container_name: memewars-django--staging
+  postgres:
+    container_name: memewars-postgres--staging
+  pgadmin:
+    container_name: memewars-pgadmin--staging
+  react:
+    container_name: memewars-react--staging
