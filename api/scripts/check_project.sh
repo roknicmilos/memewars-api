@@ -2,7 +2,7 @@
 
 set -e
 
-. /app/scripts/colored_print.sh
+. /app/scripts/utils.sh
 
 printc "\nRunning tests in parallel and checking test coverage...\n" "info"
 pytest --cov -n auto

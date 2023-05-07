@@ -3,6 +3,7 @@ import sys
 from decouple import config
 from os.path import abspath, basename, dirname, join, normpath
 
+
 # ##### PATH CONFIGURATION ################################
 
 # fetch Django's project directory
@@ -14,7 +15,7 @@ PROJECT_ROOT = dirname(DJANGO_ROOT)
 # the name of the whole site
 SITE_NAME = basename(DJANGO_ROOT)
 
-DEBUG = config('ENVIRONMENT').lower() == 'development'
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 if not DEBUG:  # pragma: no cover
     LOGGING = {

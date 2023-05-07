@@ -15,3 +15,7 @@ printc() {
   END_COLOR="\e[0m"
   printf "$START_COLOR%b$END_COLOR" "$1"
 }
+
+bool() {
+  [ $(echo "$1" | tr "[:lower:]" "[:upper:]") = "TRUE" ] && echo true || echo false
+}

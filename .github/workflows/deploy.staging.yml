@@ -13,7 +13,7 @@ jobs:
       - name: Start Docker containers
         run: docker-compose up -d
       - name: Run Django tests
-        run: docker exec meme-wars-django sh -c 'pytest -n auto'
+        run: docker exec memewars-django sh -c 'pytest -n auto'
   deploy:
     name: 'Deploy to STAGING server'
     needs: test
@@ -31,4 +31,4 @@ jobs:
             git reset --hard origin/staging || exit
             docker compose -f docker-compose.yml -f docker-compose.staging.yml build
             docker compose -f docker-compose.yml -f docker-compose.staging.yml up -d
-            docker exec -t meme-wars-django--staging sh -c 'pytest --create-db --cov -n auto && coverage html'
+            docker exec -t memewars-django--staging sh -c 'pytest --create-db --cov -n auto && coverage html'

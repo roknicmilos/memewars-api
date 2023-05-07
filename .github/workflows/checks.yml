@@ -14,8 +14,8 @@ jobs:
       - name: Start Docker containers
         run: docker-compose up -d
       - name: Run Django tests
-        run: docker exec meme-wars-django sh -c 'pytest --cov --cov-fail-under=100 -n auto'
+        run: docker exec memewars-django sh -c 'pytest --cov --cov-fail-under=100 -n auto'
       - name: Check security issues in the Python code
-        run: docker exec meme-wars-django sh -c 'bandit .'
+        run: docker exec memewars-django sh -c 'bandit .'
       - name: Check quality of the Python code
-        run: docker exec meme-wars-django sh -c 'flake8'
+        run: docker exec memewars-django sh -c 'flake8'

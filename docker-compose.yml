@@ -3,11 +3,10 @@ version: '3.7'
 services:
 
   django:
-    container_name: meme-wars-django
+    container_name: ${CONTAINERS_SUFFIX}-django
     build:
       context: .
       dockerfile: ./api/Dockerfile
-      target: development
     env_file:
       - .env
     ports:
@@ -21,34 +20,33 @@ services:
       - ./api/requirements:/app/requirements/
 
   postgres:
-    container_name: meme-wars-postgres
+    container_name: ${CONTAINERS_SUFFIX}-postgres
     image: postgres:14
     environment:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_USER=${DB_USERNAME}
       - POSTGRES_DB=${DB_NAME}
     volumes:
-      - meme-wars-postgres-data:/var/lib/postgresql/data
+      - memewars-postgres-data:/var/lib/postgresql/data
 
   pgadmin:
     image: dpage/pgadmin4
-    container_name: meme-wars-pgadmin
+    container_name: ${CONTAINERS_SUFFIX}-pgadmin
     environment:
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
     ports:
-      - "${PG_ADMIN_PORT}:80"
+      - "${PGADMIN_PORT}:80"
     depends_on:
       - postgres
     volumes:
-      - meme-wars-pgadmin-data:/var/lib/pgadmin
+      - memewars-pgadmin-data:/var/lib/pgadmin
 
   react:
-    container_name: meme-wars-react
+    container_name: ${CONTAINERS_SUFFIX}-react
     build:
       context: .
       dockerfile: ./app/Dockerfile
-      target: development
     env_file:
       - .env
     ports:
@@ -58,5 +56,5 @@ services:
       - ./app/scripts/entrypoint.sh:/app/scripts/entrypoint.sh
 
 volumes:
-  meme-wars-postgres-data:
-  meme-wars-pgadmin-data:
+  memewars-postgres-data:
+  memewars-pgadmin-data:

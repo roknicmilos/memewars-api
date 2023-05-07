@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
-. /app/scripts/colored_print.sh
+. /app/scripts/utils.sh
 
 wait_for_postgres() {
   # Adapted from https://docs.docker.com/compose/startup-order/
@@ -13,31 +13,23 @@ wait_for_postgres() {
   done
 }
 
-print_django_project_init_info() {
-  printc "Starting Django app in $ENVIRONMENT mode \n" "info"
-  printc "WEB API URL: $WEB_API_BASE_URL \n" "info"
-  printc "WEB APP URL: $WEB_APP_BASE_URL \n" "info"
+run_server() {
+  if $(bool "$DEV_SERVER"); then
+    printc "Starting Django development server...\n" "info"
+    python3 manage.py runserver 0.0.0.0:8000
+  else
+    printc "Starting Gunicorn server...\n" "info"
+    gunicorn meme_wars.wsgi --bind 0.0.0.0:8000
+  fi
 }
 
 init_django_project() {
-  if [ "$ENVIRONMENT" = 'development' ]; then
-    print_django_project_init_info
-    python3 manage.py migrate
-    python3 manage.py createsuperuser --noinput || true
-    python3 manage.py runserver 0.0.0.0:8000
-
-  elif [ "$ENVIRONMENT" = 'staging' ] || [ "$ENVIRONMENT" = 'production' ]; then
-    print_django_project_init_info
+  if $(bool "$COLLECT_STATIC_FILES"); then
     python3 manage.py collectstatic --noinput
-    python3 manage.py migrate
-    python3 manage.py createsuperuser --noinput || true
-    gunicorn meme_wars.wsgi --bind 0.0.0.0:8000
-
-  else
-    printc "[ERROR]: Unknown environment: '$ENVIRONMENT'\n" "danger"
-    printc "Exiting... \n\n"
-    exit 1
   fi
+  python3 manage.py migrate
+  python3 manage.py createsuperuser --noinput || true
+  run_server
 }
 
 wait_for_postgres
