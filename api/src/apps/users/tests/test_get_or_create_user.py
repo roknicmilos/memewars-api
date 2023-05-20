@@ -1,4 +1,3 @@
-import pytest
 from unittest.mock import patch
 
 from apps.common.tests import TestCase

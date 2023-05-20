@@ -1,9 +1,11 @@
 from uuid import uuid4
+from urllib import parse
 
 from faker import Faker
 import pytest
 from unittest.mock import patch
 from django.conf import settings
+from rest_framework.authtoken.models import Token
 
 from apps.common.tests import APITestCase
 from apps.common.utils import build_absolute_uri
@@ -129,5 +131,19 @@ class TestGoogleAuthCallbackQuerySerializer(APITestCase):
         pass
 
     def test_should_build_login_success_url_with_token_data(self):
-        # TODO
-        pass
+        request = self.get_request_example()
+        serializer = GoogleAuthCallbackQuerySerializer(request=request)
+        login_in_progress = LoginInProgressFactory()
+        serializer._login_in_progress = login_in_progress
+
+        user = UserFactory(image_url=Faker().url())
+        token = Token.objects.create(user=user)
+
+        url = serializer.build_login_success_url(token=token)
+        self.assertTrue(url.startswith(login_in_progress.login_success_redirect_url))
+        url_query_params = dict(parse.parse_qsl(parse.urlsplit(url).query))
+        self.assertEqual(url_query_params['token'], token.key)
+        self.assertEqual(url_query_params['email'], token.user.email)
+        self.assertEqual(url_query_params['first_name'], token.user.first_name)
+        self.assertEqual(url_query_params['last_name'], token.user.last_name)
+        self.assertEqual(url_query_params['image_url'], token.user.image_url)

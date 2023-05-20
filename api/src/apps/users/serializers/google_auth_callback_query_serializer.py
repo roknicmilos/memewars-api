@@ -1,3 +1,5 @@
+from urllib.parse import urlencode
+
 from django.conf import settings
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.core.handlers.wsgi import WSGIRequest
@@ -103,5 +105,11 @@ class GoogleAuthCallbackQuerySerializer(serializers.Serializer):
         pass
 
     def build_login_success_url(self, token: Token) -> str:
-        # TODO: use self._login_in_progress.login_success_redirect_url
-        pass
+        url_query_params = {
+            'token': token.key,
+            'email': token.user.email,
+            'first_name': token.user.first_name,
+            'last_name': token.user.last_name,
+            'image_url': token.user.image_url or '',
+        }
+        return f'{self._login_in_progress.login_success_redirect_url}?{urlencode(url_query_params)}'
