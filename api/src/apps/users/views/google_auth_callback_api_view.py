@@ -6,7 +6,6 @@ from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 
 from apps.users.serializers import GoogleAuthCallbackQuerySerializer
-from apps.users.utils import build_login_failure_url, build_login_success_url
 
 
 class GoogleAuthCallbackAPIView(APIView):
@@ -24,11 +23,10 @@ class GoogleAuthCallbackAPIView(APIView):
     )
     def get(self, *args, **kwargs) -> HttpResponseRedirect:
         serializer = GoogleAuthCallbackQuerySerializer(request=self.request)
-        try:
-            user, _ = serializer.get_or_create_user()
-        except Exception as error:
-            return redirect(to=build_login_failure_url(error=error))
+        if not serializer.is_valid():
+            return redirect(to=serializer.build_login_failure_url())
 
+        user, _ = serializer.get_or_create_user()
         Token.objects.filter(user=user).delete()
         token = Token.objects.create(user=user)
-        return redirect(to=build_login_success_url(token=token))
+        return redirect(to=serializer.build_login_success_url(token=token))

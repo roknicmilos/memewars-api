@@ -14,9 +14,9 @@ class TestMemeWarPhaseValidator(TestCase):
         expected_message = f'Meme must be in a war that is in "{War.Phases.VOTING.label}" phase'
         meme = MemeFactory()
         self.assertNotEqual(meme.war.phase, War.Phases.VOTING.value)
-        with self.raisesValidationError(match=expected_message):
+        with self.raisesDjangoValidationError(match=expected_message):
             self.validator(value=meme.pk)
-        with self.raisesValidationError(match=expected_message):
+        with self.raisesDjangoValidationError(match=expected_message):
             self.validator(value=meme)
 
     def test_should_not_raise_validation_error_when_war_is_in_voting_phase(self):

@@ -13,7 +13,7 @@ class TestVote(TestCase):
         expected_validation_errors = {
             'meme': [f'Meme must be in a war that is in "{War.Phases.SUBMISSION.label}" phase'],
         }
-        with self.raisesValidationError(match=expected_validation_errors):
+        with self.raisesDjangoValidationError(match=expected_validation_errors):
             vote.full_clean()
 
     def test_should_return_correct_war(self):

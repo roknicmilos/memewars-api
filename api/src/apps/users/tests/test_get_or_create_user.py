@@ -47,14 +47,6 @@ class TestGetOrCreateUser(TestCase):
         self.assertEqual(User.objects.count(), 1)
         self.assertEqualUser(user, self.google_user)
 
-    @patch.object(UserSettings, 'validate_email')
-    def test_should_not_create_user_when_email_validation_fails(self, mock_validate_email):
-        error_message = 'Invalid email address'
-        mock_validate_email.side_effect = Exception(error_message)
-
-        with pytest.raises(expected_exception=Exception, match=error_message):
-            get_or_create_user(google_user=self.google_user)
-
     def assertEqualUser(self, user: User, google_user: GoogleUser) -> None:
         self.assertEqual(user.email, google_user.email)
         self.assertEqual(user.first_name, google_user.given_name)

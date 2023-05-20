@@ -1,52 +1,82 @@
+from uuid import uuid4
+
 from faker import Faker
 import pytest
 from unittest.mock import patch
 from django.conf import settings
 
-from apps.common.tests import TestCase
+from apps.common.tests import APITestCase
 from apps.common.utils import build_absolute_uri
-from apps.users import serializers as user_serializers
-from apps.users.models import UserSettings
-from apps.users.tests.factories import UserFactory
+from apps.users.models import LoginInProgress
+from apps.users.tests.factories import UserFactory, LoginInProgressFactory
+from apps.users.serializers import (
+    google_auth_callback_query_serializer,
+    GoogleAuthCallbackQuerySerializer,
+)
 
 
 @pytest.mark.django_db
-class TestGoogleAuthCallbackQuerySerializer(TestCase):
+class TestGoogleAuthCallbackQuerySerializer(APITestCase):
 
-    def test_should_raise_permission_error_when_state_from_url_is_not_equal_to_state_from_session(self):
+    def test_should_raise_validation_error_for_missing_session_data_for_login_in_progress(self):
+        request = self.get_request_example(url_query_params={'a': 'b'})
+        serializer = GoogleAuthCallbackQuerySerializer(request=request)
+        with self.raisesAPIValidationError(match="'login_in_progress'", code='login_in_progress_error'):
+            serializer.is_valid(raise_exception=True)
+
+    @patch.object(
+        target=google_auth_callback_query_serializer,
+        attribute=LoginInProgress.__name__,
+        return_value=LoginInProgressFactory()
+    )
+    def test_should_raise_validation_error_when_state_from_url_is_not_equal_to_state_from_session(self, *_):
         request = self.get_request_example(url_query_params={'state': 'xyz'})
         request.session['google_auth_state'] = 'abc'
-        serializer = user_serializers.GoogleAuthCallbackQuerySerializer(request=request)
-        with pytest.raises(PermissionError, match='Invalid Google auth state'):
-            serializer.get_or_create_user()
+        serializer = GoogleAuthCallbackQuerySerializer(request=request)
+        with self.raisesAPIValidationError(match='Access denied.', code='access_denied'):
+            serializer.is_valid(raise_exception=True)
 
-    @patch.object(user_serializers.jwt, 'decode')
-    @patch.object(user_serializers.GoogleAuthCallbackQuerySerializer, '_get_user_id_token')
-    def test_should_return_google_user(self, _, mock_decode_jwt):
+    @patch.object(GoogleAuthCallbackQuerySerializer, '_set_login_in_progress')
+    @patch.object(GoogleAuthCallbackQuerySerializer, '_validate_google_auth_state')
+    @patch.object(GoogleAuthCallbackQuerySerializer, '_get_user_id_token_data')
+    def test_should_raise_validation_error_when_user_email_is_not_allowed(self, a, b, mock_decode):
+        mock_decode.return_value = {'email', 'example@example.com'}
+
+        request = self.get_request_example()
+        serializer = GoogleAuthCallbackQuerySerializer(request=request)
+        with self.raisesAPIValidationError(match='This email is not allowed.', code='forbidden_email'):
+            serializer.is_valid(raise_exception=True)
+
+    @patch.object(GoogleAuthCallbackQuerySerializer, '_set_login_in_progress')
+    @patch.object(GoogleAuthCallbackQuerySerializer, '_validate_google_auth_state')
+    @patch.object(GoogleAuthCallbackQuerySerializer, '_get_initial_data')
+    def test_should_return_google_user(self, mock_get_initial_data, *_):
         faker = Faker()
-        id_token_payload = {
+        initial_data = {
+            'state': uuid4().hex,
             'email': faker.email(),
             'given_name': faker.first_name(),
             'family_name': faker.last_name(),
             'picture': faker.image_url(),
         }
-        UserSettings.update(allowed_emails=[id_token_payload['email']])
-        mock_decode_jwt.return_value = id_token_payload
-        request = self.get_request_example(url_query_params={'state': 'xyz'})
-        request.session['google_auth_state'] = 'xyz'
-        serializer = user_serializers.GoogleAuthCallbackQuerySerializer(request=request)
+        mock_get_initial_data.return_value = initial_data
+
+        request = self.get_request_example(url_query_params={'state': 'google-auth-state'})
+        serializer = GoogleAuthCallbackQuerySerializer(request=request)
+        serializer.is_valid(raise_exception=True)
+
         google_user = serializer._get_google_user()
-        self.assertEqual(google_user.email, id_token_payload['email'])
-        self.assertEqual(google_user.given_name, id_token_payload['given_name'])
-        self.assertEqual(google_user.family_name, id_token_payload['family_name'])
-        self.assertEqual(google_user.picture, id_token_payload['picture'])
+        self.assertEqual(google_user.email, initial_data['email'])
+        self.assertEqual(google_user.given_name, initial_data['given_name'])
+        self.assertEqual(google_user.family_name, initial_data['family_name'])
+        self.assertEqual(google_user.picture, initial_data['picture'])
 
     @patch.object(
-        user_serializers.GoogleAuthCallbackQuerySerializer,
-        '_create_token_endpoint_request_data',
+        target=GoogleAuthCallbackQuerySerializer,
+        attribute='_create_token_endpoint_request_data',
         return_value={}
     )
-    @patch.object(user_serializers.requests, 'post')
+    @patch.object(google_auth_callback_query_serializer.requests, 'post')
     def test_should_get_user_id_token(self, mock_requests_post, _):
         class ResponseMock:
             id_token = 'response-mock-id-token'
@@ -56,7 +86,7 @@ class TestGoogleAuthCallbackQuerySerializer(TestCase):
 
         mock_requests_post.return_value = ResponseMock()
         request = self.get_request_example()
-        serializer = user_serializers.GoogleAuthCallbackQuerySerializer(request=request)
+        serializer = GoogleAuthCallbackQuerySerializer(request=request)
         id_token = serializer._get_user_id_token()
         self.assertEqual(id_token, ResponseMock.id_token)
 
@@ -65,7 +95,7 @@ class TestGoogleAuthCallbackQuerySerializer(TestCase):
             'code': 'xyz',
         }
         request = self.get_request_example(url_query_params=url_query_params)
-        serializer = user_serializers.GoogleAuthCallbackQuerySerializer(request=request)
+        serializer = GoogleAuthCallbackQuerySerializer(request=request)
         request_data = serializer._create_token_endpoint_request_data()
         self.assertEqual(request_data['code'], url_query_params['code'])
         self.assertEqual(request_data['client_id'], settings.GOOGLE_OPENID_CLIENT_ID)
@@ -74,22 +104,30 @@ class TestGoogleAuthCallbackQuerySerializer(TestCase):
         self.assertEqual(request_data['redirect_uri'], expected_redirect_uri)
         self.assertEqual(request_data['grant_type'], 'authorization_code')
 
-    @patch.object(user_serializers, 'get_or_create_user')
-    @patch.object(user_serializers.GoogleAuthCallbackQuerySerializer, '_get_google_user')
+    @patch.object(google_auth_callback_query_serializer, 'get_or_create_user')
+    @patch.object(GoogleAuthCallbackQuerySerializer, '_get_google_user')
     def test_should_create_user(self, _, mock_get_or_create_user):
         mock_get_or_create_user.return_value = [UserFactory(), True]
         request = self.get_request_example()
-        serializer = user_serializers.GoogleAuthCallbackQuerySerializer(request=request)
+        serializer = GoogleAuthCallbackQuerySerializer(request=request)
         user, is_created = serializer.get_or_create_user()
         self.assertTrue(is_created)
         self.assertEqual(user, mock_get_or_create_user.return_value[0])
 
-    @patch.object(user_serializers, 'get_or_create_user')
-    @patch.object(user_serializers.GoogleAuthCallbackQuerySerializer, '_get_google_user')
+    @patch.object(google_auth_callback_query_serializer, 'get_or_create_user')
+    @patch.object(GoogleAuthCallbackQuerySerializer, '_get_google_user')
     def test_should_get_user(self, _, mock_get_or_create_user):
         mock_get_or_create_user.return_value = [UserFactory(), False]
         request = self.get_request_example()
-        serializer = user_serializers.GoogleAuthCallbackQuerySerializer(request=request)
+        serializer = GoogleAuthCallbackQuerySerializer(request=request)
         user, is_created = serializer.get_or_create_user()
         self.assertFalse(is_created)
         self.assertEqual(user, mock_get_or_create_user.return_value[0])
+
+    def test_should_build_login_failure_url_when_validation_error_is_raised(self):
+        # TODO
+        pass
+
+    def test_should_build_login_success_url_with_token_data(self):
+        # TODO
+        pass

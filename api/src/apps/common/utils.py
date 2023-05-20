@@ -2,7 +2,7 @@ import os
 from typing import Type
 
 from django.conf import settings
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError as DjangoValidationError
 from django.core.files.images import ImageFile
 from django.db.models import Model, TextChoices
 from django.contrib.contenttypes.models import ContentType
@@ -82,12 +82,12 @@ def handle_api_exception(error: Exception, context: dict = None) -> Response:
         return ErrorResponse(message='Authentication token is invalid', status=401)
     if isinstance(error, Http404):
         return ErrorResponse(message='Not found', status=404)
-    if isinstance(error, ValidationError):
-        return _handle_validation_error(error=error)
+    if isinstance(error, DjangoValidationError):
+        return _handle_django_validation_error(error=error)
     return exception_handler(exc=error, context=context)
 
 
-def _handle_validation_error(error: ValidationError) -> Response:
+def _handle_django_validation_error(error: DjangoValidationError) -> Response:
     data = {'ALL': [error.message]}
     if error.code:
         data['code'] = error.code
