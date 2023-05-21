@@ -99,10 +99,10 @@ class GoogleAuthCallbackQuerySerializer(serializers.Serializer):
         return GoogleUser(**kwargs)
 
     def build_login_failure_url(self) -> str:
-        # TODO: raise error if there are multiple self.errors
-        # TODO: take error from self.errors
-        # TODO: use self._login_in_progress.login_failure_redirect_url
-        pass
+        url_query_params = {
+            'code': list(self.errors.values())[0].code,
+        }
+        return f'{self._login_in_progress.login_failure_redirect_url}?{urlencode(url_query_params)}'
 
     def build_login_success_url(self, token: Token) -> str:
         url_query_params = {

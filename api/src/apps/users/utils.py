@@ -32,22 +32,3 @@ def _create_login_url_query_params(state: str) -> dict:
         'redirect_uri': build_absolute_uri('api:users:google_auth:callback'),
         'state': state
     }
-
-# def build_login_success_url(token: Token) -> str:
-#     url_query_params = {
-#         'token': token.key,
-#         'email': token.user.email,
-#         'first_name': token.user.first_name,
-#         'last_name': token.user.last_name,
-#         'image_url': token.user.image_url,
-#     }
-#     # TODO: replace settings.CLIENT_APP_URL with a URL from session (LoginInProgress)
-#     return f'{settings.CLIENT_APP_URL}?{urlencode(url_query_params)}'
-#
-#
-# def build_login_failure_url(error: ValidationError) -> str:
-#     url_query_params = {
-#         'code': error.code,
-#     }
-#     # TODO: replace settings.CLIENT_APP_URL with a URL from session (LoginInProgress)
-#     return f'{settings.CLIENT_APP_URL}?{urlencode(url_query_params)}'
