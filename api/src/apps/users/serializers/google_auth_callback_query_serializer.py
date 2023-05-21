@@ -100,7 +100,7 @@ class GoogleAuthCallbackQuerySerializer(serializers.Serializer):
 
     def build_login_failure_url(self) -> str:
         url_query_params = {
-            'code': list(self.errors.values())[0].code,
+            'code': list(self.errors.values())[0][0].code,
         }
         return f'{self._login_in_progress.login_failure_redirect_url}?{urlencode(url_query_params)}'
 

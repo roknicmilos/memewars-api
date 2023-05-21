@@ -36,8 +36,8 @@ class TestGoogleAuthLoginURLAPIView(TestCase):
         response = self.client.get(path=f"{self.url_path}?{urlencode(url_query_params)}")
         self.assertEqual(response.status_code, 400)
         expected_errors = {
-            'login_success_redirect_url': [self.ErrorMessages.INVALID_URL_ERROR_MSG],
-            'login_failure_redirect_url': [self.ErrorMessages.REQUIRED_FIELD_ERROR_MSG],
+            'login_success_redirect_url': [self.ValidationErrorMessages.INVALID_URL_ERROR_MSG],
+            'login_failure_redirect_url': [self.ValidationErrorMessages.REQUIRED_FIELD_ERROR_MSG],
         }
         self.assertEqual(response.json(), expected_errors)
 

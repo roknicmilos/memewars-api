@@ -15,7 +15,7 @@ from rest_framework.serializers import Serializer
 
 @pytest.mark.django_db
 class TestCase(BaseTestCase):
-    class ErrorMessages:
+    class ValidationErrorMessages:
         REQUIRED_FIELD_ERROR_MSG = 'This field may not be null.'
         INVALID_URL_ERROR_MSG = 'Enter a valid URL.'
 

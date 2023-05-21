@@ -5,7 +5,6 @@ import { useAuth } from "../../../../context/authContext";
 import { Modal } from "../../modal/Modal";
 import { useLoader } from "../../../../context/loaderContext";
 
-
 export function UserMenu() {
   const { setIsLoading } = useLoader();
   const { user, clearUser } = useAuth();
@@ -23,7 +22,7 @@ export function UserMenu() {
         <img
           className={ styles.profileImage }
           src={ user?.imageURL ? user.imageURL : avatarSVG }
-          alt="profile image"
+          alt={ `profile image for ${ user?.firstName } ${ user?.lastName }` }
           onError={ ({ currentTarget }) => {
             currentTarget.src = avatarSVG;
           } }

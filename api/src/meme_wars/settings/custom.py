@@ -18,4 +18,4 @@ GOOGLE_OPENID_CONFIG_URL = 'https://accounts.google.com/.well-known/openid-confi
 GOOGLE_OPENID_CLIENT_ID = config('GOOGLE_OPENID_CLIENT_ID')
 GOOGLE_OPENID_CLIENT_SECRET = config('GOOGLE_OPENID_CLIENT_SECRET')
 
-HOST_URL = config('WEB_API_BASE_URL')
+HOST_URL = config('API_BASE_URL')

@@ -7,7 +7,6 @@ import pytest
 from unittest.mock import patch
 from django.conf import settings
 from rest_framework.authtoken.models import Token
-from rest_framework.exceptions import ValidationError as APIValidationError
 
 from apps.common.tests import APITestCase
 from apps.common.utils import build_absolute_uri
@@ -174,23 +173,20 @@ class TestGoogleAuthCallbackQuerySerializer(APITestCase):
         with pytest.raises(expected_exception=IndexError, match='list index out of range'):
             serializer.build_login_failure_url()
 
-    @patch.object(GoogleAuthCallbackQuerySerializer, 'run_validation')
-    def test_should_build_login_failure_url_when_validation_error_is_raised(self, mock_run_validation):
-        error_code = 'test_login_failure_url'
-        error = APIValidationError(detail={'some_field': 'Validation error'}, code=error_code)
-        mock_run_validation.side_effect = error
-
+    def test_should_build_login_failure_url_when_validation_error_is_raised(self):
         request = self.get_request_example()
         serializer = GoogleAuthCallbackQuerySerializer(request=request)
         login_in_progress = LoginInProgressFactory()
         serializer._login_in_progress = login_in_progress
 
+        # Should fail validation as soon as run_validation method in the serializer
+        # is called, when setting LoginInProgress (because nothing is mocked)
         self.assertFalse(serializer.is_valid())
 
         url = serializer.build_login_failure_url()
         self.assertTrue(url.startswith(login_in_progress.login_failure_redirect_url))
         url_query_params = dict(parse.parse_qsl(parse.urlsplit(url).query))
-        self.assertEqual(url_query_params['code'], error_code)
+        self.assertEqual(url_query_params['code'], 'login_in_progress_error')
 
     def test_should_build_login_success_url_with_token_data(self):
         request = self.get_request_example()

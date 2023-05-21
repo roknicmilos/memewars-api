@@ -10,7 +10,7 @@ services:
     env_file:
       - .env
     ports:
-      - "${WEB_API_PORT}:8000"
+      - "${API_PORT}:8000"
     depends_on:
       - postgres
     volumes:
@@ -50,7 +50,7 @@ services:
     env_file:
       - .env
     ports:
-      - "${WEB_APP_PORT}:3000"
+      - "${APP_PORT}:3000"
     volumes:
       - ./app/src:/app/src
       - ./app/scripts/entrypoint.sh:/app/scripts/entrypoint.sh

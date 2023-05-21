@@ -9,7 +9,7 @@ from apps.users.authentication import google_openid_config
 from apps.users.utils import _create_login_url_query_params, build_google_login_url
 
 
-class T(TestCase):
+class TestBuildGoogleLoginURL(TestCase):
 
     def setUp(self) -> None:
         super().setUp()

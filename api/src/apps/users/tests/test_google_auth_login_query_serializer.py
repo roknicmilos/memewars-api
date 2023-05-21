@@ -24,8 +24,8 @@ class TestGoogleAuthLoginQuerySerializer(TestCase):
         serializer = GoogleAuthLoginQuerySerializer(request=request)
         serializer.is_valid()
         expected_errors = {
-            'login_success_redirect_url': [self.ErrorMessages.REQUIRED_FIELD_ERROR_MSG],
-            'login_failure_redirect_url': [self.ErrorMessages.REQUIRED_FIELD_ERROR_MSG],
+            'login_success_redirect_url': [self.ValidationErrorMessages.REQUIRED_FIELD_ERROR_MSG],
+            'login_failure_redirect_url': [self.ValidationErrorMessages.REQUIRED_FIELD_ERROR_MSG],
         }
         self.assertSerializerErrors(serializer, expected_errors)
 
@@ -37,8 +37,8 @@ class TestGoogleAuthLoginQuerySerializer(TestCase):
         request = self.get_request_example(url_query_params=url_query_params)
         serializer = GoogleAuthLoginQuerySerializer(request=request)
         serializer.is_valid()
-        expected_errors['login_success_redirect_url'] = [self.ErrorMessages.INVALID_URL_ERROR_MSG]
-        expected_errors['login_failure_redirect_url'] = [self.ErrorMessages.INVALID_URL_ERROR_MSG]
+        expected_errors['login_success_redirect_url'] = [self.ValidationErrorMessages.INVALID_URL_ERROR_MSG]
+        expected_errors['login_failure_redirect_url'] = [self.ValidationErrorMessages.INVALID_URL_ERROR_MSG]
         self.assertSerializerErrors(serializer, expected_errors)
 
     def test_should_save_login_data_to_session_when_data_is_valid(self):
