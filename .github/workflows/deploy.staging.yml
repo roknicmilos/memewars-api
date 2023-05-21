@@ -29,6 +29,6 @@ jobs:
             cd /var/www/memewars-staging
             git fetch origin
             git reset --hard origin/staging || exit
-            docker compose -f docker-compose.yml -f docker-compose.staging.yml build
-            docker compose -f docker-compose.yml -f docker-compose.staging.yml up -d
+            docker compose build
+            docker compose up -d
             docker exec -t memewars-django--staging sh -c 'pytest --create-db --cov -n auto && coverage html'

@@ -1,5 +1,4 @@
-{% load static %}
-{% load i18n %}
+{% load i18n static env %}
 {% get_current_language as CURRENT_LANGUAGE_CODE %}
 
 <!DOCTYPE html>
@@ -15,7 +14,8 @@
 <body>
 
 <h1 class="title">{% trans 'Meme Wars' %}</h1>
-{% if environment == 'development' or environment == 'staging' %}
+
+{% if 'SHOW_TEST_COVERAGE'|bool_env %}
     <div class="cta-button cta-button--test-coverage">
         <a href="{% static 'coverage/index.html' %}">{% trans 'Tests Coverage Report' %}</a>
     </div>
@@ -30,8 +30,6 @@
     <a href="{% url 'api_schema:redoc' %}">{% trans 'Redoc UI' %}</a>
     <a href="{% url 'api_schema:download' %}">{% trans 'Download API Schema' %}</a>
 </div>
-
-<div class="app-env-label app-env-label--{{ environment }}">{{ environment }}</div>
 
 </body>
 </html>
