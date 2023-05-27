@@ -29,5 +29,5 @@ jobs:
             cd /var/www/memewars-production
             git fetch origin
             git reset --hard origin/main || exit
-            docker compose -f docker-compose.yml -f docker-compose.production.yml build
-            docker compose -f docker-compose.yml -f docker-compose.production.yml up -d
+            docker compose build
+            docker compose up -d

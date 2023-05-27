@@ -76,20 +76,6 @@ body {
     color: white;
 }
 
-.cta-button--app {
-    border-color: darkred;
-    background-color: darkred;
-}
-
-.cta-button--app:hover {
-    border-color: #a60000;
-    background-color: #a60000;
-}
-
-.cta-button--app a {
-    color: white;
-}
-
 .cta-button--test-coverage {
     border-color: lightgreen;
     background-color: lightgreen;
@@ -114,18 +100,4 @@ body {
     font-size: 20px;
     font-weight: 300;
     display: flex;
-}
-
-.app-env-label--development {
-    background: lightgreen;
-}
-
-.app-env-label--staging {
-    background-color: #417690;
-    color: white;
-}
-
-.app-env-label--production {
-    background-color: darkred;
-    color: white;
 }

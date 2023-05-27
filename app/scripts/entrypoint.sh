@@ -4,11 +4,12 @@ set -e
 
 . /app/scripts/utils.sh
 
-export REACT_APP_API_URL="$WEB_API_BASE_URL/api/v1"
+export REACT_APP_APP_URL=$APP_BASE_URL
+export REACT_APP_API_URL="$API_BASE_URL/api/v1"
 export REACT_APP_PAGE_SIZE=$DRF_PAGE_SIZE
 
 npm install
-if $(bool "$WEB_APP_DEV_SERVER"); then
+if $(bool "$APP_DEV_SERVER"); then
   printc "Starting development server...\n" "info"
   npm start
 else

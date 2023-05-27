@@ -1,6 +1,6 @@
 # Python imports
 import sys
-from decouple import config
+from decouple import config, Csv
 from os.path import abspath, basename, dirname, join, normpath
 
 
@@ -94,7 +94,6 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.request',
-                'meme_wars.context_processors.meme_wars',
             ],
         },
     },
@@ -162,6 +161,4 @@ ALLOWED_HOSTS = ['*']
 
 LOGIN_REDIRECT_URL = '/'
 
-CSRF_TRUSTED_ORIGINS = (
-    config('WEB_API_BASE_URL'),
-)
+CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', default=None, cast=Csv())

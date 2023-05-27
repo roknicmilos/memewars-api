@@ -1,7 +1,12 @@
+import contextlib
+
 import pytest
+
+from rest_framework.exceptions import ValidationError as APIValidationError
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.serializers import ModelSerializer
+from rest_framework.settings import api_settings
 
 from apps.common.tests import APIClient, TestCase
 
@@ -62,3 +67,21 @@ class APITestCase(TestCase):
     def authenticate(self, user) -> None:
         token, _ = Token.objects.get_or_create(user=user)
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + token.key)
+
+    @contextlib.contextmanager
+    def raisesAPIValidationError(
+            self,
+            match: str | dict,
+            code: str = None,
+            field_name: str = api_settings.NON_FIELD_ERRORS_KEY
+    ) -> None:
+        with pytest.raises(expected_exception=APIValidationError, match=match) as error_info:
+            yield
+
+        error_details = error_info.value.get_full_details()
+        self.assertIn(field_name, error_details)
+        if code:
+            field_errors = error_details[field_name]
+            if len(field_errors) > 1:
+                self.fail(f'There is more than one error for "{field_name}" field.')
+            self.assertEqual(field_errors[0]['code'], code)

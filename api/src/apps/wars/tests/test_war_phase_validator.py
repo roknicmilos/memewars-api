@@ -14,9 +14,9 @@ class TestWarPhaseValidator(TestCase):
         expected_message = f'War must be in "{War.Phases.SUBMISSION.label}" phase'
         war = WarFactory()
         self.assertNotEqual(war.phase, War.Phases.SUBMISSION.value)
-        with self.raisesValidationError(match=expected_message):
+        with self.raisesDjangoValidationError(match=expected_message):
             self.validator(value=war.pk)
-        with self.raisesValidationError(match=expected_message):
+        with self.raisesDjangoValidationError(match=expected_message):
             self.validator(value=war)
 
     def test_should_not_raise_validation_error_when_war_is_in_submission_phase(self):

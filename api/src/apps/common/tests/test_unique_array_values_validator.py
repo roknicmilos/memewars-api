@@ -9,7 +9,7 @@ class TestUniqueArrayValuesValidator(TestCase):
         cls.validator = UniqueArrayValuesValidator()
 
     def test_should_raise_validation_error_when_list_contains_duplicate_values(self):
-        with self.raisesValidationError(match='The list contains duplicate values'):
+        with self.raisesDjangoValidationError(match='The list contains duplicate values'):
             self.validator(value=['a', 'b', 'a'])
 
     def test_should_not_raise_validation_error_when_list_contains_unique_values(self):

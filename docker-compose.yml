@@ -3,14 +3,14 @@ version: '3.7'
 services:
 
   django:
-    container_name: memewars-django
+    container_name: memewars-django${CONTAINERS_SUFFIX}
     build:
       context: .
       dockerfile: ./api/Dockerfile
     env_file:
       - .env
     ports:
-      - "${WEB_API_PORT}:8000"
+      - "${API_PORT}:8000"
     depends_on:
       - postgres
     volumes:
@@ -20,7 +20,7 @@ services:
       - ./api/requirements:/app/requirements/
 
   postgres:
-    container_name: memewars-postgres
+    container_name: memewars-postgres${CONTAINERS_SUFFIX}
     image: postgres:14
     environment:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
@@ -31,7 +31,7 @@ services:
 
   pgadmin:
     image: dpage/pgadmin4
-    container_name: memewars-pgadmin
+    container_name: memewars-pgadmin${CONTAINERS_SUFFIX}
     environment:
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
@@ -43,14 +43,14 @@ services:
       - memewars-pgadmin-data:/var/lib/pgadmin
 
   react:
-    container_name: memewars-react
+    container_name: memewars-react${CONTAINERS_SUFFIX}
     build:
       context: .
       dockerfile: ./app/Dockerfile
     env_file:
       - .env
     ports:
-      - "${WEB_APP_PORT}:3000"
+      - "${APP_PORT}:3000"
     volumes:
       - ./app/src:/app/src
       - ./app/scripts/entrypoint.sh:/app/scripts/entrypoint.sh

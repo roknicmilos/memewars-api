@@ -1,4 +1,4 @@
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db import models
 from django.db.models import Sum
 from django.utils.translation import gettext_lazy as _
@@ -68,7 +68,7 @@ class Meme(BaseModel):
     def clean(self):
         super().clean()
         if not self.pk and self.user.memes.count() >= self.war.meme_upload_limit:
-            raise ValidationError(
+            raise DjangoValidationError(
                 message=_('This user already reached Meme upload limit in this war.'),
                 code='meme_upload_limit_reached'
             )

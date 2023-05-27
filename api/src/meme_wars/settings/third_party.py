@@ -1,4 +1,4 @@
-from decouple import config
+from decouple import config, Csv
 
 
 THIRD_PARTY_APPS = [
@@ -33,6 +33,4 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
 }
 
-CORS_ALLOWED_ORIGINS = [
-    config('WEB_APP_BASE_URL'),
-]
+CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', default=None, cast=Csv())

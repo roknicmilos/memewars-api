@@ -1,6 +1,6 @@
 from unittest.mock import patch
 
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError as DjangoValidationError
 from rest_framework.exceptions import NotAuthenticated, AuthenticationFailed
 
 from apps.common.tests import TestCase
@@ -30,11 +30,11 @@ class TestHandleAPIException(TestCase):
         error_message = 'Validation error message'
 
         # When error has a code:
-        response = handle_api_exception(error=ValidationError(message=error_message))
+        response = handle_api_exception(error=DjangoValidationError(message=error_message))
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.data, {'ALL': [error_message]})
 
         # When error doesn't have a code:
-        response = handle_api_exception(error=ValidationError(message=error_message, code='fake_error_code'))
+        response = handle_api_exception(error=DjangoValidationError(message=error_message, code='fake_error_code'))
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.data, {'ALL': [error_message], 'code': 'fake_error_code'})

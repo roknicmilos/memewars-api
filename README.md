@@ -32,33 +32,34 @@ This command is executed for a running container, which means that everywhere
 this command is mentioned, we assume that the container for which this command 
 is being executed is running. 
 Check if containers are running with `docker ps` command.
-Also, replace `{CONTAINERS_SUFFIX}` in the command with the actual container
-suffix (defined by the `CONTAINERS_SUFFIX` environment variable).
+Also, we assume that container suffix is not defined (`CONTAINERS_SUFFIX` 
+environment variable) and use original container name (without suffix) throughout
+this entire document.
 You can use `docker ps` to list all running containers and their full names.
 
 ## Tests and linting
 
 ### Run tests
 
-    docker exec -t {CONTAINERS_SUFFIX}-django sh -c 'pytest'
+    docker exec -t memewars-django sh -c 'pytest'
 
 The above command will run all tests.
 Flag `-t` is optional (it provides additional output coloring when used).
 
 To run the same tests in parallel, append `-n auto` to the `pytest` command:
 
-    docker exec -t {CONTAINERS_SUFFIX}-django sh -c 'pytest -n auto'
+    docker exec -t memewars-django sh -c 'pytest -n auto'
 
 ### Run tests with coverage
 
-    docker exec -t {CONTAINERS_SUFFIX}-django sh -c 'pytest --cov -n auto'    
+    docker exec -t memewars-django sh -c 'pytest --cov -n auto'    
 
 This will run all tests in parallel with coverage report.
 Running tests like this is necessary to generate the tests coverage report.
 
 ### Generate tests coverage report
 
-    docker exec {CONTAINERS_SUFFIX}-django sh -c 'coverage html'
+    docker exec memewars-django sh -c 'coverage html'
 
 This will generate html for the tests coverage report which is useful when trying
 to find out exactly which code is not covered by tests.
@@ -68,7 +69,7 @@ and places in those files which are covered, not covered and ignored by tests co
 If you don't want the html, and you just want to see the overall coverage report, you
 can run:
 
-    docker exec {CONTAINERS_SUFFIX}-django sh -c 'coverage report'
+    docker exec memewars-django sh -c 'coverage report'
 
 This will print the coverage report generated the last time tests wer run with the
 coverage ([Run tests with coverage](#run-tests-with-coverage)).
@@ -77,7 +78,7 @@ coverage ([Run tests with coverage](#run-tests-with-coverage)).
 
 - **Code security**:
 
-        docker exec {CONTAINERS_SUFFIX}-django sh -c 'bandit .'
+        docker exec memewars-django sh -c 'bandit .'
 
   The above command will run [Bandit](https://bandit.readthedocs.io/) will check for
   security issues in Python code.
@@ -85,7 +86,7 @@ coverage ([Run tests with coverage](#run-tests-with-coverage)).
 
 - **Code quality**:
 
-        docker exec {CONTAINERS_SUFFIX}-django sh -c 'flake8'
+        docker exec memewars-django sh -c 'flake8'
 
   The above command will run [Flake8](https://flake8.pycqa.org/) runs multiple tools to
   check the quality of Python code.
@@ -94,7 +95,7 @@ coverage ([Run tests with coverage](#run-tests-with-coverage)).
 
 ### Simultaneously run tests, coverage and linters
 
-    docker exec -t {CONTAINERS_SUFFIX}-django sh -c '/app/scripts/check_project.sh'
+    docker exec -t memewars-django sh -c '/app/scripts/check_project.sh'
 
 The above command will run the `check_project.sh` script which will:
 
@@ -112,24 +113,24 @@ The flag `-t` is optional just like when [only running tests](#run-tests).
 Superuser should already be created after running `docker compose up`
 with the credentials from `.env` file. If you want to create a new one, run:
 
-    docker exec -t {CONTAINERS_SUFFIX}-django sh -c 'python3 manage.py createsuperuser'
+    docker exec -t memewars-django sh -c 'python3 manage.py createsuperuser'
 
 If the superuser with the credentials from the `.env` file does not exist, you
 can create it by running:
 
-    docker exec {CONTAINERS_SUFFIX}-django sh -c 'python3 manage.py createsuperuser --noinput'
+    docker exec memewars-django sh -c 'python3 manage.py createsuperuser --noinput'
 
 ### Load fixtures
 
 To load all the fixtures, run the comment below (**NOTE: this will override table
 raws with the same primary keys as those specified in fixtures**):
 
-    docker exec {CONTAINERS_SUFFIX}-django sh -c 'python3 manage.py load_data'
+    docker exec memewars-django sh -c 'python3 manage.py load_data'
 
 Or you can load specific fixtures (in a specific order) by passing them as arguments to the same
 command. For example, to load `users` fixtures, and then `wars` fixtures:
 
-    docker exec {CONTAINERS_SUFFIX}-django sh -c 'python3 manage.py load_data users wars'
+    docker exec memewars-django sh -c 'python3 manage.py load_data users wars'
 
 ## Updating dependencies
 

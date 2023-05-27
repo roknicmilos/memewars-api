@@ -1,8 +1,4 @@
 from unittest.mock import patch
-
-from django.core.exceptions import ValidationError
-import pytest
-
 from apps.common.tests import TestCase
 from apps.wars.models import War
 from apps.wars.tests.factories import WarFactory, VoteFactory, MemeFactory
@@ -18,7 +14,7 @@ class TestMeme(TestCase):
         expected_validation_errors = {
             'war': [f'War must be in "{War.Phases.SUBMISSION.label}" phase'],
         }
-        with self.raisesValidationError(match=expected_validation_errors):
+        with self.raisesDjangoValidationError(match=expected_validation_errors):
             meme.full_clean()
 
     def test_should_return_correct_total_score(self):
@@ -82,6 +78,5 @@ class TestMeme(TestCase):
         MemeFactory(war=war)  # another user has reached meme upload limit
 
         expected_error_message = 'This user already reached Meme upload limit in this war.'
-        with pytest.raises(expected_exception=ValidationError, match=expected_error_message) as exception_info:
+        with self.raisesDjangoValidationError(match=expected_error_message, code='meme_upload_limit_reached'):
             MemeFactory(war=war, user=meme.user)
-        self.assertEqual(exception_info.value.code, 'meme_upload_limit_reached')
