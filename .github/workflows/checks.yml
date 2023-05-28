@@ -12,7 +12,7 @@ jobs:
       - name: Prepare environment variables
         run: cp example.env .env
       - name: Start Docker containers
-        run: docker-compose up -d
+        run: docker compose up -d
       - name: Run Django tests
         run: docker exec memewars-django sh -c 'pytest --cov --cov-fail-under=100 -n auto'
       - name: Check security issues in the Python code
