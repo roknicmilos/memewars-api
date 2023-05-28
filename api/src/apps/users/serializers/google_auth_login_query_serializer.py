@@ -9,7 +9,7 @@ class GoogleAuthLoginQuerySerializer(serializers.Serializer):
     login_success_redirect_url = serializers.URLField()
     login_failure_redirect_url = serializers.URLField()
 
-    def __init__(self, request: WSGIRequest, **kwargs):
+    def __init__(self, request: WSGIRequest = None, **kwargs):
         self.request = request
         super().__init__(**kwargs)
 

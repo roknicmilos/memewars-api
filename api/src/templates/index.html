@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<h1 class="title">{% trans 'Meme Wars' %}</h1>
+<h1 class="title">{% trans 'Meme Wars API' %}</h1>
 
 {% if 'SHOW_TEST_COVERAGE'|bool_env %}
     <div class="cta-button cta-button--test-coverage">
@@ -24,7 +24,7 @@
     <a href="{% url 'admin:index' %}">{% trans 'Django Administration' %}</a>
 </div>
 
-<h2 class="title title--secondary">{% trans 'RESTful WEB API' %}</h2>
+<h2 class="title title--secondary">{% trans 'Open API Docs' %}</h2>
 <div class="cta-button-group">
     <a href="{% url 'api_schema:swagger' %}">{% trans 'Swagger UI' %}</a>
     <a href="{% url 'api_schema:redoc' %}">{% trans 'Redoc UI' %}</a>

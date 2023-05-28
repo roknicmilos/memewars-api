@@ -1,0 +1,26 @@
+from django.conf import settings
+from django.urls import reverse
+from pytest_django.asserts import assertTemplateUsed
+
+from apps.common.tests import APITestCase
+
+
+class TestSpectacularViews(APITestCase):
+
+    def test_should_return_swagger_ui(self):
+        response = self.client.get(path=reverse('api_schema:swagger'))
+        self.assertEqual(response.status_code, 200)
+        assertTemplateUsed(response, 'drf_spectacular/swagger_ui.html')
+
+    def test_should_return_redoc_ui(self):
+        response = self.client.get(path=reverse('api_schema:redoc'))
+        self.assertEqual(response.status_code, 200)
+        assertTemplateUsed(response, 'drf_spectacular/redoc.html')
+
+    def test_should_download_api_schema(self):
+        response = self.client.get(path=reverse('api_schema:download'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEquals(
+            response.get('Content-Disposition'),
+            f'inline; filename="{settings.SPECTACULAR_SETTINGS["TITLE"]}.yaml"'
+        )
