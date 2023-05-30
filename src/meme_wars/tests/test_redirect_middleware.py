@@ -22,21 +22,40 @@ class TestRedirectMiddleware(TestCase):
     @override_settings(API_REDIRECT_URL=mock_api_redirect_url)
     def test_should_redirect_api_request_when_api_redirect_url_is_defined(self):
         url_path = reverse('api:index')
-        response = self.client.get(path=url_path)
+
+        # When API_REDIRECT_URL ends with front slash (/):
+        self.assertTrue(self.mock_api_redirect_url.endswith('/'))
+        with override_settings(API_REDIRECT_URL=self.mock_api_redirect_url):
+            response = self.client.get(path=url_path)
         self.assertRedirects(response=response, expected_url=f'{self.mock_api_redirect_url}{url_path[1:]}')
+
+        # When API_REDIRECT_URL doesn't end with front slash (/):
+        api_redirect_url = self.mock_api_redirect_url[:-1]
+        self.assertFalse(api_redirect_url.endswith('/'))
+        with override_settings(API_REDIRECT_URL=api_redirect_url):
+            response = self.client.get(path=url_path)
+        self.assertRedirects(response=response, expected_url=f'{api_redirect_url}{url_path}')
 
     @patch.dict(os.environ, {'ADMIN_REDIRECT_URL': ''}, clear=True)
     def test_should_not_redirect_admin_request_when_admin_redirect_url_is_undefined(self):
-        self.create_and_login_superuser()
-        response = self.client.get(path=reverse('admin:index'))
+        response = self.client.get(path=reverse('admin:login'))
         self.assertEqual(response.status_code, 200)
 
-    @override_settings(ADMIN_REDIRECT_URL=mock_admin_redirect_url)
     def test_should_redirect_admin_request_when_admin_redirect_url_is_defined(self):
-        self.create_and_login_superuser()
-        url_path = reverse('admin:index')
-        response = self.client.get(path=url_path)
+        url_path = reverse('admin:login')
+
+        # When ADMIN_REDIRECT_URL ends with front slash (/):
+        self.assertTrue(self.mock_admin_redirect_url.endswith('/'))
+        with override_settings(ADMIN_REDIRECT_URL=self.mock_admin_redirect_url):
+            response = self.client.get(path=url_path)
         self.assertRedirects(response=response, expected_url=f'{self.mock_admin_redirect_url}{url_path[1:]}')
+
+        # When ADMIN_REDIRECT_URL doesn't end with front slash (/):
+        admin_redirect_url = self.mock_admin_redirect_url[:-1]
+        self.assertFalse(admin_redirect_url.endswith('/'))
+        with override_settings(ADMIN_REDIRECT_URL=admin_redirect_url):
+            response = self.client.get(path=url_path)
+        self.assertRedirects(response=response, expected_url=f'{admin_redirect_url}{url_path}')
 
     def assertRedirects(self, response: HttpResponse, expected_url: str) -> None:
         self.assertIsInstance(response, HttpResponseRedirect)
