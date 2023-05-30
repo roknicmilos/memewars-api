@@ -10,7 +10,7 @@ services:
     env_file:
       - .env
     ports:
-      - "${API_PORT}:8000"
+      - "${PORT}:8000"
     depends_on:
       - postgres
     volumes:
