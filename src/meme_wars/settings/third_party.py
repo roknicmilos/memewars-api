@@ -31,6 +31,7 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'An API for Meme Wars',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
+    'SERVE_URLCONF': 'meme_wars.api_urls',
 }
 
 CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', default=None, cast=Csv())

@@ -3,7 +3,7 @@ from decouple import config
 from meme_wars.utils import get_env_url
 
 CUSTOM_MIDDLEWARE = [
-    'meme_wars.middlewares.RedirectMiddleware',
+    'meme_wars.middlewares.URLConfMiddleware',
 ]
 
 CUSTOM_APPS = [
@@ -24,7 +24,5 @@ GOOGLE_OPENID_CLIENT_ID = config('GOOGLE_OPENID_CLIENT_ID')
 GOOGLE_OPENID_CLIENT_SECRET = config('GOOGLE_OPENID_CLIENT_SECRET')
 
 HOST_URL = get_env_url(env_var='BASE_URL')
-
-API_REDIRECT_URL = get_env_url(env_var='API_REDIRECT_URL')
-
-ADMIN_REDIRECT_URL = get_env_url(env_var='ADMIN_REDIRECT_URL')
+API_URL = get_env_url(env_var='API_URL')
+ADMIN_URL = get_env_url(env_var='ADMIN_URL')
