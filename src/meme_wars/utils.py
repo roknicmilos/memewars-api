@@ -67,36 +67,6 @@ def reverse_api(
     )
 
 
-def reverse_lazy_main(
-        view_name: str,
-        args: tuple = None,
-        kwargs: tuple = None,
-        current_app: str = None
-) -> str:
-    return reverse_lazy(
-        viewname=view_name,
-        args=args,
-        kwargs=kwargs,
-        current_app=current_app,
-        urlconf=MAIN_URL_CONF
-    )
-
-
-def reverse_lazy_admin(
-        view_name: str,
-        args: tuple = None,
-        kwargs: tuple = None,
-        current_app: str = None
-) -> str:
-    return reverse_lazy(
-        viewname=view_name,
-        args=args,
-        kwargs=kwargs,
-        current_app=current_app,
-        urlconf=ADMIN_URL_CONF
-    )
-
-
 def reverse_lazy_api(
         view_name: str,
         args: tuple = None,
