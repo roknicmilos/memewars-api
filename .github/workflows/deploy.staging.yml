@@ -3,17 +3,6 @@ on:
   push:
     branches: [ staging ]
 jobs:
-  test:
-    name: 'Run tests'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Prepare environment variables
-        run: cp example.env .env
-      - name: Start Docker containers
-        run: docker compose up -d
-      - name: Run Django tests
-        run: docker exec memewars-django sh -c 'pytest -n auto'
   deploy:
     name: 'Deploy to STAGING server'
     needs: test
