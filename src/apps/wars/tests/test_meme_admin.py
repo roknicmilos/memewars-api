@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from apps.common.admin import TimestampableModelAdmin
-from apps.common.tests import TestCase
+from meme_wars.tests.test_case import TestCase
 from apps.wars.admin import MemeAdmin
 from apps.wars.models import Meme
 from apps.wars.tests.factories import MemeFactory

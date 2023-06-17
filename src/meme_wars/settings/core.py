@@ -122,7 +122,7 @@ MANAGERS = ADMINS
 WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
 
 # the root URL configuration
-ROOT_URLCONF = '%s.urls' % SITE_NAME
+ROOT_URLCONF = '%s.urls.main' % SITE_NAME
 
 # the URL for static files
 STATIC_URL = '/static/'

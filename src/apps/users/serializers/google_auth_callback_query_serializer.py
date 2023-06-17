@@ -12,7 +12,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.fields import empty
 
 from apps.common.exceptions import NonFieldAPIValidationError
-from apps.common.utils import build_absolute_uri
+from meme_wars.utils import build_absolute_api_uri
 from apps.users.authentication import GoogleUser, GoogleOpenIDConfig
 from apps.users.models import User, LoginInProgress, UserSettings
 from apps.users.utils import get_or_create_user
@@ -85,7 +85,7 @@ class GoogleAuthCallbackQuerySerializer(serializers.Serializer):
             'code': self.request.query_params['code'],
             'client_id': settings.GOOGLE_OPENID_CLIENT_ID,
             'client_secret': settings.GOOGLE_OPENID_CLIENT_SECRET,
-            'redirect_uri': build_absolute_uri('api:users:google_auth:callback'),
+            'redirect_uri': build_absolute_api_uri('v1:users:google_auth:callback'),
             'grant_type': 'authorization_code'
         }
 

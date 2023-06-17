@@ -4,7 +4,7 @@ from django.contrib.admin.sites import site as admin_site
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from apps.common.admin import ModelAdmin, TimestampableModelAdmin
-from apps.common.tests import TestCase
+from meme_wars.tests.test_case import TestCase
 
 
 class TestModelAdmin(TestCase):

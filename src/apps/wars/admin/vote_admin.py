@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from apps.common.admin import ModelAdmin
-from apps.common.utils import get_model_admin_change_details_url
+from meme_wars.utils import get_model_admin_change_details_url
 from apps.wars.models import Vote
 
 

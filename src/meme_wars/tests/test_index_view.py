@@ -1,6 +1,6 @@
 from django.urls import reverse
 
-from apps.common.tests import TestCase
+from meme_wars.tests.test_case import TestCase
 from pytest_django.asserts import assertTemplateUsed
 
 

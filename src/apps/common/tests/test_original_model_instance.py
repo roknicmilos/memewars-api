@@ -1,6 +1,6 @@
 from django.contrib.auth.models import Group
 from apps.common.models import OriginalModelInstance
-from apps.common.tests import TestCase
+from meme_wars.tests.test_case import TestCase
 
 
 class TestOriginalModelInstance(TestCase):

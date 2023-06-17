@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.management import call_command, BaseCommand
 
 from apps.common.management.commands.load_data import Command as LoadDataCommand
-from apps.common.tests import TestCase
+from meme_wars.tests.test_case import TestCase
 
 
 class TestLoadData(TestCase):

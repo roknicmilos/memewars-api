@@ -1,6 +1,6 @@
 from datetime import datetime
 from freezegun import freeze_time
-from apps.common.tests import TestCase
+from meme_wars.tests.test_case import TestCase
 from apps.common.utils import FilePath
 
 

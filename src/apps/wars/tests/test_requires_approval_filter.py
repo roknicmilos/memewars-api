@@ -1,4 +1,4 @@
-from apps.common.tests import TestCase
+from meme_wars.tests.test_case import TestCase
 from apps.wars.admin import MemeAdmin
 from apps.wars.admin.filters import RequiresApprovalFilter
 from apps.wars.models import Meme

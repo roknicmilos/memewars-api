@@ -1,13 +1,20 @@
-from django.urls import reverse
 from rest_framework.response import Response
 
-from apps.common.tests import TestCase
+from meme_wars.tests import APITestCase
+from meme_wars.utils import reverse_api, build_absolute_api_uri
 
 
-class TestAPIIndexView(TestCase):
+class TestAPIIndexView(APITestCase):
 
     def test_should_return_response_200_with_message(self):
-        response = self.client.get(path=reverse('api:index'))
+        response = self.api_client.get(path=reverse_api('index'))
         self.assertIsInstance(response, Response)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), {'message': 'This is the base URL for the Meme Wars API'})
+        expected_data = {
+            'urls': {
+                'download_schema': build_absolute_api_uri("schema:download"),
+                'swagger_ui': build_absolute_api_uri("schema:swagger"),
+                'redoc_ui': build_absolute_api_uri("schema:redoc"),
+            }
+        }
+        self.assertEqual(response.json(), expected_data)
