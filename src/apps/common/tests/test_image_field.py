@@ -3,7 +3,7 @@ from unittest.mock import Mock
 from django.conf import settings
 
 from apps.common.fields import ImageField
-from apps.common.tests import TestCase
+from meme_wars.tests.test_case import TestCase
 
 
 class TestImageField(TestCase):

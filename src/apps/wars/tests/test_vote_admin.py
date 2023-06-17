@@ -1,5 +1,5 @@
 from django.contrib.admin.sites import site as admin_site
-from apps.common.tests import TestCase
+from meme_wars.tests.test_case import TestCase
 from meme_wars.utils import get_model_admin_change_details_url
 from apps.wars.admin import VoteAdmin
 from apps.wars.models import Vote

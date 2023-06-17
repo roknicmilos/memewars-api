@@ -8,7 +8,7 @@ from unittest.mock import patch
 from django.conf import settings
 from rest_framework.authtoken.models import Token
 
-from apps.common.tests import APITestCase
+from meme_wars.tests import APITestCase
 from meme_wars.utils import build_absolute_api_uri
 from apps.users.models import LoginInProgress, UserSettings
 from apps.users.tests.factories import UserFactory, LoginInProgressFactory

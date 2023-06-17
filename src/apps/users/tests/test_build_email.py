@@ -1,4 +1,4 @@
-from apps.common.tests import TestCase
+from meme_wars.tests.test_case import TestCase
 from apps.users.tests.factories import UserFactory, GoogleUserFactory
 from apps.users.tests.factories.utils import build_email
 

@@ -1,5 +1,5 @@
 from meme_wars.urls import MAIN_URL_CONF, ADMIN_URL_CONF, API_URL_CONF
-from apps.common.tests import APITestCase
+from meme_wars.tests import APITestCase
 
 
 class TestURLConfMiddleware(APITestCase):

@@ -1,4 +1,4 @@
-from apps.common.tests import APITestCase
+from meme_wars.tests import APITestCase
 from apps.users.tests.factories import UserFactory
 from apps.wars.models import Meme
 from apps.wars.tests.factories import MemeFactory

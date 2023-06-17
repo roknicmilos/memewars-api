@@ -1,7 +1,7 @@
 from django.db import models
 
 from apps.common.models.singleton_model import SingletonModel
-from apps.common.tests import TestCase
+from meme_wars.tests.test_case import TestCase
 
 
 class TestSingletonModel(TestCase):

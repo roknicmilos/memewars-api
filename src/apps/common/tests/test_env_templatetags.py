@@ -2,7 +2,7 @@ import os
 from unittest.mock import patch
 
 from apps.common.templatetags.env import env, bool_env
-from apps.common.tests import TestCase
+from meme_wars.tests.test_case import TestCase
 
 
 class TestEnvTemplatetags(TestCase):

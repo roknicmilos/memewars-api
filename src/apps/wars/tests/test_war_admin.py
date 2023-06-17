@@ -1,5 +1,5 @@
 from django.contrib import admin
-from apps.common.tests import TestCase
+from meme_wars.tests.test_case import TestCase
 from apps.users.models import User
 from apps.users.tests.factories import UserFactory
 from apps.wars.admin import WarAdmin

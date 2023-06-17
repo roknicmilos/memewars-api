@@ -4,7 +4,7 @@ from unittest.mock import patch
 import pytest
 from rest_framework.authtoken.models import Token
 
-from apps.common.tests import APITestCase
+from meme_wars.tests import APITestCase
 from apps.users.serializers import GoogleAuthCallbackQuerySerializer
 from apps.users.tests.factories import UserFactory
 from meme_wars.utils import reverse_api

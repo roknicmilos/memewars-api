@@ -1,4 +1,4 @@
-from apps.common.tests import TestCase
+from meme_wars.tests.test_case import TestCase
 from apps.common.tests.fixtures import get_image_file_example
 from apps.common.utils import compress_image_file
 

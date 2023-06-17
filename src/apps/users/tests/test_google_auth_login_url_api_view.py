@@ -3,7 +3,7 @@ from urllib.parse import urlencode
 
 from faker import Faker
 
-from apps.common.tests import APITestCase
+from meme_wars.tests import APITestCase
 from apps.users.serializers import google_auth_login_query_serializer
 from meme_wars.utils import reverse_lazy_api
 

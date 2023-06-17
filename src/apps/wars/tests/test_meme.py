@@ -1,5 +1,5 @@
 from unittest.mock import patch
-from apps.common.tests import TestCase
+from meme_wars.tests.test_case import TestCase
 from apps.wars.models import War
 from apps.wars.tests.factories import WarFactory, VoteFactory, MemeFactory
 from apps.wars.models import meme as meme_model_file

@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 
-from apps.common.tests import APITestCase
+from meme_wars.tests import APITestCase
 from meme_wars.utils import reverse_api, build_absolute_api_uri
 
 

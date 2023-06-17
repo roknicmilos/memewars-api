@@ -1,7 +1,7 @@
 from django.conf import settings
 from pytest_django.asserts import assertTemplateUsed
 
-from apps.common.tests import APITestCase
+from meme_wars.tests import APITestCase
 from meme_wars.utils import reverse_api
 
 

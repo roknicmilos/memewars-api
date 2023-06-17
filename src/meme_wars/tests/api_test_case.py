@@ -10,11 +10,12 @@ from rest_framework.response import Response
 from rest_framework.serializers import ModelSerializer
 from rest_framework.settings import api_settings
 
-from apps.common.tests import APIClient, TestCase
+from apps.common.tests import APIClient
+from meme_wars.tests import TestCase
 
 
 @pytest.mark.django_db
-class APITestCase(TestCase):  # TODO: move to meme_wars
+class APITestCase(TestCase):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

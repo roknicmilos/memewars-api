@@ -1,4 +1,4 @@
-from apps.common.tests import TestCase
+from meme_wars.tests.test_case import TestCase
 from apps.users.models import UserSettings
 
 
