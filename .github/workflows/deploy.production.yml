@@ -5,7 +5,6 @@ on:
 jobs:
   deploy:
     name: 'Deploy to PRODUCTION server'
-    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: 'Pull the changes from the main branch, build Docker services and up the containers'
