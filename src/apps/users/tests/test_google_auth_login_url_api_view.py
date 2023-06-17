@@ -1,15 +1,15 @@
 from unittest.mock import patch
 from urllib.parse import urlencode
 
-from django.urls import reverse_lazy
 from faker import Faker
 
-from apps.common.tests import TestCase
+from apps.common.tests import APITestCase
 from apps.users.serializers import google_auth_login_query_serializer
+from meme_wars.utils import reverse_lazy_api
 
 
-class TestGoogleAuthLoginURLAPIView(TestCase):
-    url_path = reverse_lazy('api:users:google_auth:login')
+class TestGoogleAuthLoginURLAPIView(APITestCase):
+    url_path = reverse_lazy_api('v1:users:google_auth:login')
 
     def setUp(self) -> None:
         super().setUp()
@@ -25,7 +25,7 @@ class TestGoogleAuthLoginURLAPIView(TestCase):
             'login_success_redirect_url': Faker().url(),
             'login_failure_redirect_url': Faker().url(),
         }
-        response = self.client.get(path=f"{self.url_path}?{urlencode(url_query_params)}")
+        response = self.api_client.get(path=f"{self.url_path}?{urlencode(url_query_params)}")
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, self.mock_build_google_login_url.return_value)
 
@@ -33,7 +33,7 @@ class TestGoogleAuthLoginURLAPIView(TestCase):
         url_query_params = {
             'login_success_redirect_url': 'invalid-url',
         }
-        response = self.client.get(path=f"{self.url_path}?{urlencode(url_query_params)}")
+        response = self.api_client.get(path=f"{self.url_path}?{urlencode(url_query_params)}")
         self.assertEqual(response.status_code, 400)
         expected_errors = {
             'login_success_redirect_url': [self.ValidationErrorMessages.INVALID_URL_ERROR_MSG],

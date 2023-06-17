@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from apps.common.tests import TestCase
-from apps.common.utils import get_model_admin_change_details_url
+from meme_wars.utils import get_model_admin_change_details_url
 
 
 class TestGetModelAdminChangeDetailsUrl(TestCase):
@@ -15,4 +15,4 @@ class TestGetModelAdminChangeDetailsUrl(TestCase):
         user_class = get_user_model()
         user = user_class.objects.create()
         url = get_model_admin_change_details_url(user)
-        self.assertEqual(url, f'/admin/users/user/{user.pk}/change/')
+        self.assertEqual(url, f'/users/user/{user.pk}/change/')

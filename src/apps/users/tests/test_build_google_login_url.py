@@ -4,7 +4,7 @@ from urllib.parse import urlencode
 from django.conf import settings
 
 from apps.common.tests import TestCase
-from apps.common.utils import build_absolute_uri
+from meme_wars.utils import build_absolute_api_uri
 from apps.users.authentication import google_openid_config
 from apps.users.utils import _create_login_url_query_params, build_google_login_url
 
@@ -27,7 +27,7 @@ class TestBuildGoogleLoginURL(TestCase):
         self.assertEqual(url_query_params['response_type'], 'code')
         self.assertEqual(url_query_params['client_id'], settings.GOOGLE_OPENID_CLIENT_ID)
         self.assertEqual(url_query_params['scope'], 'openid email profile')
-        expected_redirect_uri = build_absolute_uri(view_name='api:users:google_auth:callback')
+        expected_redirect_uri = build_absolute_api_uri(view_name='v1:users:google_auth:callback')
         self.assertEqual(url_query_params['redirect_uri'], expected_redirect_uri)
         self.assertEqual(url_query_params['state'], google_auth_state)
 

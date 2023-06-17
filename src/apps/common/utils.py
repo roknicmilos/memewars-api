@@ -1,13 +1,9 @@
 import os
-from typing import Type
 
-from django.conf import settings
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.core.files.images import ImageFile
-from django.db.models import Model, TextChoices
-from django.contrib.contenttypes.models import ContentType
+from django.db.models import TextChoices
 from django.http import Http404
-from django.urls import reverse, NoReverseMatch
 from django.utils import timezone
 from django.utils.deconstruct import deconstructible
 from io import BytesIO
@@ -18,14 +14,6 @@ from rest_framework.response import Response
 from rest_framework.views import exception_handler
 
 from apps.common.responses import ErrorResponse
-
-
-def get_model_admin_change_details_url(obj: Model) -> str:
-    content_type = ContentType.objects.get_for_model(obj.__class__)
-    try:
-        return reverse(f'admin:{content_type.app_label}_{content_type.model}_change', args=(obj.id,))
-    except NoReverseMatch:
-        return ''
 
 
 @deconstructible
@@ -40,7 +28,7 @@ class FilePath:
         return os.path.join(self.base_path, new_filename)
 
 
-def get_text_choice_by_value(value: str, text_choices: Type[TextChoices]) -> TextChoices:
+def get_text_choice_by_value(value: str, text_choices: type[TextChoices]) -> TextChoices:
     if value not in text_choices:
         raise ValueError(f'Value "{value}" is not {text_choices}')
 
@@ -69,10 +57,6 @@ def get_reduced_file_quality_percentage(file_size: int) -> int:
     if file_size < 1000000:
         return 60
     return 50
-
-
-def build_absolute_uri(view_name: str, args: tuple = None, kwargs: dict = None) -> str:
-    return f'{settings.HOST_URL}{reverse(viewname=view_name, args=args, kwargs=kwargs)}'
 
 
 def handle_api_exception(error: Exception, context: dict = None) -> Response:

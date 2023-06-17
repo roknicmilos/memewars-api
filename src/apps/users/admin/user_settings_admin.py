@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.http import HttpResponseRedirect, HttpResponse
 
 from apps.common.admin import ModelAdmin
-from apps.common.utils import get_model_admin_change_details_url
+from meme_wars.utils import get_model_admin_change_details_url
 from apps.users.forms import UserSettingsAdminForm
 from apps.users.models import UserSettings
 

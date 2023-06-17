@@ -1,14 +1,14 @@
-from django.urls import reverse_lazy
 from apps.common.tests import APITestCase
 from apps.common.tests.fixtures import get_image_file_example
 from apps.users.tests.factories import UserFactory
 from apps.wars.models import Meme, War
 from apps.wars.serializers import MemeSerializer
 from apps.wars.tests.factories import MemeFactory, WarFactory, VoteFactory
+from meme_wars.utils import reverse_lazy_api
 
 
 class TestMemeListCreateAPIView(APITestCase):
-    url_path = reverse_lazy('api:memes:index')
+    url_path = reverse_lazy_api('v1:memes:index')
 
     def setUp(self) -> None:
         super().setUp()
@@ -43,8 +43,8 @@ class TestMemeListCreateAPIView(APITestCase):
         self.authenticate(user=self.user)
 
         # When all wars do not require meme approval:
-        first_page_response = self.client.get(path=self.url_path)
-        second_page_response = self.client.get(path=f'{self.url_path}?page=2')
+        first_page_response = self.api_client.get(path=self.url_path)
+        second_page_response = self.api_client.get(path=f'{self.url_path}?page=2')
 
         self.assertEqual(first_page_response.status_code, 200)
         self.assertEqual(second_page_response.status_code, 200)
@@ -67,7 +67,7 @@ class TestMemeListCreateAPIView(APITestCase):
         for war in self.all_wars:
             war.update(requires_meme_approval=True)
 
-        response = self.client.get(path=self.url_path)
+        response = self.api_client.get(path=self.url_path)
 
         self.assertEqual(response.status_code, 200)
         results = response.json()['results']
@@ -110,7 +110,7 @@ class TestMemeListCreateAPIView(APITestCase):
 
         # When war is in not the finished phase, memes should be
         # ordered by creation datetime:
-        response = self.client.get(path=url_path)
+        response = self.api_client.get(path=url_path)
         self.assertEqual(response.status_code, 200)
         results = response.json()['results']
         self.assertEqual(results[0]['id'], meme_e.pk)
@@ -122,7 +122,7 @@ class TestMemeListCreateAPIView(APITestCase):
         # When war is in the finished phase, meme score should have
         # ordering priority over creation datetime:
         war.update(phase=War.Phases.FINISHED)
-        response = self.client.get(path=url_path)
+        response = self.api_client.get(path=url_path)
         self.assertEqual(response.status_code, 200)
         results = response.json()['results']
         self.assertEqual(results[0]['id'], meme_a.pk)
@@ -135,14 +135,14 @@ class TestMemeListCreateAPIView(APITestCase):
         self.authenticate(user=self.user)
         MemeFactory.create_batch(size=3, war=self.war_in_voting_phase)
         MemeFactory.create_batch(size=2, war=self.war_in_finished_phase)
-        response = self.client.get(path=f'{self.url_path}?war={self.war_in_voting_phase.pk}')
+        response = self.api_client.get(path=f'{self.url_path}?war={self.war_in_voting_phase.pk}')
         serializer = MemeSerializer(instance=self.war_in_voting_phase.memes.order_by('-created'), many=True)
         self.assertListResponse(response=response, serializer=serializer)
 
         # When war requires meme approval:
         self.war_in_voting_phase.update(requires_meme_approval=True)
         self.war_in_voting_phase.memes.first().update(approval_status=Meme.ApprovalStatuses.APPROVED)
-        response = self.client.get(path=f'{self.url_path}?war={self.war_in_voting_phase.pk}')
+        response = self.api_client.get(path=f'{self.url_path}?war={self.war_in_voting_phase.pk}')
         serializer = MemeSerializer(instance=[self.war_in_voting_phase.memes.first()], many=True)
         self.assertListResponse(response=response, serializer=serializer)
 
@@ -184,14 +184,14 @@ class TestMemeListCreateAPIView(APITestCase):
         self.assertBadRequestResponse(data=data, errors=expected_errors)
 
     def assertBadRequestResponse(self, data: dict, errors: dict[str, list[str]]) -> None:
-        response = self.client.post(path=self.url_path, data=data)
+        response = self.api_client.post(path=self.url_path, data=data)
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.json(), errors)
 
     def test_post_endpoint_should_create_meme_and_return_response_201_when_meme_is_valid(self):
         self.authenticate(user=self.user)
         self.assertFalse(Meme.objects.exists())
-        response = self.client.post(path=self.url_path, data=self.valid_data)
+        response = self.api_client.post(path=self.url_path, data=self.valid_data)
         self.assertEqual(response.status_code, 201)
         meme = Meme.objects.first()
         self.assertIsNotNone(meme)
