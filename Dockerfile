@@ -16,4 +16,4 @@ RUN pip install -r /app/requirements/base.txt
 
 WORKDIR /app/src
 
-CMD ["sh", "/app/scripts/entrypoint.sh"]
+CMD ["sh", "/app/scripts/entrypoint.sh", "start"]

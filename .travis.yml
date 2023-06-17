@@ -1,0 +1,17 @@
+os: linux
+dist: jammy
+language: shell
+
+services:
+  - docker
+
+# No install steps, they are done inside docker
+install: true
+
+before_script:
+  # Authenticate to Docker Hub for the container image pulls limit https://www.docker.com/increase-rate-limits
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+script:
+  - cp example.env .env
+  - docker compose run django sh /app/scripts/entrypoint.sh test
