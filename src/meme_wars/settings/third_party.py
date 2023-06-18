@@ -1,6 +1,5 @@
 from decouple import config, Csv
 
-from meme_wars.urls import API_URL_CONF
 
 THIRD_PARTY_APPS = [
     'corsheaders',
@@ -32,7 +31,6 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'An API for Meme Wars',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
-    'SERVE_URLCONF': API_URL_CONF,
 }
 
 CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', default=None, cast=Csv())

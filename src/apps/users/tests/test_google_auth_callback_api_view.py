@@ -1,3 +1,4 @@
+from django.urls import reverse
 from faker import Faker
 from unittest.mock import patch
 
@@ -7,7 +8,6 @@ from rest_framework.authtoken.models import Token
 from meme_wars.tests import APITestCase
 from apps.users.serializers import GoogleAuthCallbackQuerySerializer
 from apps.users.tests.factories import UserFactory
-from meme_wars.utils import reverse_api
 
 
 class TestGoogleAuthCallbackAPIView(APITestCase):
@@ -46,7 +46,7 @@ class TestGoogleAuthCallbackAPIView(APITestCase):
 
         self.assertFalse(Token.objects.exists())
 
-        response = self.api_client.get(path=reverse_api('v1:users:google_auth:callback'))
+        response = self.client.get(path=reverse('api:users:google_auth:callback'))
 
         self.assertEqual(Token.objects.count(), 1)
         self.assertEqual(Token.objects.first().user, new_user)
@@ -60,7 +60,7 @@ class TestGoogleAuthCallbackAPIView(APITestCase):
 
         self.assertEqual(Token.objects.count(), 1)
 
-        response = self.api_client.get(path=reverse_api('v1:users:google_auth:callback'))
+        response = self.client.get(path=reverse('api:users:google_auth:callback'))
 
         self.assertEqual(Token.objects.count(), 1)
         self.assertFalse(Token.objects.filter(pk=existing_toke.pk).exists())  # old token is deleted
@@ -71,7 +71,7 @@ class TestGoogleAuthCallbackAPIView(APITestCase):
     def test_should_redirect_to_login_failure_when_validation_error_is_raised(self):
         self.mock_serializer_is_valid.return_value = False
 
-        response = self.api_client.get(path=reverse_api('v1:users:google_auth:callback'))
+        response = self.client.get(path=reverse('api:users:google_auth:callback'))
 
         self.assertFalse(Token.objects.exists())
         self.assertEqual(response.status_code, 302)
@@ -82,7 +82,7 @@ class TestGoogleAuthCallbackAPIView(APITestCase):
         self.mock_get_or_create_user.side_effect = ValueError(error_message)
 
         with pytest.raises(expected_exception=ValueError, match=error_message):
-            self.api_client.get(path=reverse_api('v1:users:google_auth:callback'))
+            self.client.get(path=reverse('api:users:google_auth:callback'))
 
     def tearDown(self) -> None:
         super().tearDown()

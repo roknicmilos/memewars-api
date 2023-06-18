@@ -21,11 +21,11 @@
     </div>
 {% endif %}
 <div class="cta-button cta-button--admin">
-    <a href="{{ 'ADMIN_URL'|env }}">{% trans 'Django Administration' %}</a>
+    <a href="{% url 'admin:index' %}">{% trans 'Django Administration' %}</a>
 </div>
 
 <div class="cta-button cta-button--web-api">
-    <a href="{{ 'API_URL'|env }}">{% trans 'WEB API' %}</a>
+    <a href="{% url 'api:index' %}">{% trans 'WEB API' %}</a>
 </div>
 
 </body>
