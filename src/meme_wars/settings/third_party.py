@@ -1,5 +1,4 @@
-from decouple import config, Csv
-
+from meme_wars.utils import get_env_url
 
 THIRD_PARTY_APPS = [
     'corsheaders',
@@ -33,4 +32,6 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
 }
 
-CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', default=None, cast=Csv())
+CORS_ALLOWED_ORIGINS = [
+    get_env_url(env_var='CLIENT_APP_URL'),
+]

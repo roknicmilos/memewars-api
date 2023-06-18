@@ -1,4 +1,3 @@
-
 body {
     margin: 50px 0;
     /*height: 100%;*/
@@ -14,10 +13,15 @@ body {
 .cta-button {
     border: 1px solid;
     border-radius: 10px;
-    width: 300px;
+    width: 350px;
     margin: 20px auto;
     box-shadow: rgba(0, 0, 0, 0.15) 0 5px 15px 0;
     height: 100px;
+}
+
+.cta-button:hover {
+    background-color: white;
+    border-color: #2C2C2C;
 }
 
 .cta-button a {
@@ -29,20 +33,11 @@ body {
     font-size: 20px;
     cursor: pointer;
     height: 100%;
-}
-
-.cta-button--admin {
-    border-color: #417690;
-    background-color: #417690;
-}
-
-.cta-button--admin:hover {
-    border-color: #79aec8;
-    background-color: #79aec8;
-}
-
-.cta-button--admin a {
     color: white;
+}
+
+.cta-button:hover a {
+    color: #2C2C2C;
 }
 
 .cta-button--test-coverage {
@@ -50,24 +45,20 @@ body {
     background-color: lightgreen;
 }
 
-.cta-button--test-coverage:hover {
-    background-color: #afeeaf;
-}
-
 .cta-button--test-coverage a {
     color: black;
 }
 
+.cta-button--admin {
+    border-color: #417690;
+    background-color: #417690;
+}
 
-.cta-button--web-api {
+.cta-button--rest-api {
     border-color: #2C2C2C;
     background-color: #2C2C2C;
 }
 
-.cta-button--web-api:hover {
-    background-color: #4F4F4FFF;
-}
-
-.cta-button--web-api a {
-    color: white;
+.cta-button--client-app {
+    background-color: #4c0000;
 }
