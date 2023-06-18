@@ -17,15 +17,19 @@
 
 {% if 'SHOW_TEST_COVERAGE'|bool_env %}
     <div class="cta-button cta-button--test-coverage">
-        <a href="{% static 'coverage/index.html' %}">{% trans 'Tests Coverage Report' %}</a>
+        <a href="{% static 'coverage/index.html' %}">{% trans 'TEST COVERAGE' %}</a>
     </div>
 {% endif %}
 <div class="cta-button cta-button--admin">
-    <a href="{% url 'admin:index' %}">{% trans 'Django Administration' %}</a>
+    <a href="{% url 'admin:index' %}">{% trans 'DJANGO ADMINISTRATION' %}</a>
 </div>
 
-<div class="cta-button cta-button--web-api">
-    <a href="{% url 'api:index' %}">{% trans 'WEB API' %}</a>
+<div class="cta-button cta-button--rest-api">
+    <a href="{% url 'api:index' %}">{% trans 'REST API' %}</a>
+</div>
+
+<div class="cta-button cta-button--client-app">
+    <a href="{{ 'CLIENT_APP_URL'|env }}">{% trans 'CLIENT APP' %}</a>
 </div>
 
 </body>
