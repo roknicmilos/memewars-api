@@ -4,8 +4,6 @@ import re
 import contextlib
 
 from unittest import TestCase as BaseTestCase
-from urllib.parse import urlsplit
-from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.core.handlers.wsgi import WSGIRequest
@@ -22,11 +20,7 @@ class TestCase(BaseTestCase):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        main_url_parts = urlsplit(settings.HOST_URL)
-        self.client = Client(HTTP_HOST=f'{main_url_parts.hostname}:{main_url_parts.port}')
-
-        admin_url_parts = urlsplit(settings.ADMIN_URL)
-        self.admin_client = Client(HTTP_HOST=f'{admin_url_parts.hostname}:{admin_url_parts.port}')
+        self.client = Client()
 
     def get_request_example(self, url_query_params: dict = None) -> WSGIRequest:
         requests = self.client.get(path='/', data=url_query_params).wsgi_request
@@ -52,7 +46,7 @@ class TestCase(BaseTestCase):
     def create_and_login_superuser(self) -> None:
         credentials = {'email': 'superuser@example.com', 'password': 'password'}
         get_user_model().objects.create_superuser(**credentials)
-        if not self.admin_client.login(**credentials):
+        if not self.client.login(**credentials):
             self.fail('Failed to login superuser')
 
     def assertSerializerErrors(self, serializer: Serializer, expected_errors: dict[str, list[str]]) -> None:

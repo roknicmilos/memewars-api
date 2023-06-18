@@ -1,9 +1,9 @@
 from urllib.parse import urlencode
 from django.conf import settings
 
-from meme_wars.utils import build_absolute_api_uri
 from apps.users.authentication import GoogleUser, GoogleOpenIDConfig
 from apps.users.models import User
+from meme_wars.utils import build_absolute_uri
 
 
 def get_or_create_user(google_user: GoogleUser) -> tuple[User, bool]:
@@ -29,6 +29,6 @@ def _create_login_url_query_params(state: str) -> dict:
         'response_type': 'code',
         'client_id': settings.GOOGLE_OPENID_CLIENT_ID,
         'scope': 'openid email profile',
-        'redirect_uri': build_absolute_api_uri('v1:users:google_auth:callback'),
+        'redirect_uri': build_absolute_uri('api:users:google_auth:callback'),
         'state': state
     }

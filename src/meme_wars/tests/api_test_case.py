@@ -1,9 +1,6 @@
 import contextlib
 import pytest
 
-from urllib.parse import urlsplit
-from django.conf import settings
-
 from rest_framework.exceptions import ValidationError as APIValidationError
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
@@ -19,8 +16,7 @@ class APITestCase(TestCase):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        api_url_parts = urlsplit(settings.API_URL)
-        self.api_client = APIClient(HTTP_HOST=f'{api_url_parts.hostname}:{api_url_parts.port}')
+        self.client = APIClient()
 
     def assertProtectedGETEndpoint(self, url_path: str) -> None:
         self._assert_protected_endpoint(method='get', url_path=url_path)
@@ -38,7 +34,7 @@ class APITestCase(TestCase):
         if method == 'post' and data is None:
             self.fail('Method "post" requires data')
 
-        method_func = getattr(self.api_client, method)
+        method_func = getattr(self.client, method)
         method_kwargs = {
             'path': url_path,
         }
@@ -70,7 +66,7 @@ class APITestCase(TestCase):
 
     def authenticate(self, user) -> None:
         token, _ = Token.objects.get_or_create(user=user)
-        self.api_client.credentials(HTTP_AUTHORIZATION='Bearer ' + token.key)
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + token.key)
 
     @contextlib.contextmanager
     def raisesAPIValidationError(

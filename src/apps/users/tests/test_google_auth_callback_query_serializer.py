@@ -9,13 +9,13 @@ from django.conf import settings
 from rest_framework.authtoken.models import Token
 
 from meme_wars.tests import APITestCase
-from meme_wars.utils import build_absolute_api_uri
 from apps.users.models import LoginInProgress, UserSettings
 from apps.users.tests.factories import UserFactory, LoginInProgressFactory
 from apps.users.serializers import (
     google_auth_callback_query_serializer,
     GoogleAuthCallbackQuerySerializer,
 )
+from meme_wars.utils import build_absolute_uri
 
 
 @pytest.mark.django_db
@@ -109,7 +109,7 @@ class TestGoogleAuthCallbackQuerySerializer(APITestCase):
         self.assertEqual(request_data['code'], url_query_params['code'])
         self.assertEqual(request_data['client_id'], settings.GOOGLE_OPENID_CLIENT_ID)
         self.assertEqual(request_data['client_secret'], settings.GOOGLE_OPENID_CLIENT_SECRET)
-        expected_redirect_uri = build_absolute_api_uri(view_name='v1:users:google_auth:callback')
+        expected_redirect_uri = build_absolute_uri(view_name='api:users:google_auth:callback')
         self.assertEqual(request_data['redirect_uri'], expected_redirect_uri)
         self.assertEqual(request_data['grant_type'], 'authorization_code')
 

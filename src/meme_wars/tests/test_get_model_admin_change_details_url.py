@@ -15,4 +15,4 @@ class TestGetModelAdminChangeDetailsUrl(TestCase):
         user_class = get_user_model()
         user = user_class.objects.create()
         url = get_model_admin_change_details_url(user)
-        self.assertEqual(url, f'/users/user/{user.pk}/change/')
+        self.assertEqual(url, f'/admin/users/user/{user.pk}/change/')
