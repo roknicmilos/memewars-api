@@ -8,7 +8,7 @@ wait_for_postgres() {
   # Adapted from https://docs.docker.com/compose/startup-order/
   printc "Waiting for PostgreSQL...\n" "info"
   until PGPASSWORD=$DB_PASSWORD psql -h "$DB_HOSTNAME" -U "$DB_USERNAME" -d "$DB_NAME" -c '\q'; do
-    printc >&2 "Postgres is unavailable - sleeping" "info"
+    printc >&2 "Postgres is unavailable - sleeping\n" "info"
     sleep 1
   done
 }
@@ -41,7 +41,7 @@ elif [ "$1" = "test" ]; then
   bandit .
   flake8 --count
 else
-  printc "Unknown command: '$1'" "danger"
-  printc "Exiting!" "danger"
+  printc "Unknown command: '$1'\n" "danger"
+  printc "Exiting!\n" "danger"
   exit 1
 fi

@@ -1,8 +1,12 @@
+import pytest
+from django.db.utils import IntegrityError
+from django.test import TransactionTestCase
+
 from meme_wars.tests.test_case import TestCase
 from apps.users.models import User
 
 
-class TestUser(TestCase):
+class TestUser(TestCase, TransactionTestCase):
 
     def tearDown(self) -> None:
         super().tearDown()
@@ -37,6 +41,17 @@ class TestUser(TestCase):
         self.assertCommonUserKwargs(user=user, expected_kwargs=kwargs)
         self.assertTrue(user.is_staff)
         self.assertTrue(user.is_superuser)
+
+    def test_email_case_insensitive_search(self):
+        first_user = User.objects.create(email='Hacker@example.com')
+        second_user = User.objects.get(email='hacker@example.com')
+        self.assertEqual(first_user, second_user)
+
+    def test_email_case_insensitive_unique(self):
+        User.objects.create(email='Hacker@example.com')
+        error_message = 'duplicate key value violates unique constraint "users_user_email_key"'
+        with pytest.raises(IntegrityError, match=error_message):
+            User.objects.create(email='hacker@example.com')
 
     def assertCommonUserKwargs(self, user: User, expected_kwargs: dict) -> None:
         self.assertEqual(user.email, expected_kwargs['email'])

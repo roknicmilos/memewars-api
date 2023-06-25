@@ -6,6 +6,13 @@ from meme_wars.tests.test_case import TestCase
 
 class TestSingletonModel(TestCase):
     class ConcreteSingletonModel(SingletonModel):
+        """
+        This model does not have any migration files, but a
+        table will be created for it in the database created
+        for tests by pytest.
+        Creating the mentioned table will FAIL if the app has
+        any migrations.
+        """
         class Meta:
             app_label = 'common'
 

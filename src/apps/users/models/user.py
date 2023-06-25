@@ -28,9 +28,9 @@ class User(BaseModel, AbstractUser):
 
     objects = UserManager()
 
-    email = CIEmailField(
+    email = models.EmailField(
         verbose_name=_('email'),
-        db_index=True,
+        db_collation='case_insensitive',
         unique=True
     )
     image_url = models.URLField(
