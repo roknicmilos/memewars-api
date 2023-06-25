@@ -18,4 +18,4 @@ jobs:
             git fetch origin
             git reset --hard origin/main || exit
             docker compose build
-            docker compose up -d
+            docker compose -p memewars-api-production up -d

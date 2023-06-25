@@ -18,5 +18,5 @@ jobs:
             git fetch origin
             git reset --hard origin/staging || exit
             docker compose build
-            docker compose up -d
+            docker compose -p memewars-api-staging up -d
             docker exec -t memewars-django--staging sh -c 'pytest --create-db --cov -n auto && coverage html'
