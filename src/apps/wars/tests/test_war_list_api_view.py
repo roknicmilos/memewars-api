@@ -15,10 +15,10 @@ class TestWarListAPIView(APITestCase):
         for phase in War.Phases:
             WarFactory(phase=phase)
 
-    def test_should_return_response_401_when_authentication_headers_are_invalid(self):
+    def test_list_endpoint_should_return_response_401_when_authentication_headers_are_invalid(self):
         self.assertProtectedGETEndpoint(url_path=self.url_path)
 
-    def test_should_return_all_wars(self):
+    def test_list_endpoint_should_return_all_wars(self):
         self.authenticate(user=UserFactory())
         response = self.client.get(path=self.url_path)
         serializer = WarSerializer(instance=War.objects.order_by('-created').all(), many=True)
