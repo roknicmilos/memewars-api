@@ -11,6 +11,12 @@ class Vote(BaseModel):
     class Meta:
         verbose_name = _('Vote')
         verbose_name_plural = _('Votes')
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'meme'],
+                name='unique_user_meme'
+            )
+        ]
 
     user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
@@ -24,7 +30,7 @@ class Vote(BaseModel):
         verbose_name=_('meme'),
         related_name='votes',
         validators=[
-            MemeWarPhaseValidator(phase_value=War.Phases.SUBMISSION)
+            MemeWarPhaseValidator(phase_value=War.Phases.VOTING)
         ]
     )
     score = models.IntegerField(

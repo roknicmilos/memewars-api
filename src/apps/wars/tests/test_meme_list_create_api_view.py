@@ -150,7 +150,7 @@ class TestMemeListCreateAPIView(APITestCase):
     def test_create_endpoint_should_return_response_401_when_authentication_headers_are_invalid(self):
         self.assertProtectedPOSTEndpoint(url_path=self.url_path, data=self.valid_data)
 
-    def test_create_endpoint_should_return_response_400_when_meme_is_invalid(self):
+    def test_create_endpoint_should_return_response_400_when_request_data_is_invalid(self):
         self.authenticate(user=self.user)
 
         # When War does not exist:
