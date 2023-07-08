@@ -36,3 +36,13 @@ class TestMemeAdmin(TestCase):
         expected_readonly_fields += ('user', 'war', 'total_score',)
         expected_readonly_fields += TimestampableModelAdmin.timestampable_fields
         self.assertEqual(sorted(actual_readonly_fields), sorted(expected_readonly_fields))
+
+    def test_queryset_should_contain_user_email_deterministic_annotation(self):
+        self.create_and_login_superuser()
+        memes = MemeFactory.create_batch(size=3)
+
+        queryset = self.meme_admin.get_queryset(request=self.get_request_example())
+        annotated_values = [item.user_email_deterministic for item in queryset]
+
+        user_emails = [meme.user.email for meme in memes]
+        self.assertEqual(sorted(annotated_values), sorted(user_emails))

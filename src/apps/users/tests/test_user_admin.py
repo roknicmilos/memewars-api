@@ -18,3 +18,13 @@ class TestUserAdmin(TestCase):
     def test_should_return_empty_tuple_instead_of_inlines_when_adding_user(self):
         inlines = self.user_admin.get_inlines(request=self.get_request_example(), obj=UserFactory())
         self.assertEqual(inlines, self.user_admin.inlines)
+
+    def test_queryset_should_contain_email_deterministic_annotation(self):
+        self.create_and_login_superuser()
+        UserFactory.create_batch(size=2)
+
+        queryset = self.user_admin.get_queryset(request=self.get_request_example())
+        annotated_values = [item.email_deterministic for item in queryset]
+
+        user_emails = [user.email for user in User.objects.all()]
+        self.assertEqual(sorted(annotated_values), sorted(user_emails))
