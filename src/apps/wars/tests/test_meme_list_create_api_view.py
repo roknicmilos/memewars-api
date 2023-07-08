@@ -184,11 +184,6 @@ class TestMemeListCreateAPIView(APITestCase):
         }
         self.assertBadRequestResponse(data=data, errors=expected_errors)
 
-    def assertBadRequestResponse(self, data: dict, errors: dict[str, list[str]]) -> None:
-        response = self.client.post(path=self.url_path, data=data)
-        self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.json(), errors)
-
     def test_create_endpoint_should_create_meme_and_return_response_201_when_meme_is_valid(self):
         self.authenticate(user=self.user)
         self.assertFalse(Meme.objects.exists())

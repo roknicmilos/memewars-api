@@ -85,3 +85,8 @@ class APITestCase(TestCase):
             if len(field_errors) > 1:
                 self.fail(f'There is more than one error for "{field_name}" field.')
             self.assertEqual(field_errors[0]['code'], code)
+
+    def assertBadRequestResponse(self, data: dict, errors: dict[str, list[str]]) -> None:
+        response = self.client.post(path=self.url_path, data=data)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json(), errors)
