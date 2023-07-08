@@ -59,7 +59,7 @@ class TestVoteCreateAPIView(APITestCase):
             'score': 0,
         }
         expected_errors = {
-            'score': [f'Ensure this value is greater than or equal to 1.', ],
+            'score': ['Ensure this value is greater than or equal to 1.', ],
         }
         self.assertBadRequestResponse(data=data, errors=expected_errors)
 
@@ -69,7 +69,7 @@ class TestVoteCreateAPIView(APITestCase):
             'score': 11,
         }
         expected_errors = {
-            'score': [f'Ensure this value is less than or equal to 10.', ],
+            'score': ['Ensure this value is less than or equal to 10.', ],
         }
         self.assertBadRequestResponse(data=data, errors=expected_errors)
 

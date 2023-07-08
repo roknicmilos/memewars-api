@@ -4,7 +4,7 @@ from drf_spectacular.utils import extend_schema_view, extend_schema
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from apps.users.authentication import TokenAuthentication
-from apps.wars.models import Vote, War
+from apps.wars.models import Vote
 from apps.wars.serializers import VoteSerializer
 
 
@@ -26,8 +26,6 @@ class VoteCreateAPIView(CreateAPIView):
 
     # TODO: extract into mixin class
     def get_serializer(self, *args, **kwargs) -> VoteSerializer:
-        if self.request.method == 'POST':
-            data = kwargs['data'].dict() if isinstance(kwargs['data'], QueryDict) else kwargs['data']
-            kwargs['data'] = {**data, 'user': self.request.user.pk}
-            return super().get_serializer(*args, **kwargs)
+        data = kwargs['data'].dict() if isinstance(kwargs['data'], QueryDict) else kwargs['data']
+        kwargs['data'] = {**data, 'user': self.request.user.pk}
         return super().get_serializer(*args, **kwargs)
