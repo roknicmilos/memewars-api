@@ -27,8 +27,11 @@ class APITestCase(TestCase):
     def assertProtectedDELETEEndpoint(self, url_path: str) -> None:
         self._assert_protected_endpoint(method='delete', url_path=url_path)
 
+    def assertProtectedPATCHEndpoint(self, url_path: str, data: dict) -> None:
+        self._assert_protected_endpoint(method='patch', url_path=url_path, data=data)
+
     def _assert_protected_endpoint(self, method: str, url_path: str, data: dict = None) -> None:
-        supported_methods = ['get', 'post', 'delete']
+        supported_methods = ['get', 'post', 'delete', 'patch']
         if method not in supported_methods:
             self.fail(f'Method "{method}" is not supported')
         if method == 'post' and data is None:
