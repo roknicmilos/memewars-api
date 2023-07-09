@@ -3,11 +3,11 @@ from django.urls import reverse_lazy
 from apps.users.tests.factories import UserFactory
 from apps.wars.models import War, Vote, Meme
 from apps.wars.serializers import VoteSerializer
-from apps.wars.tests.factories import MemeFactory, WarFactory
+from apps.wars.tests.factories import MemeFactory, WarFactory, VoteFactory
 from meme_wars.tests import APITestCase
 
 
-class TestVoteCreateAPIView(APITestCase):
+class TestVoteListCreateAPIView(APITestCase):
     url_path = reverse_lazy('api:votes:index')
 
     def setUp(self) -> None:
@@ -19,6 +19,25 @@ class TestVoteCreateAPIView(APITestCase):
             'meme': self.meme.pk,
             'score': 5,
         }
+
+    def test_list_endpoint_should_return_response_401_when_authentication_headers_are_invalid(self):
+        self.assertProtectedGETEndpoint(url_path=self.url_path)
+
+    def test_list_endpoint_should_return_all_votes(self):
+        self.authenticate(user=self.user)
+        votes = VoteFactory.create_batch(size=3)
+        response = self.client.get(path=self.url_path)
+        serializer = VoteSerializer(instance=votes, many=True)
+        self.assertListResponse(response=response, serializer=serializer)
+
+    def test_list_endpoint_should_return_votes_filtered_by_voter(self):
+        self.authenticate(user=self.user)
+        user_votes = VoteFactory.create_batch(size=2, user=self.user)
+        # 3 Additional Votes that do not belong to the authenticated User:
+        VoteFactory.create_batch(size=3)
+        serializer = VoteSerializer(instance=user_votes, many=True)
+        response = self.client.get(path=f'{self.url_path}?user={self.user.pk}')
+        self.assertListResponse(response=response, serializer=serializer)
 
     def test_create_endpoint_should_return_response_401_when_authentication_headers_are_invalid(self):
         self.assertProtectedPOSTEndpoint(url_path=self.url_path, data=self.valid_data)

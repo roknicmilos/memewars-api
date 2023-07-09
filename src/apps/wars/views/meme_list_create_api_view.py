@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from apps.users.authentication import TokenAuthentication
 from apps.wars.models import Meme, War
 from apps.wars.serializers import MemeSerializer
+from apps.wars.views.serialized_user_api_view_mixin import SerializedUserAPIViewMixin
 
 
 @extend_schema_view(
@@ -22,7 +23,7 @@ from apps.wars.serializers import MemeSerializer
         responses=MemeSerializer,
     ),
 )
-class MemeListCreateAPIView(ListCreateAPIView):
+class MemeListCreateAPIView(ListCreateAPIView, SerializedUserAPIViewMixin):
     queryset = Meme.objects.order_by('-created').all()
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
@@ -58,9 +59,3 @@ class MemeListCreateAPIView(ListCreateAPIView):
         if war := War.objects.filter(pk=self.request.GET.get('war')).first():
             return war.phase == War.Phases.FINISHED
         return False
-
-    def get_serializer(self, *args, **kwargs) -> MemeSerializer:
-        if self.request.method == 'POST':
-            kwargs['data'] = {**kwargs['data'].dict(), 'user': self.request.user.pk}
-            return super().get_serializer(*args, **kwargs)
-        return super().get_serializer(*args, **kwargs)

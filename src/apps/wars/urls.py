@@ -13,7 +13,7 @@ memes_urlpatterns = [
 ]
 
 votes_urlpatterns = [
-    path('', views.VoteCreateAPIView.as_view(), name='index'),
+    path('', views.VoteListCreateAPIView.as_view(), name='index'),
 ]
 
 urlpatterns = [
