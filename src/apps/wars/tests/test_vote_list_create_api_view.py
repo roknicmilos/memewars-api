@@ -30,14 +30,37 @@ class TestVoteListCreateAPIView(APITestCase):
         serializer = VoteSerializer(instance=votes, many=True)
         self.assertListResponse(response=response, serializer=serializer)
 
-    def test_list_endpoint_should_return_votes_filtered_by_voter(self):
+    def test_list_endpoint_should_return_filtered_votes(self):
         self.authenticate(user=self.user)
-        user_votes = VoteFactory.create_batch(size=2, user=self.user)
+        war = WarFactory()
+        user_votes = VoteFactory.create_batch(size=5, user=self.user)
+        first_three_user_votes = user_votes[:3]
+        for vote in first_three_user_votes:
+            vote.meme.update(war=war)
         # 3 Additional Votes that do not belong to the authenticated User:
-        VoteFactory.create_batch(size=3)
-        serializer = VoteSerializer(instance=user_votes, many=True)
+        other_votes = VoteFactory.create_batch(size=3, meme=MemeFactory(war=war))
+        war_votes = [*first_three_user_votes, *other_votes]
+
+        # When Votes are filtered by User:
         response = self.client.get(path=f'{self.url_path}?user={self.user.pk}')
-        self.assertListResponse(response=response, serializer=serializer)
+        self.assertListResponse(
+            response=response,
+            serializer=VoteSerializer(instance=user_votes, many=True)
+        )
+
+        # When Votes are filtered by War:
+        response = self.client.get(path=f'{self.url_path}?war={war.pk}')
+        self.assertListResponse(
+            response=response,
+            serializer=VoteSerializer(instance=war_votes, many=True)
+        )
+
+        # When Votes are filtered by User and War:
+        response = self.client.get(path=f'{self.url_path}?user={self.user.pk}&war={war.pk}')
+        self.assertListResponse(
+            response=response,
+            serializer=VoteSerializer(instance=first_three_user_votes, many=True)
+        )
 
     def test_create_endpoint_should_return_response_401_when_authentication_headers_are_invalid(self):
         self.assertProtectedPOSTEndpoint(url_path=self.url_path, data=self.valid_data)
