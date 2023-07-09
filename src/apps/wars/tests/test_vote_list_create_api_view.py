@@ -131,3 +131,8 @@ class TestVoteListCreateAPIView(APITestCase):
 
         serializer = VoteSerializer(instance=vote)
         self.assertEqual(response.json(), serializer.data)
+
+    def test_update_endpoint_should_return_response_405(self):
+        self.authenticate(user=self.user)
+        response = self.client.put(path=self.url_path, data={})
+        self.assertEqual(response.status_code, 405)
