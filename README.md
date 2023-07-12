@@ -6,6 +6,7 @@ Table of Contents
 * [Project setup](#project-setup)
     * [Requirements](#requirements)
     * [Steps](#steps)
+* [Making changes](#making-changes)
 * [Tests and linting](#tests-and-linting)
 * [Initial data](#initial-data)
 * [Updating dependencies](#updating-dependencies)
@@ -26,6 +27,20 @@ Table of Contents
 2. Start the app: `docker compose up`
 
    For older versions of Docker Compose use: `docker-compose up`
+
+## Making changes
+
+When making changes to the project codebase, make sure to use `pre-commit`
+file when creating a new commit in order to run all tests and checks that
+keeps the code clean, readable, testable, extensible, maintainable, secure,
+usable, etc.
+
+1. Copy `pre-commit` file into `.git/hooks/` directory
+2. Make it executable with `chmod +x .git/hooks/pre-commit`
+
+Now, if you try to commit new changes (with `git commit ...` command), the
+`pre-commit` hook will run first, and the commit will only be created if
+all tests and checks from the `pre-commit` hook pass.
 
 ## Tests and linting
 
