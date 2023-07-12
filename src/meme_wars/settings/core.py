@@ -1,8 +1,8 @@
 # Python imports
 import sys
-from decouple import config, Csv
 from os.path import abspath, basename, dirname, join, normpath
 
+from decouple import config, Csv
 
 # ##### PATH CONFIGURATION ################################
 
@@ -103,6 +103,9 @@ FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 
 # Internationalization
 USE_I18N = False
+
+# Timezone
+USE_TZ = False
 
 # ##### SECURITY CONFIGURATION ############################
 

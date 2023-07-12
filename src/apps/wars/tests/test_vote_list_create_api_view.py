@@ -25,9 +25,9 @@ class TestVoteListCreateAPIView(APITestCase):
 
     def test_list_endpoint_should_return_all_votes(self):
         self.authenticate(user=self.user)
-        votes = VoteFactory.create_batch(size=3)
+        VoteFactory.create_batch(size=3)
         response = self.client.get(path=self.url_path)
-        serializer = VoteSerializer(instance=votes, many=True)
+        serializer = VoteSerializer(instance=Vote.objects.all().order_by("-created"), many=True)
         self.assertListResponse(response=response, serializer=serializer)
 
     def test_list_endpoint_should_return_filtered_votes(self):
@@ -43,17 +43,21 @@ class TestVoteListCreateAPIView(APITestCase):
 
         # When Votes are filtered by User:
         response = self.client.get(path=f"{self.url_path}?user={self.user.pk}")
-        self.assertListResponse(response=response, serializer=VoteSerializer(instance=user_votes, many=True))
+        sorted_user_votes = sorted(user_votes, key=lambda obj: obj.created, reverse=True)
+        serializer = VoteSerializer(instance=sorted_user_votes, many=True)
+        self.assertListResponse(response=response, serializer=serializer)
 
         # When Votes are filtered by War:
         response = self.client.get(path=f"{self.url_path}?war={war.pk}")
-        self.assertListResponse(response=response, serializer=VoteSerializer(instance=war_votes, many=True))
+        sorted_war_votes = sorted(war_votes, key=lambda obj: obj.created, reverse=True)
+        serializer = VoteSerializer(instance=sorted_war_votes, many=True)
+        self.assertListResponse(response=response, serializer=serializer)
 
         # When Votes are filtered by User and War:
         response = self.client.get(path=f"{self.url_path}?user={self.user.pk}&war={war.pk}")
-        self.assertListResponse(
-            response=response, serializer=VoteSerializer(instance=first_three_user_votes, many=True)
-        )
+        ordered_first_three_user_votes = sorted(first_three_user_votes, key=lambda obj: obj.created, reverse=True)
+        serializer = VoteSerializer(instance=ordered_first_three_user_votes, many=True)
+        self.assertListResponse(response=response, serializer=serializer)
 
     def test_create_endpoint_should_return_response_401_when_authentication_headers_are_invalid(self):
         self.assertProtectedPOSTEndpoint(url_path=self.url_path, data=self.valid_data)

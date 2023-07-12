@@ -19,6 +19,6 @@ class TestSpectacularViews(APITestCase):
     def test_should_download_api_schema(self):
         response = self.client.get(path=reverse("api:schema:download"))
         self.assertEqual(response.status_code, 200)
-        self.assertEquals(
+        self.assertEqual(
             response.get("Content-Disposition"), f'inline; filename="{settings.SPECTACULAR_SETTINGS["TITLE"]}.yaml"'
         )

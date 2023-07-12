@@ -1,12 +1,13 @@
+from django.utils.translation import gettext_lazy as _
+from drf_spectacular.utils import extend_schema_view, extend_schema
+from rest_framework.generics import ListCreateAPIView
+from rest_framework.permissions import IsAuthenticated
+
 from apps.users.authentication import TokenAuthentication
 from apps.wars.models import Vote
 from apps.wars.serializers import VoteSerializer
 from apps.wars.views.filters import VoteFilterSet
 from apps.wars.views.serialized_user_api_view_mixin import SerializedUserAPIViewMixin
-from django.utils.translation import gettext_lazy as _
-from drf_spectacular.utils import extend_schema_view, extend_schema
-from rest_framework.generics import ListCreateAPIView
-from rest_framework.permissions import IsAuthenticated
 
 
 @extend_schema_view(
@@ -19,7 +20,7 @@ from rest_framework.permissions import IsAuthenticated
     ),
 )
 class VoteListCreateAPIView(ListCreateAPIView, SerializedUserAPIViewMixin):
-    queryset = Vote.objects.all()
+    queryset = Vote.objects.all().order_by("-created")
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     serializer_class = VoteSerializer
