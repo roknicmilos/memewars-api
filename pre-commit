@@ -1,0 +1,22 @@
+#!/bin/sh
+
+PROJECT_ROOT=$(git rev-parse --show-toplevel)
+. "$PROJECT_ROOT/scripts/utils.sh"
+
+printc "\n>>>>>>>>>>>>>>>> RUNNNING PRE-COMMIT HOOK <<<<<<<<<<<<<<<<\n\n" "info"
+
+run_checks() {
+  docker compose run --rm -T django sh /app/scripts/entrypoint.sh test
+}
+
+print_success_msg() {
+  printc "All checks have passed. Commiting..." "success \n"
+}
+
+print_failure_msg_and_exit() {
+  printc "Uneble to create a new commit because some checks have failed.\n" "danger"
+  printc "Please check the above output to fix the issues and than try to create a new commit.\n" "danger"
+  exit 1
+}
+
+run_checks && print_success_msg || print_failure_msg_and_exit
