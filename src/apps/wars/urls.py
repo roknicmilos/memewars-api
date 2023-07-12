@@ -12,7 +12,13 @@ memes_urlpatterns = [
     path('<int:pk>/', views.MemeDestroyAPIView.as_view(), name='details'),
 ]
 
+votes_urlpatterns = [
+    path('', views.VoteListCreateAPIView.as_view(), name='index'),
+    path('<int:pk>/', views.VotePatchAPIView.as_view(), name='details'),
+]
+
 urlpatterns = [
     path('wars/', include((wars_urlpatterns, 'apps.wars'), namespace='wars')),
     path('memes/', include((memes_urlpatterns, 'apps.wars'), namespace='memes')),
+    path('votes/', include((votes_urlpatterns, 'apps.wars'), namespace='votes')),
 ]

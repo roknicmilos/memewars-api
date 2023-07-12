@@ -27,8 +27,11 @@ class APITestCase(TestCase):
     def assertProtectedDELETEEndpoint(self, url_path: str) -> None:
         self._assert_protected_endpoint(method='delete', url_path=url_path)
 
+    def assertProtectedPATCHEndpoint(self, url_path: str, data: dict) -> None:
+        self._assert_protected_endpoint(method='patch', url_path=url_path, data=data)
+
     def _assert_protected_endpoint(self, method: str, url_path: str, data: dict = None) -> None:
-        supported_methods = ['get', 'post', 'delete']
+        supported_methods = ['get', 'post', 'delete', 'patch']
         if method not in supported_methods:
             self.fail(f'Method "{method}" is not supported')
         if method == 'post' and data is None:
@@ -85,3 +88,8 @@ class APITestCase(TestCase):
             if len(field_errors) > 1:
                 self.fail(f'There is more than one error for "{field_name}" field.')
             self.assertEqual(field_errors[0]['code'], code)
+
+    def assertBadRequestResponse(self, data: dict, errors: dict[str, list[str]]) -> None:
+        response = self.client.post(path=self.url_path, data=data)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json(), errors)

@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.db.models import QuerySet
+from django.db.models.functions import Collate
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from apps.common.admin import ModelAdmin
@@ -12,7 +14,7 @@ class VoteAdmin(ModelAdmin):
         'admin_id', 'user', 'meme_id', 'score', 'submission_count', 'war', 'created', 'modified',
     )
     search_fields = (
-        'user__email',
+        'user_email_deterministic',
         'user__first_name',
         'user__last_name',
         'meme__pk',
@@ -21,6 +23,10 @@ class VoteAdmin(ModelAdmin):
     fields = (
         'user', 'meme', 'score', 'submission_count', 'war', 'created', 'modified',
     )
+
+    def get_queryset(self, request) -> QuerySet:
+        queryset = super().get_queryset(request)
+        return queryset.annotate(user_email_deterministic=Collate('user__email', 'und-x-icu'))
 
     @admin.display(description=_('meme'))
     def meme_id(self, obj: Vote = None) -> int | None:

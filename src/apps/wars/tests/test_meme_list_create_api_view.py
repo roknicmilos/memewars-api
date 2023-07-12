@@ -147,10 +147,10 @@ class TestMemeListCreateAPIView(APITestCase):
         serializer = MemeSerializer(instance=[self.war_in_voting_phase.memes.first()], many=True)
         self.assertListResponse(response=response, serializer=serializer)
 
-    def test_post_endpoint_should_return_response_401_when_authentication_headers_are_invalid(self):
+    def test_create_endpoint_should_return_response_401_when_authentication_headers_are_invalid(self):
         self.assertProtectedPOSTEndpoint(url_path=self.url_path, data=self.valid_data)
 
-    def test_post_endpoint_should_return_response_400_when_meme_is_invalid(self):
+    def test_create_endpoint_should_return_response_400_when_request_data_is_invalid(self):
         self.authenticate(user=self.user)
 
         # When War does not exist:
@@ -184,12 +184,7 @@ class TestMemeListCreateAPIView(APITestCase):
         }
         self.assertBadRequestResponse(data=data, errors=expected_errors)
 
-    def assertBadRequestResponse(self, data: dict, errors: dict[str, list[str]]) -> None:
-        response = self.client.post(path=self.url_path, data=data)
-        self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.json(), errors)
-
-    def test_post_endpoint_should_create_meme_and_return_response_201_when_meme_is_valid(self):
+    def test_create_endpoint_should_create_meme_and_return_response_201_when_meme_is_valid(self):
         self.authenticate(user=self.user)
         self.assertFalse(Meme.objects.exists())
         response = self.client.post(path=self.url_path, data=self.valid_data)
@@ -207,7 +202,7 @@ class TestMemeListCreateAPIView(APITestCase):
                 continue
             self.assertEqual(value, serializer.data[key])
 
-    def test_post_endpoint_should_return_response_400_when_meme_upload_limit_is_reached(self):
+    def test_create_endpoint_should_return_response_400_when_meme_upload_limit_is_reached(self):
         self.authenticate(user=self.user)
         self.war_in_submission_phase.update(meme_upload_limit=1)
         MemeFactory(war=self.war_in_submission_phase, user=self.user)

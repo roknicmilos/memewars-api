@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.db.models import QuerySet
+from django.db.models.functions import Collate
 from django.template.loader import render_to_string
 from apps.common.admin import ModelAdmin
 from apps.wars.admin.filters import RequiresApprovalFilter
@@ -11,7 +13,7 @@ from django.utils.translation import gettext_lazy as _
 class MemeAdmin(ModelAdmin):
     form = MemeAdminForm
     search_fields = (
-        'user__email',
+        'user_email_deterministic',
         'user__first_name',
         'user__last_name',
         'war__name',
@@ -29,6 +31,10 @@ class MemeAdmin(ModelAdmin):
     fields = (
         'id', 'user', 'war', 'image', 'approval_status', 'total_score',
     )
+
+    def get_queryset(self, request) -> QuerySet:
+        queryset = super().get_queryset(request)
+        return queryset.annotate(user_email_deterministic=Collate('user__email', 'und-x-icu'))
 
     def get_readonly_fields(self, request, obj=None) -> tuple:
         readonly_fields = super().get_readonly_fields(request=request, obj=obj)
