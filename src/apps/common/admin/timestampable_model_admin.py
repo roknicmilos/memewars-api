@@ -3,7 +3,10 @@ from apps.common.models import BaseModel
 
 
 class TimestampableModelAdmin(admin.ModelAdmin):
-    timestampable_fields = ('created', 'modified',)
+    timestampable_fields = (
+        "created",
+        "modified",
+    )
 
     def get_fields(self, request, obj=None):
         fields = list(super().get_fields(request=request, obj=obj))

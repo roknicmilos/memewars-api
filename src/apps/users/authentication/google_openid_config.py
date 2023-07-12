@@ -3,11 +3,10 @@ from django.conf import settings
 
 
 class GoogleOpenIDConfig:
-
     def __init__(self):
         config = _fetch_google_openid_config()
-        self.authorization_endpoint = config['authorization_endpoint']
-        self.token_endpoint = config['token_endpoint']
+        self.authorization_endpoint = config["authorization_endpoint"]
+        self.token_endpoint = config["token_endpoint"]
 
 
 def _fetch_google_openid_config() -> dict:  # pragma: no cover

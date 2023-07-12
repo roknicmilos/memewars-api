@@ -4,15 +4,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('wars', '0006_remove_meme_is_approved_meme_approval_status'),
+        ("wars", "0006_remove_meme_is_approved_meme_approval_status"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='war',
-            name='meme_upload_limit',
-            field=models.SmallIntegerField(default=20, help_text='Maximum number of memes that one user can upload', verbose_name='meme upload limit'),
+            model_name="war",
+            name="meme_upload_limit",
+            field=models.SmallIntegerField(
+                default=20,
+                help_text="Maximum number of memes that one user can upload",
+                verbose_name="meme upload limit",
+            ),
         ),
     ]

@@ -13,6 +13,14 @@ wait_for_postgres() {
   done
 }
 
+init_django_project() {
+  if bool "$COLLECT_STATIC_FILES"; then
+    python3 manage.py collectstatic --noinput
+  fi
+  python3 manage.py migrate
+  python3 manage.py createsuperuser --noinput || true
+}
+
 run_server() {
   if bool "$DEV_SERVER"; then
     printc "Starting Django development server...\n" "info"
@@ -23,23 +31,19 @@ run_server() {
   fi
 }
 
-init_django_project() {
-  if bool "$COLLECT_STATIC_FILES"; then
-    python3 manage.py collectstatic --noinput
-  fi
-  python3 manage.py migrate
-  python3 manage.py createsuperuser --noinput || true
-}
-
-wait_for_postgres
-init_django_project
-
 if [ "$1" = "start" ]; then
+  wait_for_postgres
+  init_django_project
   run_server
 elif [ "$1" = "test" ]; then
+  printc "Running tests (pytest) with expected 100% coverage...\n" "info"
   pytest --cov --cov-fail-under=100 -n auto
+  printc "[bandit] Checking code security issues...\n" "info"
   bandit .
+  printc "[flake8] Checking linting issues...\n" "info"
   flake8 --count
+  printc "[black] Checking formatting issues...\n" "info"
+  black --check .
 else
   printc "Unknown command: '$1'\n" "danger"
   printc "Exiting!\n" "danger"

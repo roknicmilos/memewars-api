@@ -9,4 +9,4 @@ class WarSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = War
-        fields = '__all__'
+        fields = "__all__"

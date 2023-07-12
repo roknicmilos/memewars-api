@@ -7,7 +7,6 @@ from apps.wars.tests.factories import MemeFactory
 
 
 class TestMemeDestroyAPIView(APITestCase):
-
     def test_destroy_endpoint_should_return_response_401_when_authentication_headers_are_invalid(self):
         meme = MemeFactory()
         url_path = reverse("api:memes:details", args=(meme.pk,))
@@ -20,7 +19,7 @@ class TestMemeDestroyAPIView(APITestCase):
         url_path = reverse("api:memes:details", args=(1,))
         response = self.client.delete(path=url_path)
         self.assertEqual(response.status_code, 404)
-        self.assertEqual(response.json(), {'message': 'Not found'})
+        self.assertEqual(response.json(), {"message": "Not found"})
 
     def test_destroy_endpoint_should_return_response_404_when_meme_does_not_belong_to_authenticated_user(self):
         user = UserFactory()
@@ -30,7 +29,7 @@ class TestMemeDestroyAPIView(APITestCase):
         url_path = reverse("api:memes:details", args=(meme.pk,))
         response = self.client.delete(path=url_path)
         self.assertEqual(response.status_code, 404)
-        self.assertEqual(response.json(), {'message': 'Not found'})
+        self.assertEqual(response.json(), {"message": "Not found"})
         self.assertTrue(Meme.objects.filter(pk=meme.pk).exists())
 
     def test_destroy_endpoint_should_return_response_204_and_delete_meme(self):
@@ -40,5 +39,5 @@ class TestMemeDestroyAPIView(APITestCase):
         response = self.client.delete(path=url_path)
         self.assertEqual(response.status_code, 204)
         self.assertIsNone(response.content_type)
-        self.assertEqual(response.content, b'')
+        self.assertEqual(response.content, b"")
         self.assertFalse(Meme.objects.filter(pk=meme.pk).exists())

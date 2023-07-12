@@ -8,28 +8,23 @@ from django.utils.translation import gettext_lazy as _
 
 class UserSettings(SingletonModel):
     class Meta:
-        verbose_name = _('User Settings')
-        verbose_name_plural = _('User Settings')
+        verbose_name = _("User Settings")
+        verbose_name_plural = _("User Settings")
 
     allowed_email_domains = ArrayField(
-        verbose_name=_('allowed email domains'),
-        base_field=models.CharField(
-            max_length=100
-        ),
-        validators=[
-            UniqueArrayValuesValidator(),
-            AsteriskValidator()
-        ],
+        verbose_name=_("allowed email domains"),
+        base_field=models.CharField(max_length=100),
+        validators=[UniqueArrayValuesValidator(), AsteriskValidator()],
         default=list,
         blank=True,
         help_text=_(
-            'Values separated by comma (,). '
-            'If left unset, no one will be able to register or login. '
+            "Values separated by comma (,). "
+            "If left unset, no one will be able to register or login. "
             'If "*" is in the list, everyone will be able to register and login.'
         ),
     )
     allowed_emails = ArrayField(
-        verbose_name=_('allowed emails'),
+        verbose_name=_("allowed emails"),
         base_field=models.EmailField(),
         validators=[
             UniqueArrayValuesValidator(),
@@ -37,10 +32,10 @@ class UserSettings(SingletonModel):
         default=list,
         blank=True,
         help_text=_(
-            'Values separated by comma (,). '
+            "Values separated by comma (,). "
             'Takes priority over "allowed email domain". '
             'In other words, if the email from this list is not in the "allowed email domains", '
-            'the user will still be able to register and login.'
+            "the user will still be able to register and login."
         ),
     )
 
@@ -50,9 +45,9 @@ class UserSettings(SingletonModel):
     @classmethod
     def validate_email(cls, email: str) -> None:
         user_settings = cls.load()
-        if '*' in user_settings.allowed_email_domains or email in user_settings.allowed_emails:
+        if "*" in user_settings.allowed_email_domains or email in user_settings.allowed_emails:
             return
 
-        email_domain = email.split('@')[-1]
+        email_domain = email.split("@")[-1]
         if email_domain not in user_settings.allowed_email_domains:
-            raise DjangoValidationError(_('This email is not allowed'), code='forbidden_email')
+            raise DjangoValidationError(_("This email is not allowed"), code="forbidden_email")

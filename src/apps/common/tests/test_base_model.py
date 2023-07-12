@@ -4,7 +4,6 @@ from meme_wars.tests.test_case import TestCase
 
 
 class TestBaseModel(TestCase):
-
     def setUp(self) -> None:
         super().setUp()
         self.user_class = get_user_model()

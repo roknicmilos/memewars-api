@@ -6,7 +6,6 @@ from apps.wars.tests.factories import MemeFactory, WarFactory
 
 
 class TestRequiresApprovalFilter(TestCase):
-
     def setUp(self) -> None:
         super().setUp()
         first_war = WarFactory(requires_meme_approval=False)
@@ -16,18 +15,12 @@ class TestRequiresApprovalFilter(TestCase):
 
     def test_should_return_yes_and_no_options(self):
         requires_approval_filter = RequiresApprovalFilter(
-            request=self.get_request_example(),
-            params={},
-            model=Meme,
-            model_admin=MemeAdmin
+            request=self.get_request_example(), params={}, model=Meme, model_admin=MemeAdmin
         )
-        actual_lookups = requires_approval_filter.lookups(
-            request=self.get_request_example(),
-            model_admin=MemeAdmin
-        )
+        actual_lookups = requires_approval_filter.lookups(request=self.get_request_example(), model_admin=MemeAdmin)
         expected_lookups = [
-            (1, 'Yes'),
-            (0, 'No'),
+            (1, "Yes"),
+            (0, "No"),
         ]
         self.assertEqual(actual_lookups, expected_lookups)
 
@@ -36,7 +29,7 @@ class TestRequiresApprovalFilter(TestCase):
             request=self.get_request_example(),
             params={RequiresApprovalFilter.parameter_name: 1},
             model=Meme,
-            model_admin=MemeAdmin
+            model_admin=MemeAdmin,
         )
         queryset = requires_approval_filter.queryset(
             request=self.get_request_example(),
@@ -49,7 +42,7 @@ class TestRequiresApprovalFilter(TestCase):
             request=self.get_request_example(),
             params={RequiresApprovalFilter.parameter_name: 0},
             model=Meme,
-            model_admin=MemeAdmin
+            model_admin=MemeAdmin,
         )
         queryset = requires_approval_filter.queryset(
             request=self.get_request_example(),
@@ -59,10 +52,7 @@ class TestRequiresApprovalFilter(TestCase):
 
     def test_should_not_filter_memes_when_filter_params_are_empty(self):
         requires_approval_filter = RequiresApprovalFilter(
-            request=self.get_request_example(),
-            params={},
-            model=Meme,
-            model_admin=MemeAdmin
+            request=self.get_request_example(), params={}, model=Meme, model_admin=MemeAdmin
         )
         queryset = requires_approval_filter.queryset(
             request=self.get_request_example(),

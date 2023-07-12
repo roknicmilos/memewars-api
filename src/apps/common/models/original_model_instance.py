@@ -4,7 +4,6 @@ from django.forms import model_to_dict
 
 
 class OriginalModelInstance:
-
     def __init__(self, model_class: Type[Model], obj_id: int):
         self._set_kwargs(model_claas=model_class, obj_id=obj_id)
         for key, value in self.kwargs.items():

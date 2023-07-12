@@ -8,9 +8,9 @@ admin.site.unregister(TokenProxy)
 @admin.register(Token)
 class TokenAdmin(BaseTokenAdmin):
     search_fields = (
-        'user__email',
-        'user__first_name',
-        'user__last_name',
+        "user__email",
+        "user__first_name",
+        "user__last_name",
     )
 
     def has_change_permission(self, request, obj=None):

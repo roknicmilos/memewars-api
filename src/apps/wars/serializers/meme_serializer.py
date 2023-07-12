@@ -10,27 +10,27 @@ from apps.wars.models import Meme
 
 
 @extend_schema_serializer(
-    exclude_fields=('user',),
+    exclude_fields=("user",),
     examples=[
         OpenApiExample(
-            name=_('Success response example'),
-            summary=_('Created meme response'),
-            description=_('A response example of successfully created meme'),
+            name=_("Success response example"),
+            summary=_("Created meme response"),
+            description=_("A response example of successfully created meme"),
             value={
-                'id': 1,
-                'total_score': 0,
-                'vote_count': 0,
-                'war': 1,
-                'user': 1,
-                'image': f'{settings.HOST_URL}{settings.MEDIA_URL}{Meme.image.field.upload_to.base_path}my-meme.jpg',
-                'created': now().isoformat(),
-                'modified': now().isoformat(),
-                'approval_status': Meme.ApprovalStatuses.PENDING.value,
+                "id": 1,
+                "total_score": 0,
+                "vote_count": 0,
+                "war": 1,
+                "user": 1,
+                "image": f"{settings.HOST_URL}{settings.MEDIA_URL}{Meme.image.field.upload_to.base_path}my-meme.jpg",
+                "created": now().isoformat(),
+                "modified": now().isoformat(),
+                "approval_status": Meme.ApprovalStatuses.PENDING.value,
             },
             request_only=False,
             response_only=True,
         ),
-    ]
+    ],
 )
 class MemeSerializer(serializers.ModelSerializer):
     total_score = serializers.ReadOnlyField()
@@ -38,7 +38,7 @@ class MemeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Meme
-        fields = '__all__'
+        fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

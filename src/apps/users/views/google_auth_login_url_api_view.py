@@ -8,18 +8,13 @@ from apps.users.serializers import GoogleAuthLoginQuerySerializer
 
 
 class GoogleAuthLoginURLAPIView(APIView):
-
     @extend_schema(
-        description=_('Redirects the user to a Google login URL'),
-        parameters=[
-            GoogleAuthLoginQuerySerializer
-        ],
+        description=_("Redirects the user to a Google login URL"),
+        parameters=[GoogleAuthLoginQuerySerializer],
         responses={
-            302: OpenApiResponse(
-                description=_('Redirects the user to a Google login URL')
-            ),
+            302: OpenApiResponse(description=_("Redirects the user to a Google login URL")),
             # TODO: add 400 response?
-        }
+        },
     )
     def get(self, *args, **kwargs) -> HttpResponseRedirect | Response:
         serializer = GoogleAuthLoginQuerySerializer(request=self.request)

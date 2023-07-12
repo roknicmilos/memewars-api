@@ -9,7 +9,7 @@ from apps.wars.tests.factories import MemeFactory, WarFactory, VoteFactory
 
 
 class TestMemeListCreateAPIView(APITestCase):
-    url_path = reverse_lazy('api:memes:index')
+    url_path = reverse_lazy("api:memes:index")
 
     def setUp(self) -> None:
         super().setUp()
@@ -25,8 +25,8 @@ class TestMemeListCreateAPIView(APITestCase):
             self.war_in_finished_phase,
         ]
         self.valid_data = {
-            'image': get_image_file_example(),
-            'war': self.war_in_submission_phase.pk,
+            "image": get_image_file_example(),
+            "war": self.war_in_submission_phase.pk,
         }
 
     def test_list_endpoint_should_return_response_401_when_authentication_headers_are_invalid(self):
@@ -45,11 +45,11 @@ class TestMemeListCreateAPIView(APITestCase):
 
         # When all wars do not require meme approval:
         first_page_response = self.client.get(path=self.url_path)
-        second_page_response = self.client.get(path=f'{self.url_path}?page=2')
+        second_page_response = self.client.get(path=f"{self.url_path}?page=2")
 
         self.assertEqual(first_page_response.status_code, 200)
         self.assertEqual(second_page_response.status_code, 200)
-        results = first_page_response.json()['results'] + second_page_response.json()['results']
+        results = first_page_response.json()["results"] + second_page_response.json()["results"]
         # Expected memes:
         #   0 from the war in PREPARATION phase
         #   3 from the war in SUBMISSION phase (authenticated user memes only, regardless of approval status)
@@ -58,11 +58,11 @@ class TestMemeListCreateAPIView(APITestCase):
         self.assertEqual(len(results), 15)
         for meme_dict in results:
             # There shouldn't be a meme from the war that's in the PREPARATION phase:
-            self.assertNotEqual(meme_dict['war'], self.war_in_preparation_phase.pk)
+            self.assertNotEqual(meme_dict["war"], self.war_in_preparation_phase.pk)
             # If the meme is from the war that's in SUBMISSION phase,
             # it should belong to the authenticated user:
-            if meme_dict['war'] == self.war_in_submission_phase.pk:
-                self.assertEqual(meme_dict['user'], self.user.pk)
+            if meme_dict["war"] == self.war_in_submission_phase.pk:
+                self.assertEqual(meme_dict["user"], self.user.pk)
 
         # When all wars require meme approval:
         for war in self.all_wars:
@@ -71,7 +71,7 @@ class TestMemeListCreateAPIView(APITestCase):
         response = self.client.get(path=self.url_path)
 
         self.assertEqual(response.status_code, 200)
-        results = response.json()['results']
+        results = response.json()["results"]
         # Expected memes:
         #   0 from the war in PREPARATION phase
         #   3 from the war in SUBMISSION phase (authenticated user memes only, regardless of approval status)
@@ -80,13 +80,13 @@ class TestMemeListCreateAPIView(APITestCase):
         self.assertEqual(len(results), 7)
         for meme_dict in results:
             # There shouldn't be a meme from the war that's in the PREPARATION phase:
-            self.assertNotEqual(meme_dict['war'], self.war_in_preparation_phase.pk)
+            self.assertNotEqual(meme_dict["war"], self.war_in_preparation_phase.pk)
             # If the meme is from the war that's in SUBMISSION phase,
             # it should belong to the authenticated user:
-            if meme_dict['war'] == self.war_in_submission_phase.pk:
-                self.assertEqual(meme_dict['user'], self.user.pk)
+            if meme_dict["war"] == self.war_in_submission_phase.pk:
+                self.assertEqual(meme_dict["user"], self.user.pk)
             else:
-                self.assertEqual(meme_dict['approval_status'], Meme.ApprovalStatuses.APPROVED.value)
+                self.assertEqual(meme_dict["approval_status"], Meme.ApprovalStatuses.APPROVED.value)
 
     def test_list_endpoint_should_return_all_memes_ordered_by_correct_fields(self):
         war = WarFactory(phase=War.Phases.VOTING)
@@ -107,43 +107,43 @@ class TestMemeListCreateAPIView(APITestCase):
         VoteFactory(meme=meme_e, score=7)  # 2
 
         self.authenticate(user=self.user)
-        url_path = f'{self.url_path}?war={war.pk}'
+        url_path = f"{self.url_path}?war={war.pk}"
 
         # When war is in not the finished phase, memes should be
         # ordered by creation datetime:
         response = self.client.get(path=url_path)
         self.assertEqual(response.status_code, 200)
-        results = response.json()['results']
-        self.assertEqual(results[0]['id'], meme_e.pk)
-        self.assertEqual(results[1]['id'], meme_d.pk)
-        self.assertEqual(results[2]['id'], meme_c.pk)
-        self.assertEqual(results[3]['id'], meme_b.pk)
-        self.assertEqual(results[4]['id'], meme_a.pk)
+        results = response.json()["results"]
+        self.assertEqual(results[0]["id"], meme_e.pk)
+        self.assertEqual(results[1]["id"], meme_d.pk)
+        self.assertEqual(results[2]["id"], meme_c.pk)
+        self.assertEqual(results[3]["id"], meme_b.pk)
+        self.assertEqual(results[4]["id"], meme_a.pk)
 
         # When war is in the finished phase, meme score should have
         # ordering priority over creation datetime:
         war.update(phase=War.Phases.FINISHED)
         response = self.client.get(path=url_path)
         self.assertEqual(response.status_code, 200)
-        results = response.json()['results']
-        self.assertEqual(results[0]['id'], meme_a.pk)
-        self.assertEqual(results[1]['id'], meme_e.pk)
-        self.assertEqual(results[2]['id'], meme_b.pk)
-        self.assertEqual(results[3]['id'], meme_d.pk)
-        self.assertEqual(results[4]['id'], meme_c.pk)
+        results = response.json()["results"]
+        self.assertEqual(results[0]["id"], meme_a.pk)
+        self.assertEqual(results[1]["id"], meme_e.pk)
+        self.assertEqual(results[2]["id"], meme_b.pk)
+        self.assertEqual(results[3]["id"], meme_d.pk)
+        self.assertEqual(results[4]["id"], meme_c.pk)
 
     def test_list_endpoint_should_return_memes_filtered_by_war(self):
         self.authenticate(user=self.user)
         MemeFactory.create_batch(size=3, war=self.war_in_voting_phase)
         MemeFactory.create_batch(size=2, war=self.war_in_finished_phase)
-        response = self.client.get(path=f'{self.url_path}?war={self.war_in_voting_phase.pk}')
-        serializer = MemeSerializer(instance=self.war_in_voting_phase.memes.order_by('-created'), many=True)
+        response = self.client.get(path=f"{self.url_path}?war={self.war_in_voting_phase.pk}")
+        serializer = MemeSerializer(instance=self.war_in_voting_phase.memes.order_by("-created"), many=True)
         self.assertListResponse(response=response, serializer=serializer)
 
         # When war requires meme approval:
         self.war_in_voting_phase.update(requires_meme_approval=True)
         self.war_in_voting_phase.memes.first().update(approval_status=Meme.ApprovalStatuses.APPROVED)
-        response = self.client.get(path=f'{self.url_path}?war={self.war_in_voting_phase.pk}')
+        response = self.client.get(path=f"{self.url_path}?war={self.war_in_voting_phase.pk}")
         serializer = MemeSerializer(instance=[self.war_in_voting_phase.memes.first()], many=True)
         self.assertListResponse(response=response, serializer=serializer)
 
@@ -154,33 +154,39 @@ class TestMemeListCreateAPIView(APITestCase):
         self.authenticate(user=self.user)
 
         # When War does not exist:
-        missing_war_pk = War.objects.latest('pk').pk + 1
+        missing_war_pk = War.objects.latest("pk").pk + 1
         data = {
             **self.valid_data,
-            'war': missing_war_pk,
+            "war": missing_war_pk,
         }
         expected_errors = {
-            'war': [f'Invalid pk "{missing_war_pk}" - object does not exist.', ],
+            "war": [
+                f'Invalid pk "{missing_war_pk}" - object does not exist.',
+            ],
         }
         self.assertBadRequestResponse(data=data, errors=expected_errors)
 
         # When War is not in submission phase:
         for war in [self.war_in_preparation_phase, self.war_in_voting_phase, self.war_in_finished_phase]:
-            data['war'] = war.pk
+            data["war"] = war.pk
             # Make sure image file is fresh and valid for each request:
-            data['image'] = get_image_file_example()
+            data["image"] = get_image_file_example()
             expected_errors = {
-                'war': ['War must be in "Submission" phase', ],
+                "war": [
+                    'War must be in "Submission" phase',
+                ],
             }
             self.assertBadRequestResponse(data=data, errors=expected_errors)
 
         # When image is invalid:
         data = {
             **self.valid_data,
-            'image': 'not-an-image',
+            "image": "not-an-image",
         }
         expected_errors = {
-            'image': ['The submitted data was not a file. Check the encoding type on the form.', ],
+            "image": [
+                "The submitted data was not a file. Check the encoding type on the form.",
+            ],
         }
         self.assertBadRequestResponse(data=data, errors=expected_errors)
 
@@ -197,8 +203,8 @@ class TestMemeListCreateAPIView(APITestCase):
         serializer = MemeSerializer(instance=meme)
         # serializer.data['image'] is an absolute URL, and it should contain meme.image.url path:
         for key, value in response.json().items():
-            if key == 'image':
-                self.assertTrue(serializer.data['image'].endswith(meme.image.url))
+            if key == "image":
+                self.assertTrue(serializer.data["image"].endswith(meme.image.url))
                 continue
             self.assertEqual(value, serializer.data[key])
 
@@ -207,7 +213,9 @@ class TestMemeListCreateAPIView(APITestCase):
         self.war_in_submission_phase.update(meme_upload_limit=1)
         MemeFactory(war=self.war_in_submission_phase, user=self.user)
         expected_errors = {
-            'ALL': ['This user already reached Meme upload limit in this war.', ],
-            'code': 'meme_upload_limit_reached',
+            "ALL": [
+                "This user already reached Meme upload limit in this war.",
+            ],
+            "code": "meme_upload_limit_reached",
         }
         self.assertBadRequestResponse(data=self.valid_data, errors=expected_errors)

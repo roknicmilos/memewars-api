@@ -23,7 +23,7 @@ class FilePath:
 
     def __call__(self, instance, filename):
         filename_without_extension, file_extension = os.path.splitext(filename)
-        timestamp_str = str(timezone.now().timestamp()).replace('.', '_')
+        timestamp_str = str(timezone.now().timestamp()).replace(".", "_")
         new_filename = f"{filename_without_extension}_{timestamp_str}{file_extension}"
         return os.path.join(self.base_path, new_filename)
 
@@ -37,9 +37,9 @@ def get_text_choice_by_value(value: str, text_choices: type[TextChoices]) -> Tex
             return choice
 
 
-def compress_image_file(image: ImageFile, image_format: str = 'JPEG') -> File:
+def compress_image_file(image: ImageFile, image_format: str = "JPEG") -> File:
     prepared_image = Image.open(image)
-    prepared_image = prepared_image.convert('RGB')  # Converts Image to RGB color mode
+    prepared_image = prepared_image.convert("RGB")  # Converts Image to RGB color mode
     prepared_image = ImageOps.exif_transpose(prepared_image)  # Auto rotates image according to EXIF data
     image_io = BytesIO()
     quality = get_reduced_file_quality_percentage(file_size=image.size)
@@ -61,30 +61,30 @@ def get_reduced_file_quality_percentage(file_size: int) -> int:
 
 def handle_api_exception(error: Exception, context: dict = None) -> Response:
     if isinstance(error, NotAuthenticated):
-        return ErrorResponse(message='Authentication token was not provided', status=401)
+        return ErrorResponse(message="Authentication token was not provided", status=401)
     if isinstance(error, AuthenticationFailed):
-        return ErrorResponse(message='Authentication token is invalid', status=401)
+        return ErrorResponse(message="Authentication token is invalid", status=401)
     if isinstance(error, Http404):
-        return ErrorResponse(message='Not found', status=404)
+        return ErrorResponse(message="Not found", status=404)
     if isinstance(error, DjangoValidationError):
         return _handle_django_validation_error(error=error)
     return exception_handler(exc=error, context=context)
 
 
 def _handle_django_validation_error(error: DjangoValidationError) -> Response:
-    data = {'ALL': [error.message]}
+    data = {"ALL": [error.message]}
     if error.code:
-        data['code'] = error.code
+        data["code"] = error.code
     return Response(data=data, status=400)
 
 
 def get_fixture_ids(fixtures_file_path: str) -> list[int]:
     ids = []
-    with open(fixtures_file_path, 'r') as file:
+    with open(fixtures_file_path, "r") as file:
         for line in file.readlines():
             stripped_line = line.strip()
-            id_suffix = 'pk: '
+            id_suffix = "pk: "
             if stripped_line.startswith(id_suffix):
-                last_index = stripped_line.index('#') if '#' in stripped_line else None
-                ids.append(int(stripped_line[len(id_suffix):last_index]))
+                last_index = stripped_line.index("#") if "#" in stripped_line else None
+                ids.append(int(stripped_line[len(id_suffix) : last_index]))
     return ids

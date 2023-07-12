@@ -3,7 +3,7 @@ from django.template.defaulttags import register
 
 
 @register.filter
-def env(key, default: str = '') -> str:
+def env(key, default: str = "") -> str:
     return config(key, default=default)
 
 

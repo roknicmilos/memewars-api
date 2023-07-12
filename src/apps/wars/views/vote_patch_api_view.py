@@ -10,10 +10,7 @@ from apps.wars.serializers import PatchVoteSerializer
 
 @extend_schema_view(
     post=extend_schema(
-        description=_(
-            'Votes can only be updated by the authenticated '
-            'users that created those votes'
-        ),
+        description=_("Votes can only be updated by the authenticated " "users that created those votes"),
         request=PatchVoteSerializer,
         responses=PatchVoteSerializer,
     ),

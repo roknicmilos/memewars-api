@@ -8,24 +8,54 @@ import django_extensions.db.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0002_user_image_url'),
+        ("users", "0002_user_image_url"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='UserSettings',
+            name="UserSettings",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created', django_extensions.db.fields.CreationDateTimeField(auto_now_add=True, verbose_name='created')),
-                ('modified', django_extensions.db.fields.ModificationDateTimeField(auto_now=True, verbose_name='modified')),
-                ('allowed_email_domains', django.contrib.postgres.fields.ArrayField(base_field=models.CharField(max_length=100), blank=True, default=list, help_text='Values separated by comma (,). If left unset, no one will be able to register or login. If "*" is in the list, everyone will be able to register and login.', size=None, validators=[apps.common.validators.unique_array_values_validator.UniqueArrayValuesValidator(), apps.common.validators.asterisk_validator.AsteriskValidator()], verbose_name='allowed email domains')),
-                ('allowed_emails', django.contrib.postgres.fields.ArrayField(base_field=models.EmailField(max_length=254), blank=True, default=list, help_text='Values separated by comma (,). Takes priority over "allowed email domain". In other words, if the email from this list is not in the "allowed email domains", the user will still be able to register and login.', size=None, validators=[apps.common.validators.unique_array_values_validator.UniqueArrayValuesValidator()], verbose_name='allowed emails')),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "created",
+                    django_extensions.db.fields.CreationDateTimeField(auto_now_add=True, verbose_name="created"),
+                ),
+                (
+                    "modified",
+                    django_extensions.db.fields.ModificationDateTimeField(auto_now=True, verbose_name="modified"),
+                ),
+                (
+                    "allowed_email_domains",
+                    django.contrib.postgres.fields.ArrayField(
+                        base_field=models.CharField(max_length=100),
+                        blank=True,
+                        default=list,
+                        help_text='Values separated by comma (,). If left unset, no one will be able to register or login. If "*" is in the list, everyone will be able to register and login.',
+                        size=None,
+                        validators=[
+                            apps.common.validators.unique_array_values_validator.UniqueArrayValuesValidator(),
+                            apps.common.validators.asterisk_validator.AsteriskValidator(),
+                        ],
+                        verbose_name="allowed email domains",
+                    ),
+                ),
+                (
+                    "allowed_emails",
+                    django.contrib.postgres.fields.ArrayField(
+                        base_field=models.EmailField(max_length=254),
+                        blank=True,
+                        default=list,
+                        help_text='Values separated by comma (,). Takes priority over "allowed email domain". In other words, if the email from this list is not in the "allowed email domains", the user will still be able to register and login.',
+                        size=None,
+                        validators=[apps.common.validators.unique_array_values_validator.UniqueArrayValuesValidator()],
+                        verbose_name="allowed emails",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'User Settings',
-                'verbose_name_plural': 'User Settings',
+                "verbose_name": "User Settings",
+                "verbose_name_plural": "User Settings",
             },
         ),
     ]

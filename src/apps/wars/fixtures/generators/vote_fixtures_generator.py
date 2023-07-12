@@ -21,9 +21,9 @@ class VoteFixturesGenerator(AbstractFixturesGenerator):
     """
 
     def __init__(self, *args, **kwargs):
-        user_fixtures_file_path = join(settings.PROJECT_ROOT, 'apps', 'users', 'fixtures', 'users.yaml')
+        user_fixtures_file_path = join(settings.PROJECT_ROOT, "apps", "users", "fixtures", "users.yaml")
         self.user_ids = get_fixture_ids(fixtures_file_path=user_fixtures_file_path)
-        meme_fixtures_file_path = join(settings.PROJECT_ROOT, 'apps', 'wars', 'fixtures', 'memes.yaml')
+        meme_fixtures_file_path = join(settings.PROJECT_ROOT, "apps", "wars", "fixtures", "memes.yaml")
         self.meme_ids = get_fixture_ids(fixtures_file_path=meme_fixtures_file_path)
         super().__init__(*args, **kwargs)
 
@@ -33,14 +33,16 @@ class VoteFixturesGenerator(AbstractFixturesGenerator):
         dt = datetime.now()
         for user_id in self.user_ids:
             for meme_id in self.meme_ids:
-                dt_str = dt.isoformat().split('.')[0]
-                items.append({
-                    'pk': len(items) + 1,
-                    'user': user_id,
-                    'meme': meme_id,
-                    'score': randint(1, 10),  # nosec B311
-                    'dt': dt_str,
-                })
+                dt_str = dt.isoformat().split(".")[0]
+                items.append(
+                    {
+                        "pk": len(items) + 1,
+                        "user": user_id,
+                        "meme": meme_id,
+                        "score": randint(1, 10),  # nosec B311
+                        "dt": dt_str,
+                    }
+                )
                 dt -= timedelta(seconds=1)
 
         return items

@@ -7,13 +7,13 @@ class MemeAdminInline(admin.TabularInline):
     model = Meme
     extra = 0
     fields = (
-        'war',
-        'image',
-        'approval_status',
+        "war",
+        "image",
+        "approval_status",
     )
     readonly_fields = (
-        'war',
-        'image',
+        "war",
+        "image",
     )
 
     def has_add_permission(self, request, obj) -> bool:

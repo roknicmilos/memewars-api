@@ -9,7 +9,7 @@ from apps.users.authentication import TokenAuthentication
 
 @extend_schema_view(
     delete=extend_schema(
-        description=_('Deletes a meme of the authenticated user'),
+        description=_("Deletes a meme of the authenticated user"),
         responses={204: OpenApiResponse()},
     ),
 )

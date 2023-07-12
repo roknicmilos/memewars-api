@@ -5,7 +5,6 @@ from apps.wars.validators import MemeWarPhaseValidator
 
 
 class TestMemeWarPhaseValidator(TestCase):
-
     @classmethod
     def setUpClass(cls) -> None:
         cls.validator = MemeWarPhaseValidator(phase_value=War.Phases.VOTING.value)

@@ -13,13 +13,11 @@ class TestSingletonModel(TestCase):
         Creating the mentioned table will FAIL if the app has
         any migrations.
         """
-        class Meta:
-            app_label = 'common'
 
-        name = models.CharField(
-            max_length=100,
-            default=''
-        )
+        class Meta:
+            app_label = "common"
+
+        name = models.CharField(max_length=100, default="")
 
     def test_should_override_pk_before_saving_instance(self):
         singleton_instance = self.ConcreteSingletonModel(pk=10)
@@ -51,7 +49,7 @@ class TestSingletonModel(TestCase):
 
     def test_should_update_instance_using_class_method(self):
         instance = self.ConcreteSingletonModel.load()
-        self.assertEqual(instance.name, '')
-        self.ConcreteSingletonModel.update(name='Miki')
+        self.assertEqual(instance.name, "")
+        self.ConcreteSingletonModel.update(name="Miki")
         instance.refresh_from_db()
-        self.assertEqual(instance.name, 'Miki')
+        self.assertEqual(instance.name, "Miki")

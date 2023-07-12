@@ -4,9 +4,8 @@ from apps.wars.tests.factories import MemeFactory, WarFactory, VoteFactory
 
 
 class TestWar(TestCase):
-
     def test_war_should_have_expected_default_values(self):
-        war = War.objects.create(name='Meme war')
+        war = War.objects.create(name="Meme war")
         self.assertEqual(war.phase, War.Phases.PREPARATION)
         self.assertFalse(war.requires_meme_approval)
 
