@@ -31,3 +31,4 @@ class VoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vote
         fields = ["id", "score", "meme", "user", "submission_count", "created", "modified"]
+        ordering = ["created"]

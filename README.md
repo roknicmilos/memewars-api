@@ -85,7 +85,7 @@ coverage ([Run tests with coverage](#run-tests-with-coverage)).
 
 ### Simultaneously run tests with coverage, linters and formatter checks
 
-    docker compose run --rm django sh -c '/app/scripts/entrypoint.sh test'
+    docker compose run --rm django sh /app/scripts/entrypoint.sh test
 
 The above command will:
 
