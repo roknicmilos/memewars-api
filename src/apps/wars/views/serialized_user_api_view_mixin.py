@@ -4,9 +4,8 @@ from rest_framework.serializers import Serializer
 
 
 class SerializedUserAPIViewMixin(GenericAPIView):
-
     def get_serializer(self, *args, **kwargs) -> Serializer:
-        if self.request.method == 'POST':
-            data = kwargs['data'].dict() if isinstance(kwargs['data'], QueryDict) else kwargs['data']
-            kwargs['data'] = {**data, 'user': self.request.user.pk}
+        if self.request.method == "POST":
+            data = kwargs["data"].dict() if isinstance(kwargs["data"], QueryDict) else kwargs["data"]
+            kwargs["data"] = {**data, "user": self.request.user.pk}
         return super().get_serializer(*args, **kwargs)

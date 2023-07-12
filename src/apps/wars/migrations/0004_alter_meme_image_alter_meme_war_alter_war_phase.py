@@ -7,25 +7,40 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('wars', '0003_meme_is_approved'),
+        ("wars", "0003_meme_is_approved"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='meme',
-            name='image',
-            field=models.ImageField(upload_to=apps.common.utils.FilePath('wars/meme/'), verbose_name='image'),
+            model_name="meme",
+            name="image",
+            field=models.ImageField(upload_to=apps.common.utils.FilePath("wars/meme/"), verbose_name="image"),
         ),
         migrations.AlterField(
-            model_name='meme',
-            name='war',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='memes', to='wars.war', validators=[apps.wars.validators.WarPhaseValidator('submission')], verbose_name='war'),
+            model_name="meme",
+            name="war",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="memes",
+                to="wars.war",
+                validators=[apps.wars.validators.WarPhaseValidator("submission")],
+                verbose_name="war",
+            ),
         ),
         migrations.AlterField(
-            model_name='war',
-            name='phase',
-            field=models.CharField(choices=[('preparation', 'Preparation'), ('submission', 'Submission'), ('voting', 'Voting'), ('finished', 'Finished')], default='preparation', max_length=12, verbose_name='phase'),
+            model_name="war",
+            name="phase",
+            field=models.CharField(
+                choices=[
+                    ("preparation", "Preparation"),
+                    ("submission", "Submission"),
+                    ("voting", "Voting"),
+                    ("finished", "Finished"),
+                ],
+                default="preparation",
+                max_length=12,
+                verbose_name="phase",
+            ),
         ),
     ]

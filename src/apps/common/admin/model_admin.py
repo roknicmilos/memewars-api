@@ -30,18 +30,18 @@ class ModelAdmin(TimestampableModelAdmin):
             fields = super().get_fields(request=request, obj=obj)
 
         fields = list(fields)
-        if 'id' in fields:
-            fields.remove('id')
-        fields.insert(0, 'id')
+        if "id" in fields:
+            fields.remove("id")
+        fields.insert(0, "id")
 
         return tuple(fields)
 
     def get_readonly_fields(self, request, obj=None):
         readonly_fields = super().get_readonly_fields(request=request, obj=obj)
-        if 'id' not in readonly_fields:
-            readonly_fields += ('id',)
+        if "id" not in readonly_fields:
+            readonly_fields += ("id",)
         return readonly_fields
 
-    @admin.display(description=_('id'))
+    @admin.display(description=_("id"))
     def admin_id(self, obj: BaseModel = None) -> str:
-        return f'{obj.verbose_name} {obj.pk}'
+        return f"{obj.verbose_name} {obj.pk}"

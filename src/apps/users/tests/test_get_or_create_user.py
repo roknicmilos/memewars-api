@@ -8,17 +8,16 @@ from apps.users.utils import get_or_create_user
 
 
 class TestGetOrCreateUser(TestCase):
-
     def setUp(self) -> None:
         super().setUp()
         self.google_user = GoogleUserFactory(
-            email='jon.snow@winterfell.com',
-            given_name='Jon',
-            family_name='Snow',
-            picture='https://mock-google-domain/jon-snow.jpg'
+            email="jon.snow@winterfell.com",
+            given_name="Jon",
+            family_name="Snow",
+            picture="https://mock-google-domain/jon-snow.jpg",
         )
 
-        self.validate_email_patcher = patch.object(UserSettings, 'validate_email')
+        self.validate_email_patcher = patch.object(UserSettings, "validate_email")
         self.mock_validate_email = self.validate_email_patcher.start()
 
     def test_should_create_user_when_they_do_not_exist(self):
@@ -32,9 +31,7 @@ class TestGetOrCreateUser(TestCase):
 
     def test_should_update_and_get_user_when_they_exist(self):
         exiting_user = UserFactory(
-            first_name='Miki',
-            last_name='Mikanović',
-            image_url='https://mock-google-domain/miki-mikanovic.jpg'
+            first_name="Miki", last_name="Mikanović", image_url="https://mock-google-domain/miki-mikanovic.jpg"
         )
         self.google_user.email = exiting_user.email
         self.assertEqual(User.objects.count(), 1)

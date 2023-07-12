@@ -14,4 +14,4 @@ class GoogleUserFactory(factory.Factory):
     email = factory.LazyAttribute(lambda user: build_email(user=user))
     given_name = factory.LazyAttribute(lambda _: faker.first_name())
     family_name = factory.LazyAttribute(lambda _: faker.last_name())
-    picture = factory.LazyAttribute(lambda o: f'https://mock-google-domain/{o.given_name}.{o.family_name}.jpg')
+    picture = factory.LazyAttribute(lambda o: f"https://mock-google-domain/{o.given_name}.{o.family_name}.jpg")

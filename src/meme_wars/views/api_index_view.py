@@ -8,14 +8,14 @@ from meme_wars.utils import build_absolute_uri
 
 class APIIndexView(APIView):
     @extend_schema(
-        description=_('Index endpoint for Meme Wars API'),
+        description=_("Index endpoint for Meme Wars API"),
     )
     def get(self, *args, **kwargs) -> Response:
         data = {
-            'urls': {
-                'download_schema': build_absolute_uri("api:schema:download"),
-                'swagger_ui': build_absolute_uri("api:schema:swagger"),
-                'redoc_ui': build_absolute_uri("api:schema:redoc"),
+            "urls": {
+                "download_schema": build_absolute_uri("api:schema:download"),
+                "swagger_ui": build_absolute_uri("api:schema:swagger"),
+                "redoc_ui": build_absolute_uri("api:schema:redoc"),
             }
         }
         return Response(data=data)

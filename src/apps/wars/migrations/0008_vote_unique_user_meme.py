@@ -4,14 +4,13 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('wars', '0007_war_meme_upload_limit'),
+        ("wars", "0007_war_meme_upload_limit"),
     ]
 
     operations = [
         migrations.AddConstraint(
-            model_name='vote',
-            constraint=models.UniqueConstraint(fields=('user', 'meme'), name='unique_user_meme'),
+            model_name="vote",
+            constraint=models.UniqueConstraint(fields=("user", "meme"), name="unique_user_meme"),
         ),
     ]

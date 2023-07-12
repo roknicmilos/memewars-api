@@ -6,7 +6,7 @@ class UserSettingsAdminForm(forms.ModelForm):
     class Meta:
         model = UserSettings
         widgets = {
-            'allowed_email_domains': forms.Textarea(attrs={'cols': 100}),
-            'allowed_emails': forms.Textarea(attrs={'cols': 100}),
+            "allowed_email_domains": forms.Textarea(attrs={"cols": 100}),
+            "allowed_emails": forms.Textarea(attrs={"cols": 100}),
         }
-        fields = '__all__'
+        fields = "__all__"

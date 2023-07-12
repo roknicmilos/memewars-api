@@ -7,7 +7,7 @@ from apps.wars.serializers import WarSerializer
 
 
 class WarListAPIView(ListAPIView):
-    queryset = War.objects.order_by('-created').all()
+    queryset = War.objects.order_by("-created").all()
     serializer_class = WarSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]

@@ -8,7 +8,6 @@ from apps.wars.tests.factories import VoteFactory
 
 
 class TestVoteAdmin(TestCase):
-
     def setUp(self) -> None:
         super().setUp()
         self.vote_admin = VoteAdmin(model=Vote, admin_site=admin_site)
@@ -16,7 +15,7 @@ class TestVoteAdmin(TestCase):
     def test_should_return_correct_admin_id_string_when_vote_object_is_passed(self):
         vote = VoteFactory()
         actual_admin_id = self.vote_admin.admin_id(obj=vote)
-        self.assertEqual(actual_admin_id, f'Vote {vote.pk}')
+        self.assertEqual(actual_admin_id, f"Vote {vote.pk}")
 
     def test_should_return_correct_meme_id_string_when_vote_object_is_passed(self):
         vote = VoteFactory()

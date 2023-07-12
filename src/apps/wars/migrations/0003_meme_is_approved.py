@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('wars', '0002_war_requires_meme_approval'),
+        ("wars", "0002_war_requires_meme_approval"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='meme',
-            name='is_approved',
-            field=models.BooleanField(default=False, verbose_name='is approved'),
+            model_name="meme",
+            name="is_approved",
+            field=models.BooleanField(default=False, verbose_name="is approved"),
         ),
     ]

@@ -15,14 +15,14 @@ class GoogleAuthLoginQuerySerializer(serializers.Serializer):
 
     def is_valid(self, *, raise_exception=False) -> bool:
         self.initial_data = {
-            'login_success_redirect_url': self.request.GET.get('login_success_redirect_url'),
-            'login_failure_redirect_url': self.request.GET.get('login_failure_redirect_url'),
+            "login_success_redirect_url": self.request.GET.get("login_success_redirect_url"),
+            "login_failure_redirect_url": self.request.GET.get("login_failure_redirect_url"),
         }
         if is_valid := super().is_valid(raise_exception=raise_exception):
             LoginInProgress.add_to_session(
                 request=self.request,
-                login_success_redirect_url=self.validated_data['login_success_redirect_url'],
-                login_failure_redirect_url=self.validated_data['login_failure_redirect_url'],
+                login_success_redirect_url=self.validated_data["login_success_redirect_url"],
+                login_failure_redirect_url=self.validated_data["login_failure_redirect_url"],
             )
 
         return is_valid

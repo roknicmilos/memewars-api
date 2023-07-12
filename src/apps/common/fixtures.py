@@ -11,13 +11,13 @@ class AbstractFixturesGenerator:
         self.fixture_items = self.get_fixture_items()
 
     def get_fixture_template(self) -> str:
-        raw_fixtures_item_template_without_empty_lines = "".join([
-            line for line in self.raw_fixtures_item_template.splitlines(keepends=True) if line.strip()
-        ])
+        raw_fixtures_item_template_without_empty_lines = "".join(
+            [line for line in self.raw_fixtures_item_template.splitlines(keepends=True) if line.strip()]
+        )
         first_line = raw_fixtures_item_template_without_empty_lines.splitlines()[0]
         first_line_indent = len(first_line) - len(first_line.lstrip())
 
-        prepared_template = ''
+        prepared_template = ""
         for line in raw_fixtures_item_template_without_empty_lines.splitlines(keepends=True):
             prepared_template += line[first_line_indent:]
 
@@ -25,9 +25,9 @@ class AbstractFixturesGenerator:
 
     def generate(self) -> str:
         """
-            Generates content for *.yaml fixture files
+        Generates content for *.yaml fixture files
         """
-        output = ''
+        output = ""
         for item in self.fixture_items:
             output += self.render_fixture_item(**item)
         return output
@@ -40,12 +40,12 @@ class AbstractFixturesGenerator:
         output = self.fixture_template
 
         for key, value in kwargs.items():
-            if f'@{key}' not in output:
-                raise AttributeError(f'{self.__class__.__name__} fixture template does not contain @{key}')
-            output = output.replace(f'@{key}', str(value))
+            if f"@{key}" not in output:
+                raise AttributeError(f"{self.__class__.__name__} fixture template does not contain @{key}")
+            output = output.replace(f"@{key}", str(value))
 
-        if '@now' in output:
-            now_str = datetime.now().isoformat().split('.')[0]
-            output = output.replace('@now', now_str)
+        if "@now" in output:
+            now_str = datetime.now().isoformat().split(".")[0]
+            output = output.replace("@now", now_str)
 
         return output

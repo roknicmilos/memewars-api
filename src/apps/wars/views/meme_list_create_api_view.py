@@ -12,22 +12,24 @@ from apps.wars.views.serialized_user_api_view_mixin import SerializedUserAPIView
 @extend_schema_view(
     get=extend_schema(
         description=_(
-            'Memes are automatically filtered by their war phase and '
-            'approval status (if their war requires approval status)'
+            "Memes are automatically filtered by their war phase and "
+            "approval status (if their war requires approval status)"
         ),
         responses=MemeSerializer,
     ),
     post=extend_schema(
-        description=_('Memes can ony be created by and for authenticated users'),
+        description=_("Memes can ony be created by and for authenticated users"),
         request=MemeSerializer,
         responses=MemeSerializer,
     ),
 )
 class MemeListCreateAPIView(ListCreateAPIView, SerializedUserAPIViewMixin):
-    queryset = Meme.objects.order_by('-created').all()
+    queryset = Meme.objects.order_by("-created").all()
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
-    filterset_fields = ['war', ]
+    filterset_fields = [
+        "war",
+    ]
     serializer_class = MemeSerializer
 
     def get_queryset(self) -> QuerySet:
@@ -51,11 +53,11 @@ class MemeListCreateAPIView(ListCreateAPIView, SerializedUserAPIViewMixin):
         queryset = Meme.objects.exclude(excludes).filter(filters)
 
         if self._should_order_by_score():
-            return queryset.annotate(score=Avg('votes__score')).order_by('-score', '-created')
+            return queryset.annotate(score=Avg("votes__score")).order_by("-score", "-created")
 
-        return queryset.order_by('-created')
+        return queryset.order_by("-created")
 
     def _should_order_by_score(self) -> bool:
-        if war := War.objects.filter(pk=self.request.GET.get('war')).first():
+        if war := War.objects.filter(pk=self.request.GET.get("war")).first():
             return war.phase == War.Phases.FINISHED
         return False

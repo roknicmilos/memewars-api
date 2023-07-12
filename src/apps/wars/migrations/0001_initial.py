@@ -8,7 +8,6 @@ import django_extensions.db.fields
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -17,52 +16,118 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Meme',
+            name="Meme",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created', django_extensions.db.fields.CreationDateTimeField(auto_now_add=True, verbose_name='created')),
-                ('modified', django_extensions.db.fields.ModificationDateTimeField(auto_now=True, verbose_name='modified')),
-                ('image', models.ImageField(upload_to='memes', verbose_name='image')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='memes', to=settings.AUTH_USER_MODEL, verbose_name='user')),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "created",
+                    django_extensions.db.fields.CreationDateTimeField(auto_now_add=True, verbose_name="created"),
+                ),
+                (
+                    "modified",
+                    django_extensions.db.fields.ModificationDateTimeField(auto_now=True, verbose_name="modified"),
+                ),
+                ("image", models.ImageField(upload_to="memes", verbose_name="image")),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="memes",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="user",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Meme',
-                'verbose_name_plural': 'Memes',
+                "verbose_name": "Meme",
+                "verbose_name_plural": "Memes",
             },
         ),
         migrations.CreateModel(
-            name='War',
+            name="War",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created', django_extensions.db.fields.CreationDateTimeField(auto_now_add=True, verbose_name='created')),
-                ('modified', django_extensions.db.fields.ModificationDateTimeField(auto_now=True, verbose_name='modified')),
-                ('name', models.CharField(max_length=250, verbose_name='name')),
-                ('phase', models.CharField(choices=[('preparation', 'preparation'), ('submission', 'submission'), ('voting', 'voting'), ('finished', 'finished')], default='preparation', max_length=12, verbose_name='phase')),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "created",
+                    django_extensions.db.fields.CreationDateTimeField(auto_now_add=True, verbose_name="created"),
+                ),
+                (
+                    "modified",
+                    django_extensions.db.fields.ModificationDateTimeField(auto_now=True, verbose_name="modified"),
+                ),
+                ("name", models.CharField(max_length=250, verbose_name="name")),
+                (
+                    "phase",
+                    models.CharField(
+                        choices=[
+                            ("preparation", "preparation"),
+                            ("submission", "submission"),
+                            ("voting", "voting"),
+                            ("finished", "finished"),
+                        ],
+                        default="preparation",
+                        max_length=12,
+                        verbose_name="phase",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'War',
-                'verbose_name_plural': 'Wars',
+                "verbose_name": "War",
+                "verbose_name_plural": "Wars",
             },
         ),
         migrations.CreateModel(
-            name='Vote',
+            name="Vote",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created', django_extensions.db.fields.CreationDateTimeField(auto_now_add=True, verbose_name='created')),
-                ('modified', django_extensions.db.fields.ModificationDateTimeField(auto_now=True, verbose_name='modified')),
-                ('score', models.IntegerField(validators=[django.core.validators.MinValueValidator(1), django.core.validators.MaxValueValidator(10)], verbose_name='score')),
-                ('submission_count', models.IntegerField(default=1, verbose_name='total submissions')),
-                ('meme', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='votes', to='wars.meme', verbose_name='meme')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='votes', to=settings.AUTH_USER_MODEL, verbose_name='user')),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "created",
+                    django_extensions.db.fields.CreationDateTimeField(auto_now_add=True, verbose_name="created"),
+                ),
+                (
+                    "modified",
+                    django_extensions.db.fields.ModificationDateTimeField(auto_now=True, verbose_name="modified"),
+                ),
+                (
+                    "score",
+                    models.IntegerField(
+                        validators=[
+                            django.core.validators.MinValueValidator(1),
+                            django.core.validators.MaxValueValidator(10),
+                        ],
+                        verbose_name="score",
+                    ),
+                ),
+                ("submission_count", models.IntegerField(default=1, verbose_name="total submissions")),
+                (
+                    "meme",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="votes",
+                        to="wars.meme",
+                        verbose_name="meme",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="votes",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="user",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Vote',
-                'verbose_name_plural': 'Votes',
+                "verbose_name": "Vote",
+                "verbose_name_plural": "Votes",
             },
         ),
         migrations.AddField(
-            model_name='meme',
-            name='war',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='memes', to='wars.war', verbose_name='war'),
+            model_name="meme",
+            name="war",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT, related_name="memes", to="wars.war", verbose_name="war"
+            ),
         ),
     ]

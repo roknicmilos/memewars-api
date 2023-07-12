@@ -15,15 +15,15 @@ from rest_framework.serializers import Serializer
 @pytest.mark.django_db
 class TestCase(BaseTestCase):
     class ValidationErrorMessages:
-        REQUIRED_FIELD_ERROR_MSG = 'This field may not be null.'
-        INVALID_URL_ERROR_MSG = 'Enter a valid URL.'
+        REQUIRED_FIELD_ERROR_MSG = "This field may not be null."
+        INVALID_URL_ERROR_MSG = "Enter a valid URL."
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.client = Client()
 
     def get_request_example(self, url_query_params: dict = None) -> WSGIRequest:
-        requests = self.client.get(path='/', data=url_query_params).wsgi_request
+        requests = self.client.get(path="/", data=url_query_params).wsgi_request
         if url_query_params:
             requests.query_params = url_query_params
         return requests
@@ -41,13 +41,13 @@ class TestCase(BaseTestCase):
         try:
             uuid.UUID(value)
         except ValueError:  # pragma: no cover
-            self.fail(f'{value} is not a valid UUID')
+            self.fail(f"{value} is not a valid UUID")
 
     def create_and_login_superuser(self) -> None:
-        credentials = {'email': 'superuser@example.com', 'password': 'password'}
+        credentials = {"email": "superuser@example.com", "password": "password"}
         get_user_model().objects.create_superuser(**credentials)
         if not self.client.login(**credentials):
-            self.fail('Failed to login superuser')
+            self.fail("Failed to login superuser")
 
     def assertSerializerErrors(self, serializer: Serializer, expected_errors: dict[str, list[str]]) -> None:
         for field_name, expected_error_messages in expected_errors.items():

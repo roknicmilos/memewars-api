@@ -5,7 +5,6 @@ from apps.wars.validators import WarPhaseValidator
 
 
 class TestWarPhaseValidator(TestCase):
-
     @classmethod
     def setUpClass(cls) -> None:
         cls.validator = WarPhaseValidator(phase_value=War.Phases.SUBMISSION.value)

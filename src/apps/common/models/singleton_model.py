@@ -13,7 +13,7 @@ class SingletonModel(BaseModel):
         pass
 
     @classmethod
-    def load(cls) -> 'SingletonModel':
+    def load(cls) -> "SingletonModel":
         obj, _ = cls.objects.get_or_create(pk=1)
         return obj
 

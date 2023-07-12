@@ -6,33 +6,33 @@ from apps.common.models import BaseModel
 
 class War(BaseModel):
     class Meta:
-        verbose_name = _('War')
-        verbose_name_plural = _('Wars')
+        verbose_name = _("War")
+        verbose_name_plural = _("Wars")
 
     class Phases(models.TextChoices):
-        PREPARATION = 'preparation', _('Preparation')
-        SUBMISSION = 'submission', _('Submission')
-        VOTING = 'voting', _('Voting')
-        FINISHED = 'finished', _('Finished')
+        PREPARATION = "preparation", _("Preparation")
+        SUBMISSION = "submission", _("Submission")
+        VOTING = "voting", _("Voting")
+        FINISHED = "finished", _("Finished")
 
     name = models.CharField(
-        verbose_name=_('name'),
+        verbose_name=_("name"),
         max_length=250,
     )
     phase = models.CharField(
-        verbose_name=_('phase'),
+        verbose_name=_("phase"),
         max_length=12,
         choices=Phases.choices,
         default=Phases.PREPARATION,
     )
     requires_meme_approval = models.BooleanField(
-        verbose_name=_('requires meme approval'),
+        verbose_name=_("requires meme approval"),
         default=False,
     )
     meme_upload_limit = models.SmallIntegerField(
-        verbose_name=_('meme upload limit'),
+        verbose_name=_("meme upload limit"),
         default=20,
-        help_text=_('Maximum number of memes that one user can upload'),
+        help_text=_("Maximum number of memes that one user can upload"),
     )
 
     def __str__(self):
@@ -41,11 +41,12 @@ class War(BaseModel):
     @property
     def votes(self) -> QuerySet:
         from apps.wars.models import Vote
+
         return Vote.objects.filter(meme__war=self)
 
     @property
     def voter_count(self) -> int:
-        return self.votes.distinct('user').count()
+        return self.votes.distinct("user").count()
 
     @property
     def vote_count(self) -> int:

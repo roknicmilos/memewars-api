@@ -21,9 +21,9 @@ class MemeFactory(DjangoModelFactory):
 
     @classmethod
     def _create(cls, model_class, *args, **kwargs):
-        if 'image' not in kwargs:
-            kwargs['image'] = faker.file_extension(category='image')
-            with patch.object(meme_model_file, 'compress_image_file') as mock_compress_image_file:
-                mock_compress_image_file.return_value = kwargs['image']
+        if "image" not in kwargs:
+            kwargs["image"] = faker.file_extension(category="image")
+            with patch.object(meme_model_file, "compress_image_file") as mock_compress_image_file:
+                mock_compress_image_file.return_value = kwargs["image"]
                 return super()._create(model_class, *args, **kwargs)
         return super()._create(model_class, *args, **kwargs)

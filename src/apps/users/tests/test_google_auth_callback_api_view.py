@@ -22,21 +22,21 @@ class TestGoogleAuthCallbackAPIView(APITestCase):
         self._patch_serializer_is_valid()
 
     def _patch_get_or_create_user(self) -> None:
-        self.get_or_create_user_patcher = patch.object(self.view_serializer_class, 'get_or_create_user')
+        self.get_or_create_user_patcher = patch.object(self.view_serializer_class, "get_or_create_user")
         self.mock_get_or_create_user = self.get_or_create_user_patcher.start()
 
     def _patch_build_login_success_url(self) -> None:
-        self.build_login_success_url_patcher = patch.object(self.view_serializer_class, 'build_login_success_url')
+        self.build_login_success_url_patcher = patch.object(self.view_serializer_class, "build_login_success_url")
         self.mock_build_login_success_url = self.build_login_success_url_patcher.start()
         self.mock_build_login_success_url.return_value = self.faker.url()
 
     def _patch_build_login_failure_url(self) -> None:
-        self.build_login_failure_url_patcher = patch.object(self.view_serializer_class, 'build_login_failure_url')
+        self.build_login_failure_url_patcher = patch.object(self.view_serializer_class, "build_login_failure_url")
         self.mock_build_login_failure_url = self.build_login_failure_url_patcher.start()
         self.mock_build_login_failure_url.return_value = self.faker.url()
 
     def _patch_serializer_is_valid(self) -> None:
-        self.serializer_is_valid_patcher = patch.object(self.view_serializer_class, 'is_valid')
+        self.serializer_is_valid_patcher = patch.object(self.view_serializer_class, "is_valid")
         self.mock_serializer_is_valid = self.serializer_is_valid_patcher.start()
         self.mock_serializer_is_valid.return_value = True
 
@@ -46,7 +46,7 @@ class TestGoogleAuthCallbackAPIView(APITestCase):
 
         self.assertFalse(Token.objects.exists())
 
-        response = self.client.get(path=reverse('api:users:google_auth:callback'))
+        response = self.client.get(path=reverse("api:users:google_auth:callback"))
 
         self.assertEqual(Token.objects.count(), 1)
         self.assertEqual(Token.objects.first().user, new_user)
@@ -60,7 +60,7 @@ class TestGoogleAuthCallbackAPIView(APITestCase):
 
         self.assertEqual(Token.objects.count(), 1)
 
-        response = self.client.get(path=reverse('api:users:google_auth:callback'))
+        response = self.client.get(path=reverse("api:users:google_auth:callback"))
 
         self.assertEqual(Token.objects.count(), 1)
         self.assertFalse(Token.objects.filter(pk=existing_toke.pk).exists())  # old token is deleted
@@ -71,18 +71,18 @@ class TestGoogleAuthCallbackAPIView(APITestCase):
     def test_should_redirect_to_login_failure_when_validation_error_is_raised(self):
         self.mock_serializer_is_valid.return_value = False
 
-        response = self.client.get(path=reverse('api:users:google_auth:callback'))
+        response = self.client.get(path=reverse("api:users:google_auth:callback"))
 
         self.assertFalse(Token.objects.exists())
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, self.mock_build_login_failure_url.return_value)
 
     def test_should_raise_error_when_get_or_create_user_raises_error(self):
-        error_message = 'get_or_create_user exception'
+        error_message = "get_or_create_user exception"
         self.mock_get_or_create_user.side_effect = ValueError(error_message)
 
         with pytest.raises(expected_exception=ValueError, match=error_message):
-            self.client.get(path=reverse('api:users:google_auth:callback'))
+            self.client.get(path=reverse("api:users:google_auth:callback"))
 
     def tearDown(self) -> None:
         super().tearDown()

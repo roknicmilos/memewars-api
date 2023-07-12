@@ -8,7 +8,7 @@ from meme_wars.tests import APITestCase
 
 
 class TestVoteListCreateAPIView(APITestCase):
-    url_path = reverse_lazy('api:votes:index')
+    url_path = reverse_lazy("api:votes:index")
 
     def setUp(self) -> None:
         super().setUp()
@@ -16,8 +16,8 @@ class TestVoteListCreateAPIView(APITestCase):
         self.user = UserFactory()
         self.meme = MemeFactory(war=war)
         self.valid_data = {
-            'meme': self.meme.pk,
-            'score': 5,
+            "meme": self.meme.pk,
+            "score": 5,
         }
 
     def test_list_endpoint_should_return_response_401_when_authentication_headers_are_invalid(self):
@@ -42,24 +42,17 @@ class TestVoteListCreateAPIView(APITestCase):
         war_votes = [*first_three_user_votes, *other_votes]
 
         # When Votes are filtered by User:
-        response = self.client.get(path=f'{self.url_path}?user={self.user.pk}')
-        self.assertListResponse(
-            response=response,
-            serializer=VoteSerializer(instance=user_votes, many=True)
-        )
+        response = self.client.get(path=f"{self.url_path}?user={self.user.pk}")
+        self.assertListResponse(response=response, serializer=VoteSerializer(instance=user_votes, many=True))
 
         # When Votes are filtered by War:
-        response = self.client.get(path=f'{self.url_path}?war={war.pk}')
-        self.assertListResponse(
-            response=response,
-            serializer=VoteSerializer(instance=war_votes, many=True)
-        )
+        response = self.client.get(path=f"{self.url_path}?war={war.pk}")
+        self.assertListResponse(response=response, serializer=VoteSerializer(instance=war_votes, many=True))
 
         # When Votes are filtered by User and War:
-        response = self.client.get(path=f'{self.url_path}?user={self.user.pk}&war={war.pk}')
+        response = self.client.get(path=f"{self.url_path}?user={self.user.pk}&war={war.pk}")
         self.assertListResponse(
-            response=response,
-            serializer=VoteSerializer(instance=first_three_user_votes, many=True)
+            response=response, serializer=VoteSerializer(instance=first_three_user_votes, many=True)
         )
 
     def test_create_endpoint_should_return_response_401_when_authentication_headers_are_invalid(self):
@@ -69,14 +62,16 @@ class TestVoteListCreateAPIView(APITestCase):
         self.authenticate(user=self.user)
 
         # When Meme does not exist:
-        missing_meme_pk = Meme.objects.latest('pk').pk + 1
+        missing_meme_pk = Meme.objects.latest("pk").pk + 1
         self.assertFalse(Meme.objects.filter(pk=missing_meme_pk).exists())
         data = {
             **self.valid_data,
-            'meme': missing_meme_pk,
+            "meme": missing_meme_pk,
         }
         expected_errors = {
-            'meme': [f'Invalid pk "{missing_meme_pk}" - object does not exist.', ],
+            "meme": [
+                f'Invalid pk "{missing_meme_pk}" - object does not exist.',
+            ],
         }
         self.assertBadRequestResponse(data=data, errors=expected_errors)
 
@@ -88,30 +83,36 @@ class TestVoteListCreateAPIView(APITestCase):
             meme = MemeFactory(war=war)
             data = {
                 **self.valid_data,
-                'meme': meme.pk,
+                "meme": meme.pk,
             }
             expected_errors = {
-                'meme': [f'Meme must be in a war that is in "{War.Phases.VOTING.label}" phase', ],
+                "meme": [
+                    f'Meme must be in a war that is in "{War.Phases.VOTING.label}" phase',
+                ],
             }
             self.assertBadRequestResponse(data=data, errors=expected_errors)
 
         # When Vote is less than 1:
         data = {
             **self.valid_data,
-            'score': 0,
+            "score": 0,
         }
         expected_errors = {
-            'score': ['Ensure this value is greater than or equal to 1.', ],
+            "score": [
+                "Ensure this value is greater than or equal to 1.",
+            ],
         }
         self.assertBadRequestResponse(data=data, errors=expected_errors)
 
         # When Vote is more than 10:
         data = {
             **self.valid_data,
-            'score': 11,
+            "score": 11,
         }
         expected_errors = {
-            'score': ['Ensure this value is less than or equal to 10.', ],
+            "score": [
+                "Ensure this value is less than or equal to 10.",
+            ],
         }
         self.assertBadRequestResponse(data=data, errors=expected_errors)
 
@@ -126,7 +127,7 @@ class TestVoteListCreateAPIView(APITestCase):
         self.assertIsNotNone(vote)
         self.assertEqual(vote.user, self.user)
         self.assertEqual(vote.meme, self.meme)
-        self.assertEqual(vote.score, self.valid_data['score'])
+        self.assertEqual(vote.score, self.valid_data["score"])
         self.assertEqual(vote.submission_count, 1)
 
         serializer = VoteSerializer(instance=vote)

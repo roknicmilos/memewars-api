@@ -8,7 +8,7 @@ from apps.wars.tests.factories import WarFactory
 
 
 class TestWarListAPIView(APITestCase):
-    url_path = reverse_lazy('api:wars:index')
+    url_path = reverse_lazy("api:wars:index")
 
     def setUp(self) -> None:
         super().setUp()
@@ -21,5 +21,5 @@ class TestWarListAPIView(APITestCase):
     def test_list_endpoint_should_return_all_wars(self):
         self.authenticate(user=UserFactory())
         response = self.client.get(path=self.url_path)
-        serializer = WarSerializer(instance=War.objects.order_by('-created').all(), many=True)
+        serializer = WarSerializer(instance=War.objects.order_by("-created").all(), many=True)
         self.assertListResponse(response=response, serializer=serializer)

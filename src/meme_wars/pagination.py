@@ -2,4 +2,4 @@ from rest_framework.pagination import PageNumberPagination as BasePageNumberPagi
 
 
 class PageNumberPagination(BasePageNumberPagination):
-    page_size_query_param = 'ipp'
+    page_size_query_param = "ipp"

@@ -6,7 +6,6 @@ from apps.users.tests.factories import UserFactory
 
 
 class TestUserAdmin(TestCase):
-
     def setUp(self) -> None:
         super().setUp()
         self.user_admin = UserAdmin(model=User, admin_site=admin_site)

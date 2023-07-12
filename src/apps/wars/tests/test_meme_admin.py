@@ -8,7 +8,6 @@ from apps.wars.tests.factories import MemeFactory
 
 
 class TestMemeAdmin(TestCase):
-
     def setUp(self) -> None:
         super().setUp()
         self.meme_admin = MemeAdmin(model=Meme, admin_site=admin.site)
@@ -23,7 +22,7 @@ class TestMemeAdmin(TestCase):
 
     def test_should_return_declared_readonly_fields_when_adding_meme(self):
         actual_readonly_fields = self.meme_admin.get_readonly_fields(request=self.get_request_example())
-        expected_readonly_fields = ('id',)
+        expected_readonly_fields = ("id",)
         expected_readonly_fields += MemeAdmin.readonly_fields
         expected_readonly_fields += TimestampableModelAdmin.timestampable_fields
         self.assertEqual(sorted(actual_readonly_fields), sorted(expected_readonly_fields))
@@ -31,9 +30,13 @@ class TestMemeAdmin(TestCase):
     def test_should_return_declared_and_additional_readonly_fields_when_adding_meme(self):
         meme = MemeFactory()
         actual_readonly_fields = self.meme_admin.get_readonly_fields(request=self.get_request_example(), obj=meme)
-        expected_readonly_fields = ('id',)
+        expected_readonly_fields = ("id",)
         expected_readonly_fields += MemeAdmin.readonly_fields
-        expected_readonly_fields += ('user', 'war', 'total_score',)
+        expected_readonly_fields += (
+            "user",
+            "war",
+            "total_score",
+        )
         expected_readonly_fields += TimestampableModelAdmin.timestampable_fields
         self.assertEqual(sorted(actual_readonly_fields), sorted(expected_readonly_fields))
 

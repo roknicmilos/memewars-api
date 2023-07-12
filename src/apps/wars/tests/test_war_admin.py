@@ -8,7 +8,6 @@ from apps.wars.tests.factories import MemeFactory, WarFactory, VoteFactory
 
 
 class TestWarAdmin(TestCase):
-
     def setUp(self) -> None:
         super().setUp()
         self.war_admin = WarAdmin(model=War, admin_site=admin.site)
@@ -50,9 +49,9 @@ class TestWarAdmin(TestCase):
         request = self.get_request_example()
         for war in wars:
             readonly_fields = self.war_admin.get_readonly_fields(request=request, obj=war)
-            self.assertIn('meme_upload_limit', readonly_fields)
+            self.assertIn("meme_upload_limit", readonly_fields)
 
     def test_should_not_add_meme_upload_limit_field_in_readonly_fields_when_war_is_in_submission_phase(self):
         war = WarFactory(phase=War.Phases.SUBMISSION)
         readonly_fields = self.war_admin.get_readonly_fields(request=self.get_request_example(), obj=war)
-        self.assertNotIn('meme_upload_limit', readonly_fields)
+        self.assertNotIn("meme_upload_limit", readonly_fields)

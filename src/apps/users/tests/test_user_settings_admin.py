@@ -10,7 +10,6 @@ from apps.users.models import UserSettings
 
 
 class TestUserSettingsAdmin(TestCase):
-
     def setUp(self) -> None:
         super().setUp()
         self.user_settings_admin = UserSettingsAdmin(model=UserSettings, admin_site=admin_site)
@@ -27,9 +26,7 @@ class TestUserSettingsAdmin(TestCase):
     def test_should_redirect_from_list_view_to_details_view(self):
         # When UserSettings does not exist, it should be created before the redirect
         self.assertFalse(UserSettings.exists())
-        list_url_path = reverse(
-            viewname=f'admin:{self.user_settings_app_label}_{self.user_settings_model}_changelist'
-        )
+        list_url_path = reverse(viewname=f"admin:{self.user_settings_app_label}_{self.user_settings_model}_changelist")
         self.create_and_login_superuser()
         response = self.client.get(path=list_url_path)
         self.assertTrue(UserSettings.exists())
@@ -40,8 +37,7 @@ class TestUserSettingsAdmin(TestCase):
         self.assertFalse(UserSettings.exists())
         self.create_and_login_superuser()
         details_url_path = reverse(
-            viewname=f'admin:{self.user_settings_app_label}_{self.user_settings_model}_change',
-            args=(1,)
+            viewname=f"admin:{self.user_settings_app_label}_{self.user_settings_model}_change", args=(1,)
         )
         response = self.client.get(path=details_url_path)
         self.assertTrue(UserSettings.exists())

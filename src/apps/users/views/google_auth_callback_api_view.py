@@ -9,17 +9,12 @@ from apps.users.serializers import GoogleAuthCallbackQuerySerializer
 
 
 class GoogleAuthCallbackAPIView(APIView):
-
     @extend_schema(
-        description=_('The endpoint for a request from Google sent after successful Google login'),
-        parameters=[
-            GoogleAuthCallbackQuerySerializer
-        ],
+        description=_("The endpoint for a request from Google sent after successful Google login"),
+        parameters=[GoogleAuthCallbackQuerySerializer],
         responses={
-            302: OpenApiResponse(
-                description=_('Redirects the user to the the login success or the login failure URL')
-            )
-        }
+            302: OpenApiResponse(description=_("Redirects the user to the the login success or the login failure URL"))
+        },
     )
     def get(self, *args, **kwargs) -> HttpResponseRedirect:
         serializer = GoogleAuthCallbackQuerySerializer(request=self.request)

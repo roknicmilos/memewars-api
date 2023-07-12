@@ -6,7 +6,6 @@ from apps.common.models import BaseModel
 
 
 class UserManager(BaseUserManager):
-
     def create_superuser(self, email: str = None, **kwargs):
         return self._create_user(email=email, is_staff=True, is_superuser=True, **kwargs)
 
@@ -22,22 +21,14 @@ class UserManager(BaseUserManager):
 
 class User(BaseModel, AbstractUser):
     class Meta:
-        verbose_name = _('User')
-        verbose_name_plural = _('Users')
+        verbose_name = _("User")
+        verbose_name_plural = _("Users")
 
     objects = UserManager()
 
-    email = models.EmailField(
-        verbose_name=_('email'),
-        db_collation='case_insensitive',
-        unique=True
-    )
-    image_url = models.URLField(
-        verbose_name=_('image URL'),
-        null=True,
-        blank=True
-    )
+    email = models.EmailField(verbose_name=_("email"), db_collation="case_insensitive", unique=True)
+    image_url = models.URLField(verbose_name=_("image URL"), null=True, blank=True)
     username = None
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

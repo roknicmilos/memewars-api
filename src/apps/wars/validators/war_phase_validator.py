@@ -5,7 +5,7 @@ from apps.wars.models import War
 
 
 class WarPhaseValidator(BaseValidator):
-    code = 'limit_war_phase'
+    code = "limit_war_phase"
 
     def __init__(self, phase_value: str, message=None):
         war_phase = get_text_choice_by_value(value=phase_value, text_choices=War.Phases)
