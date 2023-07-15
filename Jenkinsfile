@@ -3,8 +3,9 @@ pipeline {
     stages {
         stage("Build") {
             steps {
-                echo "Checking Docker version..."
+                echo "Checking..."
                 sh "git --version"
+                sh "docker --version"
             }
         }
     }
