@@ -41,16 +41,6 @@ services:
     volumes:
       - memewars-pgadmin-data:/var/lib/pgadmin
 
-  jenkins:
-    image: jenkins/jenkins:lts
-    container_name: memewars-jenkins${CONTAINERS_SUFFIX}
-    ports:
-      - "${JENKINS_PORT}:8080"
-      - "50000:50000"
-    volumes:
-      - memewars-jenkins-data:/var/jenkins_home
-
 volumes:
   memewars-postgres-data:
   memewars-pgadmin-data:
-  memewars-jenkins-data:
