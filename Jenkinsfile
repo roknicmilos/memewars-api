@@ -3,6 +3,7 @@ pipeline {
     stages {
         stage("Test") {
             steps {
+                echo "Testing Jenkins..."
                 echo "Current directory: $PWD"
                 echo "Content of the current directory:"
                 sh "ls -la"
