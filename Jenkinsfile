@@ -3,9 +3,7 @@ pipeline {
     stages {
         stage("Build") {
             steps {
-                echo "Checking..."
-                sh "git --version"
-                sh "docker --version"
+                sh "docker compose run --rm django sh -c 'pytest --cov -n auto'"
             }
         }
     }
