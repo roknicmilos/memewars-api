@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+
+  django:
+    container_name: memewars-django--test
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+    command: [ "sh", "/app/scripts/entrypoint.sh", "test" ]
+
+  postgres:
+    container_name: memewars-postgres--test
+    image: postgres:15
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_DB=${DB_NAME}
