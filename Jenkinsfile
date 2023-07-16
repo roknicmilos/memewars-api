@@ -1,11 +1,17 @@
 pipeline {
     agent any
     stages {
-        stage("Env vars") {
+        stage("Staging Deploy") {
+            when {
+                branch 'origin/staging'
+            }
             steps {
-                echo "Start..."
-                sh "printenv"
-                echo "End"
+                sh "cd $MV_API_STAGING_DIR_PATH"
+                sh "git fetch origin"
+                sh "git reset --hard origin/staging || exit"
+                sh "docker compose build"
+                sh "docker compose -p memewars-api-staging up -d"
+                sh "docker exec -t memewars-django--staging sh -c 'pytest --create-db --cov -n auto && coverage html'"
             }
         }
         stage("Test") {
