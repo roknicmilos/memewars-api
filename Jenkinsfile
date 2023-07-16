@@ -1,6 +1,11 @@
 pipeline {
     agent any
     stages {
+        stage("Env vars") {
+            steps {
+                sh "printenv"
+            }
+        }
         stage("Test") {
             steps {
                 echo "Current directory: $PWD"
