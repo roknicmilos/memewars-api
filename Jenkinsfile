@@ -6,8 +6,7 @@ pipeline {
                 branch 'staging'
             }
             steps {
-                echo "Deploying to STAGING..."
-                sh "cd $MV_API_STAGING_DIR_PATH"
+                sh "cd $MW_API_STAGING_DIR_PATH"
                 sh "git fetch origin"
                 sh "git reset --hard origin/staging || exit"
                 sh "docker compose build"
