@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage("Staging Deploy") {
             when {
-                branch 'origin/staging'
+                branch 'staging'
             }
             steps {
                 sh "cd $MV_API_STAGING_DIR_PATH"
