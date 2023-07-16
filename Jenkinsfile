@@ -6,13 +6,15 @@ pipeline {
                 branch 'staging'
             }
             steps {
-                sh "cd $MW_API_STAGING_DIR_PATH"
-                sh "git fetch origin"
-                sh "git reset --hard origin/staging || exit"
-                sh "cat .env"
-                echo "Current directory: $PWD"
-                echo "Content of the current directory:"
-                sh "ls -la"
+                sh "sh scripts/test.sh"
+
+                // sh "cd $MW_API_STAGING_DIR_PATH"
+                // sh "git fetch origin"
+                // sh "git reset --hard origin/staging || exit"
+                // sh "cat .env"
+                // echo "Current directory: $PWD"
+                // echo "Content of the current directory:"
+                // sh "ls -la"
                 // sh "docker compose build"
                 // sh "docker compose -p memewars-api-staging up -d"
                 // sh "docker exec -t memewars-django--staging sh -c 'pytest --create-db --cov -n auto && coverage html'"
