@@ -3,8 +3,9 @@ pipeline {
     stages {
         stage("Env vars") {
             steps {
-                echo "Test:"
+                echo "Start:"
                 sh "printenv"
+                echo "End"
             }
         }
         stage("Test") {
