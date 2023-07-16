@@ -3,6 +3,7 @@ pipeline {
     stages {
         stage("Env vars") {
             steps {
+                echo "Test:"
                 sh "printenv"
             }
         }
