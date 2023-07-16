@@ -9,9 +9,10 @@ pipeline {
                 sh "cd $MW_API_STAGING_DIR_PATH"
                 sh "git fetch origin"
                 sh "git reset --hard origin/staging || exit"
-                sh "docker compose build"
-                sh "docker compose -p memewars-api-staging up -d"
-                sh "docker exec -t memewars-django--staging sh -c 'pytest --create-db --cov -n auto && coverage html'"
+                sh "cat .env"
+                // sh "docker compose build"
+                // sh "docker compose -p memewars-api-staging up -d"
+                // sh "docker exec -t memewars-django--staging sh -c 'pytest --create-db --cov -n auto && coverage html'"
             }
         }
         stage("Test") {
