@@ -5,7 +5,7 @@ ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update && apt-get install -y postgresql-client gettext
 
-COPY --chmod=777    ./scripts/     /app/scripts/
+COPY --chmod=777    ./scripts/container/     /app/scripts/
 
 COPY ./requirements     /app/requirements
 COPY ./src              /app/src
