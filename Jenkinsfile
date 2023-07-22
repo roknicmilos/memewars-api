@@ -4,7 +4,6 @@ pipeline {
         stage("Test") {
             steps {
                 sh "sh scripts/pipeline/test.sh"
-                setGitHubStatus('Success', 'All tests passed.')
             }
         }
         stage("STAGING Deploy") {
