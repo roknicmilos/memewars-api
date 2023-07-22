@@ -39,7 +39,7 @@ elif [ "$1" = "test" ]; then
   printc "Running tests (pytest) with expected 100% coverage...\n" "info"
   pytest --cov --cov-report term:skip-covered --cov-fail-under=100 -n auto
   printc "[bandit] Checking code security issues...\n" "info"
-  bandit .
+  bandit --ini=setup.cfg .
   printc "[flake8] Checking linting issues...\n" "info"
   flake8 --count
   printc "[black] Checking formatting issues...\n" "info"
