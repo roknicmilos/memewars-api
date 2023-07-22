@@ -1,2 +1,30 @@
 [tool.black]
 line-length = 120
+
+# flake8 doesn't support pyproject.toml file configuration but
+# Flake8-pyproject (https://github.com/john-hen/Flake8-pyproject)
+# adds that support to flake8
+[tool.flake8]
+max-line-length = 120
+exclude = "*/migrations/,meme_wars/settings/__init__.py"
+per-file-ignores = ["__init__.py:F401"]
+ignore = ["E203", "W503"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "meme_wars.settings"
+addopts = "--reuse-db"
+
+[tool.bandit]
+exclude = "tests"
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __str__",
+    "class TestCase",
+    "class APIClient",
+    "class APITestCase"
+]
+
+[tool.coverage.html]
+directory = "static/coverage"

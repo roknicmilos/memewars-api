@@ -83,7 +83,7 @@ coverage ([Run tests with coverage](#run-tests-with-coverage)).
 
 - **Code security**:
 
-        docker compose run --rm django sh -c 'bandit .'
+        docker compose run --rm django sh -c 'bandit --ini=setup.cfg .'
 
   The above command will run [Bandit](https://bandit.readthedocs.io/) will check for
   security issues in Python code.
@@ -104,7 +104,8 @@ coverage ([Run tests with coverage](#run-tests-with-coverage)).
 
 The above command will:
 
-1. run all tests with coverage in parallel
+1. run all tests with coverage in parallel using [Pytest](https://docs.pytest.org/)
+   and [Coverage](https://coverage.readthedocs.io/)  
 2. run [Bandit](https://bandit.readthedocs.io/) to check security of Python code
 3. run [Flake8](https://flake8.pycqa.org/) to check quality of Python code
 4. run [Black](https://black.readthedocs.io/) to check formatting of Python code

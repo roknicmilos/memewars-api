@@ -41,7 +41,7 @@ elif [ "$1" = "test" ]; then
   printc "[bandit] Checking code security issues...\n" "info"
   bandit .
   printc "[flake8] Checking linting issues...\n" "info"
-  flake8 --count
+  flake8 --toml-config=pyproject.toml .
   printc "[black] Checking formatting issues...\n" "info"
   black --check .
 else
