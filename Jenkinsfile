@@ -2,7 +2,9 @@ pipeline {
     agent any
     stages {
         stage("Init") {
-            setBuildStatus("Jenkins build in progress", "IN_PROGRESS");
+            steps {
+                setBuildStatus("Jenkins build in progress", "IN_PROGRESS");
+            }
         }
         stage("Test") {
             steps {
