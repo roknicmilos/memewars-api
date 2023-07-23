@@ -57,7 +57,8 @@ class TestModelAdmin(TestCase):
             "is_staff",
             "is_active",
             "date_joined",
-        ) + TimestampableModelAdmin.timestampable_fields
+        )
+        expected_fields += TimestampableModelAdmin.timestampable_fields
         self.assertEqual(actual_fields, expected_fields)
 
         # When User object is passed to the function:

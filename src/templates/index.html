@@ -4,32 +4,32 @@
 <!DOCTYPE html>
 <html lang="{{ CURRENT_LANGUAGE_CODE }}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-    <title>{% trans 'Meme Wars' %}</title>
+  <title>{% trans 'Meme Wars' %}</title>
 
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+  <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
 
 <h1 class="title">{% trans 'Meme Wars' %}</h1>
 
 {% if 'SHOW_TEST_COVERAGE'|bool_env %}
-    <div class="cta-button cta-button--test-coverage">
-        <a href="{% static 'coverage/index.html' %}">{% trans 'TEST COVERAGE' %}</a>
-    </div>
+  <div class="cta-button cta-button--test-coverage">
+    <a href="{% static 'coverage/index.html' %}">{% trans 'TEST COVERAGE' %}</a>
+  </div>
 {% endif %}
 <div class="cta-button cta-button--admin">
-    <a href="{% url 'admin:index' %}">{% trans 'DJANGO ADMINISTRATION' %}</a>
+  <a href="{% url 'admin:index' %}">{% trans 'DJANGO ADMINISTRATION' %}</a>
 </div>
 
 <div class="cta-button cta-button--rest-api">
-    <a href="{% url 'api:index' %}">{% trans 'REST API' %}</a>
+  <a href="{% url 'api:index' %}">{% trans 'REST API' %}</a>
 </div>
 
 <div class="cta-button cta-button--client-app">
-    <a href="{{ 'CLIENT_APP_URL'|env }}">{% trans 'CLIENT APP' %}</a>
+  <a href="{{ 'CLIENT_APP_URL'|env }}">{% trans 'CLIENT APP' %}</a>
 </div>
 
 </body>

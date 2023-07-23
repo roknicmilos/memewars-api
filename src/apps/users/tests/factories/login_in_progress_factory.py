@@ -6,7 +6,6 @@ from faker import Faker
 
 from apps.users.models import LoginInProgress
 
-
 faker = Faker()
 
 

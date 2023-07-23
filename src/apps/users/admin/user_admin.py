@@ -10,7 +10,6 @@ from apps.common.admin import ModelAdmin
 from apps.users.admin import MemeAdminInline
 from apps.users.models import User
 
-
 admin.site.unregister(Group)
 
 

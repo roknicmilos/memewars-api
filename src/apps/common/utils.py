@@ -86,5 +86,7 @@ def get_fixture_ids(fixtures_file_path: str) -> list[int]:
             id_suffix = "pk: "
             if stripped_line.startswith(id_suffix):
                 last_index = stripped_line.index("#") if "#" in stripped_line else None
-                ids.append(int(stripped_line[len(id_suffix) : last_index]))
+                # fmt: off
+                # (because black adds whitespace before ':')
+                ids.append(int(stripped_line[len(id_suffix): last_index]))
     return ids
