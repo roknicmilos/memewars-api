@@ -6,10 +6,6 @@ from apps.common.models import BaseModel
 
 
 class War(BaseModel):
-    class Meta:
-        verbose_name = _("War")
-        verbose_name_plural = _("Wars")
-
     class Phases(models.TextChoices):
         PREPARATION = "preparation", _("Preparation")
         SUBMISSION = "submission", _("Submission")
@@ -35,6 +31,10 @@ class War(BaseModel):
         default=20,
         help_text=_("Maximum number of memes that one user can upload"),
     )
+
+    class Meta:
+        verbose_name = _("War")
+        verbose_name_plural = _("Wars")
 
     def __str__(self):
         return self.name

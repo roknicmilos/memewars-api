@@ -8,10 +8,6 @@ from apps.common.validators import AsteriskValidator, UniqueArrayValuesValidator
 
 
 class UserSettings(SingletonModel):
-    class Meta:
-        verbose_name = _("User Settings")
-        verbose_name_plural = _("User Settings")
-
     allowed_email_domains = ArrayField(
         verbose_name=_("allowed email domains"),
         base_field=models.CharField(max_length=100),
@@ -39,6 +35,10 @@ class UserSettings(SingletonModel):
             "the user will still be able to register and login."
         ),
     )
+
+    class Meta:
+        verbose_name = _("User Settings")
+        verbose_name_plural = _("User Settings")
 
     def __str__(self):
         return str(self.verbose_name)

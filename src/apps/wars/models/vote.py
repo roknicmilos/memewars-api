@@ -9,11 +9,6 @@ from apps.wars.validators import MemeWarPhaseValidator
 
 
 class Vote(BaseModel):
-    class Meta:
-        verbose_name = _("Vote")
-        verbose_name_plural = _("Votes")
-        constraints = [models.UniqueConstraint(fields=["user", "meme"], name="unique_user_meme")]
-
     user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -38,6 +33,11 @@ class Vote(BaseModel):
         verbose_name=_("total submissions"),
         default=1,
     )
+
+    class Meta:
+        verbose_name = _("Vote")
+        verbose_name_plural = _("Votes")
+        constraints = [models.UniqueConstraint(fields=["user", "meme"], name="unique_user_meme")]
 
     def __str__(self):
         return f"Vote {self.pk}"
