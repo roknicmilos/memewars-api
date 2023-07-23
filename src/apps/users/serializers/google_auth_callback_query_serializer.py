@@ -106,6 +106,7 @@ class GoogleAuthCallbackQuerySerializer(serializers.Serializer):
     def build_login_success_url(self, token: Token) -> str:
         url_query_params = {
             "token": token.key,
+            "id": token.user.pk,
             "email": token.user.email,
             "first_name": token.user.first_name,
             "last_name": token.user.last_name,
