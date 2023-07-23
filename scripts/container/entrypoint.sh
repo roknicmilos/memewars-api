@@ -48,10 +48,10 @@ elif [ "$1" = "test" ]; then
   bandit .
   printc "[flake8] Checking linting issues...\n" "info"
   flake8 --toml-config=pyproject.toml .
-  printc "[isort] Checking issues with import...\n" "info"
-  isort --check . && printc "No issues with imports.\n" "success" || fail_isort
   printc "[black] Checking formatting issues...\n" "info"
   black --check .
+  printc "[isort] Checking issues with import...\n" "info"
+  isort --check . && printc "No issues with imports.\n" "success" || fail_isort
 else
   printc "Unknown command: '$1'\n" "danger"
   printc "Exiting!\n" "danger"
