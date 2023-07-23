@@ -42,6 +42,16 @@ Now, if you try to commit new changes (with `git commit ...` command), the
 `pre-commit` hook will run first, and the commit will only be created if
 all tests and checks from the `pre-commit` hook pass.
 
+### EditorConfig
+
+There is [.editorconfig](../.editorconfig) file in the project's root
+directory that is supported by many IDEs.
+
+In PyCharm, if you run `"Reformat code"` (keyboard shortcut is
+`CTL + ALT + L` by default), rules from `.editorconfig` file will be applied.
+
+More about [EditorConfig](https://editorconfig.org/).
+
 ## Tests and linting
 
 ### Run tests

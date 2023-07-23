@@ -22,7 +22,7 @@ printc() {
 printc "\n>>>>>>>>>>>>>>>> RUNNNING PRE-COMMIT HOOK <<<<<<<<<<<<<<<<\n\n" "info"
 
 run_checks() {
-  docker compose run --rm -T django sh /app/scripts/entrypoint.sh test
+  docker compose run --rm -T django sh /app/scripts/entrypoint.sh check
 }
 
 print_success_msg() {
