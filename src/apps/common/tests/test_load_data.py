@@ -1,7 +1,7 @@
 from unittest.mock import patch
 
 from django.conf import settings
-from django.core.management import call_command, BaseCommand
+from django.core.management import BaseCommand, call_command
 
 from apps.common.management.commands.load_data import Command as LoadDataCommand
 from meme_wars.tests.test_case import TestCase

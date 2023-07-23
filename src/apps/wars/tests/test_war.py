@@ -1,6 +1,6 @@
+from apps.wars.models import Meme, Vote, War
+from apps.wars.tests.factories import MemeFactory, VoteFactory, WarFactory
 from meme_wars.tests.test_case import TestCase
-from apps.wars.models import War, Meme, Vote
-from apps.wars.tests.factories import MemeFactory, WarFactory, VoteFactory
 
 
 class TestWar(TestCase):

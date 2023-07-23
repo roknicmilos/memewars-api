@@ -3,9 +3,9 @@ from urllib.parse import urlencode
 
 from django.conf import settings
 
-from meme_wars.tests.test_case import TestCase
 from apps.users.authentication import google_openid_config
 from apps.users.utils import _create_login_url_query_params, build_google_login_url
+from meme_wars.tests.test_case import TestCase
 from meme_wars.utils import build_absolute_uri
 
 

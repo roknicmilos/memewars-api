@@ -1,10 +1,10 @@
 from django.urls import reverse
 
-from meme_wars.tests import APITestCase
 from apps.users.tests.factories import UserFactory
 from apps.wars.models import War
 from apps.wars.serializers import WarSerializer
 from apps.wars.tests.factories import WarFactory
+from meme_wars.tests import APITestCase
 
 
 class TestWarRetrieveAPIView(APITestCase):

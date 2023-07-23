@@ -1,15 +1,15 @@
 import os
+from io import BytesIO
 
 from django.core.exceptions import ValidationError as DjangoValidationError
+from django.core.files import File
 from django.core.files.images import ImageFile
 from django.db.models import TextChoices
 from django.http import Http404
 from django.utils import timezone
 from django.utils.deconstruct import deconstructible
-from io import BytesIO
 from PIL import Image, ImageOps
-from django.core.files import File
-from rest_framework.exceptions import NotAuthenticated, AuthenticationFailed
+from rest_framework.exceptions import AuthenticationFailed, NotAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
 

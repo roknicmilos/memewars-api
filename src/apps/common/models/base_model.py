@@ -1,4 +1,5 @@
 from django_extensions.db.models import TimeStampedModel
+
 from apps.common.models import OriginalModelInstance
 
 

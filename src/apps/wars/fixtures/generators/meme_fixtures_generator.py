@@ -1,7 +1,7 @@
-from datetime import datetime, timedelta
 import os
-from os.path import join
 import random
+from datetime import datetime, timedelta
+from os.path import join
 
 from django.conf import settings
 

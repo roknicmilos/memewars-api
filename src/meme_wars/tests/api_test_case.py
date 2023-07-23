@@ -1,8 +1,8 @@
 import contextlib
-import pytest
 
-from rest_framework.exceptions import ValidationError as APIValidationError
+import pytest
 from rest_framework.authtoken.models import Token
+from rest_framework.exceptions import ValidationError as APIValidationError
 from rest_framework.response import Response
 from rest_framework.serializers import ModelSerializer
 from rest_framework.settings import api_settings

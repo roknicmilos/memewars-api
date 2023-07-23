@@ -1,9 +1,9 @@
+import pytest
 from django.core.handlers.wsgi import WSGIRequest
 from faker import Faker
-import pytest
 
-from meme_wars.tests.test_case import TestCase
 from apps.users.models import LoginInProgress
+from meme_wars.tests.test_case import TestCase
 
 
 class TestLoginInProgress(TestCase):

@@ -1,5 +1,5 @@
-from meme_wars.tests.test_case import TestCase
 from apps.users.models import UserSettings
+from meme_wars.tests.test_case import TestCase
 
 
 class TestUserSettings(TestCase):

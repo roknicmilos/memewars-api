@@ -1,6 +1,7 @@
 import factory
 from factory.django import DjangoModelFactory
 from faker import Faker
+
 from apps.users.models import User
 from apps.users.tests.factories.utils import build_email
 

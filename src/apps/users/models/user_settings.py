@@ -1,9 +1,10 @@
-from apps.common.models.singleton_model import SingletonModel
-from apps.common.validators import UniqueArrayValuesValidator, AsteriskValidator
 from django.contrib.postgres.fields import ArrayField
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
+from apps.common.models.singleton_model import SingletonModel
+from apps.common.validators import AsteriskValidator, UniqueArrayValuesValidator
 
 
 class UserSettings(SingletonModel):

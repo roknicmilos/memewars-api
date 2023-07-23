@@ -1,6 +1,6 @@
-from django.utils.translation import gettext_lazy as _
 from django.db.models import QuerySet
-from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiResponse
+from django.utils.translation import gettext_lazy as _
+from drf_spectacular.utils import OpenApiResponse, extend_schema, extend_schema_view
 from rest_framework.generics import DestroyAPIView
 from rest_framework.permissions import IsAuthenticated
 

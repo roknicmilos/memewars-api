@@ -1,5 +1,6 @@
-from apps.common.validators import BaseArrayValidator
 from django.utils.translation import gettext_lazy as _
+
+from apps.common.validators import BaseArrayValidator
 
 
 class AsteriskValidator(BaseArrayValidator):

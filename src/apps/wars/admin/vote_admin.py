@@ -3,9 +3,10 @@ from django.db.models import QuerySet
 from django.db.models.functions import Collate
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
+
 from apps.common.admin import ModelAdmin
-from meme_wars.utils import get_model_admin_change_details_url
 from apps.wars.models import Vote
+from meme_wars.utils import get_model_admin_change_details_url
 
 
 @admin.register(Vote)

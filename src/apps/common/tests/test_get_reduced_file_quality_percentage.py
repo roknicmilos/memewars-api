@@ -1,5 +1,5 @@
-from meme_wars.tests.test_case import TestCase
 from apps.common.utils import get_reduced_file_quality_percentage
+from meme_wars.tests.test_case import TestCase
 
 
 class TestGetReducedFileQualityPercentage(TestCase):

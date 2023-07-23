@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 
-from meme_wars.tests import APITestCase
 from apps.users.tests.factories import UserFactory
+from meme_wars.tests import APITestCase
 
 
 class TestLogoutAPIView(APITestCase):

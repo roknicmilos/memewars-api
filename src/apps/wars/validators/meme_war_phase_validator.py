@@ -1,5 +1,6 @@
 from django.core.validators import BaseValidator
 from django.utils.translation import gettext_lazy as _
+
 from apps.common.utils import get_text_choice_by_value
 
 

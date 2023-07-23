@@ -1,9 +1,9 @@
 from django.urls import reverse_lazy
 
 from apps.users.tests.factories import UserFactory
-from apps.wars.models import War, Vote, Meme
+from apps.wars.models import Meme, Vote, War
 from apps.wars.serializers import VoteSerializer
-from apps.wars.tests.factories import MemeFactory, WarFactory, VoteFactory
+from apps.wars.tests.factories import MemeFactory, VoteFactory, WarFactory
 from meme_wars.tests import APITestCase
 
 

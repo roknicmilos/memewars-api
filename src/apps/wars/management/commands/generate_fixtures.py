@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.management import BaseCommand
 
 from apps.common.fixtures import AbstractFixturesGenerator
-from apps.wars.fixtures.generators import VoteFixturesGenerator, MemeFixturesGenerator
+from apps.wars.fixtures.generators import MemeFixturesGenerator, VoteFixturesGenerator
 
 
 class Command(BaseCommand):

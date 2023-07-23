@@ -1,7 +1,7 @@
 from django.urls import reverse
+from pytest_django.asserts import assertTemplateUsed
 
 from meme_wars.tests.test_case import TestCase
-from pytest_django.asserts import assertTemplateUsed
 
 
 class TestIndexView(TestCase):

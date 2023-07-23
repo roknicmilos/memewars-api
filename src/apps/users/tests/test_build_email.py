@@ -1,6 +1,6 @@
-from meme_wars.tests.test_case import TestCase
-from apps.users.tests.factories import UserFactory, GoogleUserFactory
+from apps.users.tests.factories import GoogleUserFactory, UserFactory
 from apps.users.tests.factories.utils import build_email
+from meme_wars.tests.test_case import TestCase
 
 
 class TestBuildEmail(TestCase):

@@ -1,8 +1,9 @@
+from django.db.models import Avg, Q, QuerySet
 from django.utils.translation import gettext_lazy as _
-from django.db.models import QuerySet, Q, Avg
-from drf_spectacular.utils import extend_schema_view, extend_schema
+from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.permissions import IsAuthenticated
+
 from apps.users.authentication import TokenAuthentication
 from apps.wars.models import Meme, War
 from apps.wars.serializers import MemeSerializer

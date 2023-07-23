@@ -1,8 +1,8 @@
+from urllib.parse import urlparse
+
 from django.conf import settings
 from rest_framework.fields import ImageField as BaseImageField
 from rest_framework.settings import api_settings
-
-from urllib.parse import urlparse
 
 
 class ImageField(BaseImageField):

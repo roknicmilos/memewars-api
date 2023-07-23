@@ -1,8 +1,10 @@
 from unittest.mock import patch
+
 from django.contrib.admin.options import BaseModelAdmin
 from django.contrib.admin.sites import site as admin_site
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
+
 from apps.common.admin import ModelAdmin, TimestampableModelAdmin
 from meme_wars.tests.test_case import TestCase
 

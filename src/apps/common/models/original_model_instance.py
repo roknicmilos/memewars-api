@@ -1,4 +1,5 @@
 from typing import Type
+
 from django.db.models import Model
 from django.forms import model_to_dict
 

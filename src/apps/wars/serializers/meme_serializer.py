@@ -1,9 +1,9 @@
-from django.db import models
-from rest_framework import serializers
 from django.conf import settings
+from django.db import models
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
-from drf_spectacular.utils import extend_schema_serializer, OpenApiExample
+from drf_spectacular.utils import OpenApiExample, extend_schema_serializer
+from rest_framework import serializers
 
 from apps.common.fields import ImageField
 from apps.wars.models import Meme

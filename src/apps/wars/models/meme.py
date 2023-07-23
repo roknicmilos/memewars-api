@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db import models
 from django.db.models import Sum
 from django.utils.translation import gettext_lazy as _
+
 from apps.common.models import BaseModel
 from apps.common.utils import FilePath, compress_image_file
 from apps.wars.models import War

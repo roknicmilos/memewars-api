@@ -1,10 +1,10 @@
 from unittest.mock import patch
 
-from meme_wars.tests.test_case import TestCase
 from apps.users.authentication import GoogleUser
 from apps.users.models import User, UserSettings
 from apps.users.tests.factories import GoogleUserFactory, UserFactory
 from apps.users.utils import get_or_create_user
+from meme_wars.tests.test_case import TestCase
 
 
 class TestGetOrCreateUser(TestCase):

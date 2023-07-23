@@ -1,7 +1,7 @@
-from rest_framework import serializers
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
-from drf_spectacular.utils import extend_schema_serializer, OpenApiExample
+from drf_spectacular.utils import OpenApiExample, extend_schema_serializer
+from rest_framework import serializers
 
 from apps.wars.models import Vote
 

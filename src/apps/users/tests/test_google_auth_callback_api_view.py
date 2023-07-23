@@ -1,13 +1,13 @@
-from django.urls import reverse
-from faker import Faker
 from unittest.mock import patch
 
 import pytest
+from django.urls import reverse
+from faker import Faker
 from rest_framework.authtoken.models import Token
 
-from meme_wars.tests import APITestCase
 from apps.users.serializers import GoogleAuthCallbackQuerySerializer
 from apps.users.tests.factories import UserFactory
+from meme_wars.tests import APITestCase
 
 
 class TestGoogleAuthCallbackAPIView(APITestCase):

@@ -3,10 +3,10 @@ from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
 from pytest_django.asserts import assertRedirects
 
-from meme_wars.tests.test_case import TestCase
-from meme_wars.utils import get_model_admin_change_details_url
 from apps.users.admin import UserSettingsAdmin
 from apps.users.models import UserSettings
+from meme_wars.tests.test_case import TestCase
+from meme_wars.utils import get_model_admin_change_details_url
 
 
 class TestUserSettingsAdmin(TestCase):

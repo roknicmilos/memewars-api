@@ -1,10 +1,10 @@
 from unittest.mock import patch
 
 from django.core.exceptions import ValidationError as DjangoValidationError
-from rest_framework.exceptions import NotAuthenticated, AuthenticationFailed
+from rest_framework.exceptions import AuthenticationFailed, NotAuthenticated
 
-from meme_wars.tests.test_case import TestCase
 from apps.common.utils import handle_api_exception
+from meme_wars.tests.test_case import TestCase
 
 
 class TestHandleAPIException(TestCase):

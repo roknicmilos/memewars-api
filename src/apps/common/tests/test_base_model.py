@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+
 from apps.common.models import BaseModel, OriginalModelInstance
 from meme_wars.tests.test_case import TestCase
 

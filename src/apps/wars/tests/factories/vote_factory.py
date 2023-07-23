@@ -1,5 +1,6 @@
-import factory
 from random import randint
+
+import factory
 from factory.django import DjangoModelFactory
 from faker import Faker
 

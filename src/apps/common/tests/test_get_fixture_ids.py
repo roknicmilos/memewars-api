@@ -2,8 +2,8 @@ from os.path import join
 
 from django.conf import settings
 
-from meme_wars.tests.test_case import TestCase
 from apps.common.utils import get_fixture_ids
+from meme_wars.tests.test_case import TestCase
 
 
 class TestGetFixtureIDs(TestCase):

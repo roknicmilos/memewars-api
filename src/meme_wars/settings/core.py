@@ -2,7 +2,7 @@
 import sys
 from os.path import abspath, basename, dirname, join, normpath
 
-from decouple import config, Csv
+from decouple import Csv, config
 
 # ##### PATH CONFIGURATION ################################
 

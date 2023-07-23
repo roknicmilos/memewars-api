@@ -1,10 +1,10 @@
+from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import Group
 from django.db.models import QuerySet
 from django.db.models.functions import Collate
 from django.utils.translation import gettext_lazy as _
-from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from django.contrib.auth.models import Group
 
 from apps.common.admin import ModelAdmin
 from apps.users.admin import MemeAdminInline

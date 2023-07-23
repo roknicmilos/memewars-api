@@ -4,8 +4,8 @@ from urllib.parse import urlencode
 from django.urls import reverse_lazy
 from faker import Faker
 
-from meme_wars.tests import APITestCase
 from apps.users.serializers import google_auth_login_query_serializer
+from meme_wars.tests import APITestCase
 
 
 class TestGoogleAuthLoginURLAPIView(APITestCase):

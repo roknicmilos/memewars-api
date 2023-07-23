@@ -1,8 +1,9 @@
 from django.contrib.admin.sites import site as admin_site
-from meme_wars.tests.test_case import TestCase
+
 from apps.users.admin import UserAdmin
 from apps.users.models import User
 from apps.users.tests.factories import UserFactory
+from meme_wars.tests.test_case import TestCase
 
 
 class TestUserAdmin(TestCase):

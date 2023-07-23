@@ -6,8 +6,8 @@ from faker import Faker
 
 from apps.users.tests.factories import UserFactory
 from apps.wars.models import Meme
-from apps.wars.tests.factories import WarFactory
 from apps.wars.models import meme as meme_model_file
+from apps.wars.tests.factories import WarFactory
 
 faker = Faker()
 

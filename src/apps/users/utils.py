@@ -1,7 +1,8 @@
 from urllib.parse import urlencode
+
 from django.conf import settings
 
-from apps.users.authentication import GoogleUser, GoogleOpenIDConfig
+from apps.users.authentication import GoogleOpenIDConfig, GoogleUser
 from apps.users.models import User
 from meme_wars.utils import build_absolute_uri
 
