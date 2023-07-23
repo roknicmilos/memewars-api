@@ -2,6 +2,9 @@
 line-length = 120
 no-space-before-colon = "True"
 
+[tool.isort]
+profile = "black"
+
 # flake8 doesn't support pyproject.toml file configuration but
 # Flake8-pyproject (https://github.com/john-hen/Flake8-pyproject)
 # adds that support to flake8

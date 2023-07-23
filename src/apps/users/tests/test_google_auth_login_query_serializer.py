@@ -3,7 +3,10 @@ from unittest.mock import patch
 from faker import Faker
 
 from apps.users.models import LoginInProgress
-from apps.users.serializers import GoogleAuthLoginQuerySerializer, google_auth_login_query_serializer
+from apps.users.serializers import (
+    GoogleAuthLoginQuerySerializer,
+    google_auth_login_query_serializer,
+)
 from meme_wars.tests.test_case import TestCase
 
 
