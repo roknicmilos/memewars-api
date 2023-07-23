@@ -32,13 +32,22 @@ class TestVoteListCreateAPIView(APITestCase):
 
     def test_list_endpoint_should_return_filtered_votes(self):
         self.authenticate(user=self.user)
-        war = WarFactory()
+
         user_votes = VoteFactory.create_batch(size=5, user=self.user)
         first_three_user_votes = user_votes[:3]
+
+        war = WarFactory()
         for vote in first_three_user_votes:
             vote.meme.update(war=war)
+
         # 3 Additional Votes that do not belong to the authenticated User:
         other_votes = VoteFactory.create_batch(size=3, meme=MemeFactory(war=war))
+
+        meme = MemeFactory(war=war)
+        first_three_user_votes[0].update(meme=meme)
+        other_votes[0].update(meme=meme)
+        meme_votes = [first_three_user_votes[0], other_votes[0]]
+
         war_votes = [*first_three_user_votes, *other_votes]
 
         # When Votes are filtered by User:
@@ -47,10 +56,21 @@ class TestVoteListCreateAPIView(APITestCase):
         serializer = VoteSerializer(instance=sorted_user_votes, many=True)
         self.assertListResponse(response=response, serializer=serializer)
 
+        # When Votes are filtered by Meme:
+        response = self.client.get(path=f"{self.url_path}?meme={meme.pk}")
+        sorted_meme_votes = sorted(meme_votes, key=lambda obj: obj.created, reverse=True)
+        serializer = VoteSerializer(instance=sorted_meme_votes, many=True)
+        self.assertListResponse(response=response, serializer=serializer)
+
         # When Votes are filtered by War:
         response = self.client.get(path=f"{self.url_path}?war={war.pk}")
         sorted_war_votes = sorted(war_votes, key=lambda obj: obj.created, reverse=True)
         serializer = VoteSerializer(instance=sorted_war_votes, many=True)
+        self.assertListResponse(response=response, serializer=serializer)
+
+        # When Votes are filtered by User and Meme:
+        response = self.client.get(path=f"{self.url_path}?user={self.user.pk}&meme={meme.pk}")
+        serializer = VoteSerializer(instance=[first_three_user_votes[0]], many=True)
         self.assertListResponse(response=response, serializer=serializer)
 
         # When Votes are filtered by User and War:

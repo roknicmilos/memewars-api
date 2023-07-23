@@ -7,7 +7,7 @@ from apps.wars.models import Vote
 
 
 @extend_schema_serializer(
-    exclude_fields=("user",),
+    exclude_fields=("user", "submission_count"),
     examples=[
         OpenApiExample(
             name=_("Success response example"),
