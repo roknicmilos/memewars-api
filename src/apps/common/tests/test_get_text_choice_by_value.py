@@ -1,7 +1,7 @@
 from django.db.models import TextChoices
 
-from meme_wars.tests.test_case import TestCase
 from apps.common.utils import get_text_choice_by_value
+from meme_wars.tests.test_case import TestCase
 
 
 class TestGetTextChoiceByValue(TestCase):

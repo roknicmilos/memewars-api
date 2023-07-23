@@ -1,7 +1,9 @@
 from datetime import datetime
+
 from freezegun import freeze_time
-from meme_wars.tests.test_case import TestCase
+
 from apps.common.utils import FilePath
+from meme_wars.tests.test_case import TestCase
 
 
 class TestFilePath(TestCase):

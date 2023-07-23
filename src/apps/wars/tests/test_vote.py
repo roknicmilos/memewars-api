@@ -1,9 +1,9 @@
 import pytest
 from django.db import IntegrityError
 
-from meme_wars.tests.test_case import TestCase
 from apps.wars.models import War
-from apps.wars.tests.factories import VoteFactory, WarFactory, MemeFactory
+from apps.wars.tests.factories import MemeFactory, VoteFactory, WarFactory
+from meme_wars.tests.test_case import TestCase
 
 
 class TestVote(TestCase):

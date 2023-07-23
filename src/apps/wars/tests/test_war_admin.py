@@ -1,10 +1,11 @@
 from django.contrib import admin
-from meme_wars.tests.test_case import TestCase
+
 from apps.users.models import User
 from apps.users.tests.factories import UserFactory
 from apps.wars.admin import WarAdmin
-from apps.wars.models import War, Vote
-from apps.wars.tests.factories import MemeFactory, WarFactory, VoteFactory
+from apps.wars.models import Vote, War
+from apps.wars.tests.factories import MemeFactory, VoteFactory, WarFactory
+from meme_wars.tests.test_case import TestCase
 
 
 class TestWarAdmin(TestCase):

@@ -1,11 +1,11 @@
 from django.urls import reverse_lazy
 
-from meme_wars.tests import APITestCase
 from apps.common.tests.fixtures import get_image_file_example
 from apps.users.tests.factories import UserFactory
 from apps.wars.models import Meme, War
 from apps.wars.serializers import MemeSerializer
-from apps.wars.tests.factories import MemeFactory, WarFactory, VoteFactory
+from apps.wars.tests.factories import MemeFactory, VoteFactory, WarFactory
+from meme_wars.tests import APITestCase
 
 
 class TestMemeListCreateAPIView(APITestCase):

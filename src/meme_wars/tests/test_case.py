@@ -1,14 +1,13 @@
-import uuid
-import pytest
-import re
 import contextlib
-
+import re
+import uuid
 from unittest import TestCase as BaseTestCase
+
+import pytest
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.core.handlers.wsgi import WSGIRequest
 from django.test import Client
-
 from rest_framework.serializers import Serializer
 
 

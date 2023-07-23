@@ -1,20 +1,20 @@
 import re
-from uuid import uuid4
-from urllib import parse
-
-from faker import Faker
-import pytest
 from unittest.mock import patch
+from urllib import parse
+from uuid import uuid4
+
+import pytest
 from django.conf import settings
+from faker import Faker
 from rest_framework.authtoken.models import Token
 
-from meme_wars.tests import APITestCase
 from apps.users.models import LoginInProgress, UserSettings
-from apps.users.tests.factories import UserFactory, LoginInProgressFactory
 from apps.users.serializers import (
-    google_auth_callback_query_serializer,
     GoogleAuthCallbackQuerySerializer,
+    google_auth_callback_query_serializer,
 )
+from apps.users.tests.factories import LoginInProgressFactory, UserFactory
+from meme_wars.tests import APITestCase
 from meme_wars.utils import build_absolute_uri
 
 

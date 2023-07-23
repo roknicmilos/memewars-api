@@ -1,7 +1,7 @@
 from django.urls import reverse
 
 from apps.users.tests.factories import UserFactory
-from apps.wars.tests.factories import VoteFactory, MemeFactory
+from apps.wars.tests.factories import MemeFactory, VoteFactory
 from meme_wars.tests import APITestCase
 
 

@@ -1,7 +1,9 @@
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.models import AbstractUser, UserManager as BaseUserManager
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import UserManager as BaseUserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
 from apps.common.models import BaseModel
 
 
@@ -20,15 +22,15 @@ class UserManager(BaseUserManager):
 
 
 class User(BaseModel, AbstractUser):
-    class Meta:
-        verbose_name = _("User")
-        verbose_name_plural = _("Users")
-
-    objects = UserManager()
-
     email = models.EmailField(verbose_name=_("email"), db_collation="case_insensitive", unique=True)
     image_url = models.URLField(verbose_name=_("image URL"), null=True, blank=True)
     username = None
+
+    objects = UserManager()
+
+    class Meta:
+        verbose_name = _("User")
+        verbose_name_plural = _("Users")
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

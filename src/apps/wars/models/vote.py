@@ -1,18 +1,14 @@
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.conf import settings
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.conf import settings
+
 from apps.common.models import BaseModel
 from apps.wars.models import War
 from apps.wars.validators import MemeWarPhaseValidator
 
 
 class Vote(BaseModel):
-    class Meta:
-        verbose_name = _("Vote")
-        verbose_name_plural = _("Votes")
-        constraints = [models.UniqueConstraint(fields=["user", "meme"], name="unique_user_meme")]
-
     user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -37,6 +33,11 @@ class Vote(BaseModel):
         verbose_name=_("total submissions"),
         default=1,
     )
+
+    class Meta:
+        verbose_name = _("Vote")
+        verbose_name_plural = _("Votes")
+        constraints = [models.UniqueConstraint(fields=["user", "meme"], name="unique_user_meme")]
 
     def __str__(self):
         return f"Vote {self.pk}"

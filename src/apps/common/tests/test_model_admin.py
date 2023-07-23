@@ -1,8 +1,10 @@
 from unittest.mock import patch
+
 from django.contrib.admin.options import BaseModelAdmin
 from django.contrib.admin.sites import site as admin_site
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
+
 from apps.common.admin import ModelAdmin, TimestampableModelAdmin
 from meme_wars.tests.test_case import TestCase
 
@@ -57,7 +59,8 @@ class TestModelAdmin(TestCase):
             "is_staff",
             "is_active",
             "date_joined",
-        ) + TimestampableModelAdmin.timestampable_fields
+        )
+        expected_fields += TimestampableModelAdmin.timestampable_fields
         self.assertEqual(actual_fields, expected_fields)
 
         # When User object is passed to the function:

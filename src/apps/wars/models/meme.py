@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db import models
 from django.db.models import Sum
 from django.utils.translation import gettext_lazy as _
+
 from apps.common.models import BaseModel
 from apps.common.utils import FilePath, compress_image_file
 from apps.wars.models import War
@@ -9,10 +10,6 @@ from apps.wars.validators import WarPhaseValidator
 
 
 class Meme(BaseModel):
-    class Meta:
-        verbose_name = _("Meme")
-        verbose_name_plural = _("Memes")
-
     class ApprovalStatuses(models.TextChoices):
         PENDING = "pending", _("Pending")
         REJECTED = "rejected", _("Rejected")
@@ -43,6 +40,10 @@ class Meme(BaseModel):
         choices=ApprovalStatuses.choices,
         default=ApprovalStatuses.PENDING,
     )
+
+    class Meta:
+        verbose_name = _("Meme")
+        verbose_name_plural = _("Memes")
 
     def __str__(self):
         return f"{self.image.name} ({self.pk})"

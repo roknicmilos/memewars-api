@@ -1,11 +1,10 @@
 from uuid import uuid4
 
-from django.test import Client
 import factory
+from django.test import Client
 from faker import Faker
 
 from apps.users.models import LoginInProgress
-
 
 faker = Faker()
 

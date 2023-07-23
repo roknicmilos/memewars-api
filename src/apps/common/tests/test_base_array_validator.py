@@ -1,5 +1,5 @@
-from meme_wars.tests.test_case import TestCase
 from apps.common.validators import BaseArrayValidator
+from meme_wars.tests.test_case import TestCase
 
 
 class TestBaseArrayValidator(TestCase):

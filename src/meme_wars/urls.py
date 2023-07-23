@@ -1,11 +1,16 @@
-from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path, include
-from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
+from django.contrib import admin
+from django.urls import include, path
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
+
 from apps.users.urls import urlpatterns as users_urlpatterns
 from apps.wars.urls import urlpatterns as wars_urlpatterns
-from meme_wars.views import IndexView, APIIndexView
+from meme_wars.views import APIIndexView, IndexView
 
 schema_urlpatterns = [
     path("download/", SpectacularAPIView.as_view(), name="download"),

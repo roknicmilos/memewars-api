@@ -31,6 +31,12 @@ run_server() {
   fi
 }
 
+fail_isort() {
+  printc "Issues found by 'isort'! " "danger"
+  printc "Check the output above to locate and fix the issues\n" "danger"
+  exit 1
+}
+
 if [ "$1" = "start" ]; then
   wait_for_postgres
   init_django_project
@@ -44,6 +50,8 @@ elif [ "$1" = "test" ]; then
   flake8 --toml-config=pyproject.toml .
   printc "[black] Checking formatting issues...\n" "info"
   black --check .
+  printc "[isort] Checking issues with import...\n" "info"
+  isort --check . && printc "No issues with imports.\n" "success" || fail_isort
 else
   printc "Unknown command: '$1'\n" "danger"
   printc "Exiting!\n" "danger"

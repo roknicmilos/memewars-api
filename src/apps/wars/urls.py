@@ -1,6 +1,6 @@
-from django.urls import path, include
-from apps.wars import views
+from django.urls import include, path
 
+from apps.wars import views
 
 wars_urlpatterns = [
     path("", views.WarListAPIView.as_view(), name="index"),

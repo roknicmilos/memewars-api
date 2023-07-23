@@ -1,7 +1,7 @@
 from unittest.mock import patch
 
+from apps.users.authentication import GoogleOpenIDConfig, google_openid_config
 from meme_wars.tests.test_case import TestCase
-from apps.users.authentication import google_openid_config, GoogleOpenIDConfig
 
 
 class TestGoogleOpenIDConfig(TestCase):

@@ -1,19 +1,18 @@
 from urllib.parse import urlencode
 
+import jwt
+import requests
 from django.conf import settings
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.core.handlers.wsgi import WSGIRequest
 from django.utils.translation import gettext_lazy as _
-
-import jwt
-import requests
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from rest_framework.fields import empty
 
 from apps.common.exceptions import NonFieldAPIValidationError
-from apps.users.authentication import GoogleUser, GoogleOpenIDConfig
-from apps.users.models import User, LoginInProgress, UserSettings
+from apps.users.authentication import GoogleOpenIDConfig, GoogleUser
+from apps.users.models import LoginInProgress, User, UserSettings
 from apps.users.utils import get_or_create_user
 from meme_wars.utils import build_absolute_uri
 

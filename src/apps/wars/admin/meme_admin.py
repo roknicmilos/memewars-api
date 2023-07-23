@@ -1,12 +1,13 @@
-from apps.common.admin import ModelAdmin
-from apps.wars.admin.filters import RequiresApprovalFilter
-from apps.wars.admin.forms import MemeAdminForm
-from apps.wars.models import Meme
 from django.contrib import admin
 from django.db.models import QuerySet
 from django.db.models.functions import Collate
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
+
+from apps.common.admin import ModelAdmin
+from apps.wars.admin.filters import RequiresApprovalFilter
+from apps.wars.admin.forms import MemeAdminForm
+from apps.wars.models import Meme
 
 
 @admin.register(Meme)

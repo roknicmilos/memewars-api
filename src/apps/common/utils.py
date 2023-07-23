@@ -1,15 +1,15 @@
 import os
+from io import BytesIO
 
 from django.core.exceptions import ValidationError as DjangoValidationError
+from django.core.files import File
 from django.core.files.images import ImageFile
 from django.db.models import TextChoices
 from django.http import Http404
 from django.utils import timezone
 from django.utils.deconstruct import deconstructible
-from io import BytesIO
 from PIL import Image, ImageOps
-from django.core.files import File
-from rest_framework.exceptions import NotAuthenticated, AuthenticationFailed
+from rest_framework.exceptions import AuthenticationFailed, NotAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import exception_handler
 
@@ -86,5 +86,7 @@ def get_fixture_ids(fixtures_file_path: str) -> list[int]:
             id_suffix = "pk: "
             if stripped_line.startswith(id_suffix):
                 last_index = stripped_line.index("#") if "#" in stripped_line else None
-                ids.append(int(stripped_line[len(id_suffix) : last_index]))
+                # fmt: off
+                # (because black adds whitespace before ':')
+                ids.append(int(stripped_line[len(id_suffix): last_index]))
     return ids

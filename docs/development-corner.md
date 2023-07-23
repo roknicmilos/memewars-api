@@ -81,22 +81,42 @@ coverage ([Run tests with coverage](#run-tests-with-coverage)).
 
 ### Run linters
 
-- **Code security**:
+#### Code security
 
-        docker compose run --rm django sh -c 'bandit --ini=setup.cfg .'
+        docker compose run --rm django sh -c 'bandit .'
 
-  The above command will run [Bandit](https://bandit.readthedocs.io/) will check for
-  security issues in Python code.
+The above command will run [Bandit](https://bandit.readthedocs.io/) that checks
+security issues in Python code.
 
-
-- **Code quality**:
+#### Code quality
 
         docker compose run --rm django sh -c 'flake8 --count'
 
-  The above command will run [Flake8](https://flake8.pycqa.org/) runs multiple 
-  tools to check the quality of Python code.
-  If there are no issues, the command will not have any output.
-  If there are issues, they will be displayed in the output of the command.
+The above command will run [Flake8](https://flake8.pycqa.org/) that checks
+quality of Python code.
+If there are no issues, the command will not have any output.
+Otherwise, the issues will be displayed in the output of the command.
+
+#### Code formatting
+
+- [**Black**](https://black.readthedocs.io/)
+
+        docker compose run --rm django sh -c 'black --check .'
+
+  The above command will run Black to check formatting of Python code.
+  The output will show files that require reformatting.
+
+  To format files with Black, run the above command without `--check` flag.
+
+
+- [**isort**](https://pycqa.github.io/isort/)
+
+       docker compose run --rm django sh -c 'black --check .'
+
+  The above command will run `isort` to check imports in Python files.
+  The output will show files that require reformatting of imports.
+
+  To format files with Black, run the above command without `--check` flag.
 
 ### Simultaneously run tests with coverage, linters and formatter checks
 
@@ -105,10 +125,11 @@ coverage ([Run tests with coverage](#run-tests-with-coverage)).
 The above command will:
 
 1. run all tests with coverage in parallel using [Pytest](https://docs.pytest.org/)
-   and [Coverage](https://coverage.readthedocs.io/)  
+   and [Coverage](https://coverage.readthedocs.io/)
 2. run [Bandit](https://bandit.readthedocs.io/) to check security of Python code
 3. run [Flake8](https://flake8.pycqa.org/) to check quality of Python code
 4. run [Black](https://black.readthedocs.io/) to check formatting of Python code
+5. run [isort](https://pycqa.github.io/isort/) to check imports in Python files
 
 The flag `-t` is optional just like when [only running tests](#run-tests).
 
@@ -133,8 +154,8 @@ raws with the same primary keys as those specified in fixtures**):
 
     docker compose run --rm django sh -c 'python3 manage.py load_data'
 
-Or you can load specific fixtures (in a specific order) by passing them as 
-arguments to the same command. For example, to load `users` fixtures, and 
+Or you can load specific fixtures (in a specific order) by passing them as
+arguments to the same command. For example, to load `users` fixtures, and
 then `wars` fixtures:
 
     docker compose run --rm django sh -c 'python3 manage.py load_data users wars'

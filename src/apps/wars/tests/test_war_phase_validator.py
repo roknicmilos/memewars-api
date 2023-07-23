@@ -1,7 +1,7 @@
-from meme_wars.tests.test_case import TestCase
 from apps.wars.models import War
 from apps.wars.tests.factories import WarFactory
 from apps.wars.validators import WarPhaseValidator
+from meme_wars.tests.test_case import TestCase
 
 
 class TestWarPhaseValidator(TestCase):
