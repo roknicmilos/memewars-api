@@ -8,4 +8,4 @@ class VoteFilterSet(filters.FilterSet):
 
     class Meta:
         model = Vote
-        fields = ["user", "war"]
+        fields = ["user", "war", "meme"]
