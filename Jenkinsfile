@@ -1,6 +1,9 @@
 pipeline {
     agent any
     stages {
+        stage("Init") {
+            setBuildStatus("Jenkins build in progress", "IN_PROGRESS");
+        }
         stage("Test") {
             steps {
                 sh "sh scripts/pipeline/test.sh"
@@ -24,7 +27,7 @@ pipeline {
         }
     }
     post {
-        success{
+        success {
             setBuildStatus("Build succeeded", "SUCCESS");
         }
         failure {
