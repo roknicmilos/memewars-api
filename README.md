@@ -10,10 +10,11 @@ Meme Wars utilizes [Django](https://www.djangoproject.com/), a powerful web
 framework, along with [Django REST Framework](https://www.django-rest-framework.org/)
 to provide a robust API for seamless communication between clients and the server.
 
-Additionally, an admin panel is available for authorized administrators providing 
+Additionally, an admin panel is available for authorized administrators providing
 extensive control and flexibility over the application's data.
 
 ### Key Features
+
 - User registration and authentication via Google.
 - Seamless API endpoints for creating, retrieving, updating, and deleting models.
 - Engaging meme wars where users can participate and vote for their favorite memes.
@@ -21,10 +22,10 @@ extensive control and flexibility over the application's data.
 - Secure token-based authentication for API requests, ensuring data privacy and integrity.
 - Django Admin panel for efficient data management.
 
-Please refer to the [Development corner](/docs/development-corner.md) to set up the 
+Please refer to the [Development corner](/docs/development-corner.md) to set up the
 application and get started.
-For any questions or support, don't hesitate to reach out. 
-I am here to assist and provide any necessary guidance. 
+For any questions or support, don't hesitate to reach out.
+I am here to assist and provide any necessary guidance.
 Happy memeing!
 
 ___

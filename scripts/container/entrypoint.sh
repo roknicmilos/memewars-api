@@ -37,13 +37,10 @@ fail_isort() {
   exit 1
 }
 
-if [ "$1" = "start" ]; then
-  wait_for_postgres
-  init_django_project
-  run_server
-elif [ "$1" = "test" ]; then
-  printc "Running tests (pytest) with expected 100% coverage...\n" "info"
-  pytest --cov --cov-report term:skip-covered --cov-fail-under=100 -n auto
+run_checks() {
+  # Runs multiple lingers and formatters to check if there are any issues.
+  # It doesn't modify the code, it just reports the issues and necessary actions.
+
   printc "[bandit] Checking code security issues...\n" "info"
   bandit .
   printc "[flake8] Checking linting issues...\n" "info"
@@ -52,6 +49,21 @@ elif [ "$1" = "test" ]; then
   black --check .
   printc "[isort] Checking issues with import...\n" "info"
   isort --check . && printc "No issues with imports.\n" "success" || fail_isort
+}
+
+if [ "$1" = "start" ]; then
+  wait_for_postgres
+  init_django_project
+  run_server
+
+elif [ "$1" = "test" ]; then
+  printc "Running tests (pytest) with expected 100% coverage...\n" "info"
+  pytest --cov --cov-report term:skip-covered --cov-fail-under=100 -n auto
+  run_checks
+
+elif [ "$1" = "check" ]; then
+  run_checks
+
 else
   printc "Unknown command: '$1'\n" "danger"
   printc "Exiting!\n" "danger"
