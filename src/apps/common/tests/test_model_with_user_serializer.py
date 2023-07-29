@@ -183,7 +183,7 @@ class TestModelWithUserSerializer(TestCase):
         request = self.get_request_example()
         request.user = AnonymousUser()
         with pytest.raises(PermissionError, match="Authenticated user is required"):
-            Serializer(request=request)
+            Serializer(context={"request": request})
 
     def test_should_not_raise_permission_error_when_request_has_authenticated_user(self):
         class Serializer(common_serializers.ModelWithUserSerializer):
@@ -192,7 +192,7 @@ class TestModelWithUserSerializer(TestCase):
 
         request = self.get_request_example()
         request.user = FakeUserModel()
-        Serializer(request=request)
+        Serializer(context={"request": request})
 
     def test_should_save_model_instance_with_user_reference(self):
         class Serializer(common_serializers.ModelWithUserSerializer):
@@ -202,7 +202,7 @@ class TestModelWithUserSerializer(TestCase):
 
         request = self.get_request_example()
         request.user = FakeUserModel.objects.create()
-        serializer = Serializer(request=request, data={})
+        serializer = Serializer(context={"request": request}, data={})
         serializer.is_valid()
         instance = serializer.save()
         self.assertEqual(instance.user, request.user)

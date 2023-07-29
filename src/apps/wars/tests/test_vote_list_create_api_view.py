@@ -27,7 +27,9 @@ class TestVoteListCreateAPIView(APITestCase):
         self.authenticate(user=self.user)
         VoteFactory.create_batch(size=3)
         response = self.client.get(path=self.url_path)
-        serializer = VoteSerializer(instance=Vote.objects.all().order_by("-created"), many=True)
+        serializer = VoteSerializer(
+            instance=Vote.objects.all().order_by("-created"), many=True, context={"request": response.wsgi_request}
+        )
         self.assertListResponse(response=response, serializer=serializer)
 
     def test_list_endpoint_should_return_filtered_votes(self):
@@ -53,30 +55,34 @@ class TestVoteListCreateAPIView(APITestCase):
         # When Votes are filtered by User:
         response = self.client.get(path=f"{self.url_path}?user={self.user.pk}")
         sorted_user_votes = sorted(user_votes, key=lambda obj: obj.created, reverse=True)
-        serializer = VoteSerializer(instance=sorted_user_votes, many=True)
+        serializer = VoteSerializer(instance=sorted_user_votes, many=True, context={"request": response.wsgi_request})
         self.assertListResponse(response=response, serializer=serializer)
 
         # When Votes are filtered by Meme:
         response = self.client.get(path=f"{self.url_path}?meme={meme.pk}")
         sorted_meme_votes = sorted(meme_votes, key=lambda obj: obj.created, reverse=True)
-        serializer = VoteSerializer(instance=sorted_meme_votes, many=True)
+        serializer = VoteSerializer(instance=sorted_meme_votes, many=True, context={"request": response.wsgi_request})
         self.assertListResponse(response=response, serializer=serializer)
 
         # When Votes are filtered by War:
         response = self.client.get(path=f"{self.url_path}?war={war.pk}")
         sorted_war_votes = sorted(war_votes, key=lambda obj: obj.created, reverse=True)
-        serializer = VoteSerializer(instance=sorted_war_votes, many=True)
+        serializer = VoteSerializer(instance=sorted_war_votes, many=True, context={"request": response.wsgi_request})
         self.assertListResponse(response=response, serializer=serializer)
 
         # When Votes are filtered by User and Meme:
         response = self.client.get(path=f"{self.url_path}?user={self.user.pk}&meme={meme.pk}")
-        serializer = VoteSerializer(instance=[first_three_user_votes[0]], many=True)
+        serializer = VoteSerializer(
+            instance=[first_three_user_votes[0]], many=True, context={"request": response.wsgi_request}
+        )
         self.assertListResponse(response=response, serializer=serializer)
 
         # When Votes are filtered by User and War:
         response = self.client.get(path=f"{self.url_path}?user={self.user.pk}&war={war.pk}")
         ordered_first_three_user_votes = sorted(first_three_user_votes, key=lambda obj: obj.created, reverse=True)
-        serializer = VoteSerializer(instance=ordered_first_three_user_votes, many=True)
+        serializer = VoteSerializer(
+            instance=ordered_first_three_user_votes, many=True, context={"request": response.wsgi_request}
+        )
         self.assertListResponse(response=response, serializer=serializer)
 
     def test_create_endpoint_should_return_response_401_when_authentication_headers_are_invalid(self):
@@ -154,7 +160,7 @@ class TestVoteListCreateAPIView(APITestCase):
         self.assertEqual(vote.score, self.valid_data["score"])
         self.assertEqual(vote.submission_count, 1)
 
-        serializer = VoteSerializer(instance=vote)
+        serializer = VoteSerializer(instance=vote, context={"request": response.wsgi_request})
         self.assertEqual(response.json(), serializer.data)
 
     def test_update_endpoint_should_return_response_405(self):

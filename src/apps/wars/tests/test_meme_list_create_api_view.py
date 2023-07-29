@@ -137,14 +137,20 @@ class TestMemeListCreateAPIView(APITestCase):
         MemeFactory.create_batch(size=3, war=self.war_in_voting_phase)
         MemeFactory.create_batch(size=2, war=self.war_in_finished_phase)
         response = self.client.get(path=f"{self.url_path}?war={self.war_in_voting_phase.pk}")
-        serializer = MemeSerializer(instance=self.war_in_voting_phase.memes.order_by("-created"), many=True)
+        serializer = MemeSerializer(
+            instance=self.war_in_voting_phase.memes.order_by("-created"),
+            many=True,
+            context={"request": response.wsgi_request},
+        )
         self.assertListResponse(response=response, serializer=serializer)
 
         # When war requires meme approval:
         self.war_in_voting_phase.update(requires_meme_approval=True)
         self.war_in_voting_phase.memes.first().update(approval_status=Meme.ApprovalStatuses.APPROVED)
         response = self.client.get(path=f"{self.url_path}?war={self.war_in_voting_phase.pk}")
-        serializer = MemeSerializer(instance=[self.war_in_voting_phase.memes.first()], many=True)
+        serializer = MemeSerializer(
+            instance=[self.war_in_voting_phase.memes.first()], many=True, context={"request": response.wsgi_request}
+        )
         self.assertListResponse(response=response, serializer=serializer)
 
     def test_create_endpoint_should_return_response_401_when_authentication_headers_are_invalid(self):
@@ -200,7 +206,7 @@ class TestMemeListCreateAPIView(APITestCase):
         self.assertEqual(meme.war, self.war_in_submission_phase)
         self.assertEqual(meme.user, self.user)
         self.assertEqual(meme.approval_status, Meme.ApprovalStatuses.PENDING)
-        serializer = MemeSerializer(instance=meme)
+        serializer = MemeSerializer(instance=meme, context={"request": response.wsgi_request})
         # serializer.data['image'] is an absolute URL, and it should contain meme.image.url path:
         for key, value in response.json().items():
             if key == "image":

@@ -6,11 +6,11 @@ from drf_spectacular.utils import OpenApiExample, extend_schema_serializer
 from rest_framework import serializers
 
 from apps.common.fields import ImageField
+from apps.common.serializers import ModelWithUserSerializer
 from apps.wars.models import Meme
 
 
 @extend_schema_serializer(
-    exclude_fields=("user",),
     examples=[
         OpenApiExample(
             name=_("Success response example"),
@@ -32,7 +32,7 @@ from apps.wars.models import Meme
         ),
     ],
 )
-class MemeSerializer(serializers.ModelSerializer):
+class MemeSerializer(ModelWithUserSerializer):
     total_score = serializers.ReadOnlyField()
     vote_count = serializers.ReadOnlyField()
 
