@@ -18,20 +18,22 @@ class ModelWithUserSerializer(serializers.ModelSerializer):
     """
 
     user_field_name = "user"
-    user_model = get_user_model()
+
+    # user_model = get_user_model()
 
     def __new__(cls, *args, **kwargs):
+        user_model = get_user_model()
         meta = getattr(cls, "Meta", object)
-
         user_field = getattr(meta.model, cls.user_field_name, None)
         if (
             not user_field
             or not isinstance(user_field.field, models.ForeignKey)
-            or user_field.field.target_field.model != cls.user_model
+            or user_field.field.target_field.model != user_model
         ):
             raise AttributeError(
                 f"Model class must have 'user' ForeignKey field with "
-                f"'{cls.user_model.__module__}.{cls.user_model.__name__}' remote model"
+                f"'{user_model.__module__}.{user_model.__name__}' "
+                f"remote model"
             )
 
         # TODO: TEST
@@ -46,7 +48,7 @@ class ModelWithUserSerializer(serializers.ModelSerializer):
         return super().__new__(cls, *args, **kwargs)
 
     def __init__(self, request: WSGIRequest, instance=None, data=empty, **kwargs):
-        if not isinstance(request.user, self.user_model):
+        if not isinstance(request.user, get_user_model()):
             # TODO: TEST
             #   1. when user is not authenticated
             #   2. when user is authenticated

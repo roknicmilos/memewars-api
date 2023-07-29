@@ -1,9 +1,10 @@
+from unittest.mock import patch
+
 import pytest
-from django.contrib.auth import get_user_model
 from django.db import models
 
+from apps.common import serializers as common_serializers
 from apps.common.models import BaseModel
-from apps.common.serializers import ModelWithUserSerializer
 from meme_wars.tests.test_case import TestCase
 
 """
@@ -13,8 +14,6 @@ tests database(s) even though they have no migration files.
 Model migrations will FAIL if the app has migrations (module
 "migrations").
 """
-
-user_model = get_user_model()
 
 
 class ModelWithoutUserExample(BaseModel):
@@ -55,6 +54,11 @@ class ModelWithUserExampleB(BaseModel):
         app_label = "common"
 
 
+class FakeUserModel(BaseModel):
+    class Meta:
+        app_label = "common"
+
+
 class ModelWithUserExampleC(BaseModel):
     """
     A model that has "user" ForeignKey field, but
@@ -62,7 +66,7 @@ class ModelWithUserExampleC(BaseModel):
     """
 
     user = models.ForeignKey(
-        to=user_model,
+        to=FakeUserModel,
         null=True,
         on_delete=models.SET_NULL,
     )
@@ -72,6 +76,13 @@ class ModelWithUserExampleC(BaseModel):
 
 
 class TestModelWithUserSerializer(TestCase):
+    def setUp(self) -> None:
+        super().setUp()
+        self.get_user_model_patcher = patch.object(
+            target=common_serializers, attribute="get_user_model", return_value=FakeUserModel
+        )
+        self.get_user_model_patcher.start()
+
     def test_should_raise_attribute_error(self):
         """
         When a model used in a serializer class that inherits from
@@ -82,11 +93,11 @@ class TestModelWithUserSerializer(TestCase):
 
         expected_error_message = (
             f"Model class must have 'user' ForeignKey field with "
-            f"'{user_model.__module__}.{user_model.__name__}' remote model"
+            f"'{FakeUserModel.__module__}.{FakeUserModel.__name__}' remote model"
         )
 
         # When a serializer has a model class without "user" field
-        class ModelWithoutUserExampleSerializer(ModelWithUserSerializer):
+        class ModelWithoutUserExampleSerializer(common_serializers.ModelWithUserSerializer):
             class Meta:
                 model = ModelWithoutUserExample
 
@@ -94,7 +105,7 @@ class TestModelWithUserSerializer(TestCase):
             ModelWithoutUserExampleSerializer.__new__(ModelWithoutUserExampleSerializer)
 
         # When a serializer has a model class with "user" field that is not ForeignKey
-        class ModelWithUserExampleASerializer(ModelWithUserSerializer):
+        class ModelWithUserExampleASerializer(common_serializers.ModelWithUserSerializer):
             class Meta:
                 model = ModelWithUserExampleA
 
@@ -103,7 +114,7 @@ class TestModelWithUserSerializer(TestCase):
 
         # When a serializer has a model class with ForeignKey "user" field that has
         # incorrect remote model (not the User model)
-        class ModelWithUserExampleBSerializer(ModelWithUserSerializer):
+        class ModelWithUserExampleBSerializer(common_serializers.ModelWithUserSerializer):
             class Meta:
                 model = ModelWithUserExampleB
 
@@ -118,8 +129,12 @@ class TestModelWithUserSerializer(TestCase):
         that serializer class should not raise the AttributeError.
         """
 
-        class ModelWithUserExampleCSerializer(ModelWithUserSerializer):
+        class ModelWithUserExampleCSerializer(common_serializers.ModelWithUserSerializer):
             class Meta:
                 model = ModelWithUserExampleC
 
         ModelWithUserExampleCSerializer.__new__(ModelWithUserExampleCSerializer)
+
+    def tearDown(self) -> None:
+        super().tearDown()
+        self.get_user_model_patcher.stop()
