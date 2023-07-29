@@ -36,11 +36,7 @@ class ModelWithUserSerializer(serializers.ModelSerializer):
                 f"remote model"
             )
 
-        # TODO: TEST
-        #   1. when read_only_fields is not define in serializer Meta class
-        #   2. when read_only_fields is define in serializer Meta class, but it doesn't have "user"
-        #   3. when read_only_fields is define in serializer Meta class and it has "user" (check no duplicates)
-        read_only_fields = getattr(meta, "read_only_fields", ())
+        read_only_fields = tuple(getattr(meta, "read_only_fields", ()))
         if cls.user_field_name not in read_only_fields:
             read_only_fields += (cls.user_field_name,)
         setattr(meta, "read_only_fields", read_only_fields)

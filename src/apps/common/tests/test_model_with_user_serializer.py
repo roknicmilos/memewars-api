@@ -135,6 +135,45 @@ class TestModelWithUserSerializer(TestCase):
 
         ModelWithUserExampleCSerializer.__new__(ModelWithUserExampleCSerializer)
 
+    def test_should_add_user_to_read_only_fields(self):
+        # When read_only_fields is not define in serializer Meta class:
+        class SerializerWithoutReadOnlyFields(common_serializers.ModelWithUserSerializer):
+            class Meta:
+                model = ModelWithUserExampleC
+
+        SerializerWithoutReadOnlyFields.__new__(SerializerWithoutReadOnlyFields)
+        meta = getattr(SerializerWithoutReadOnlyFields, "Meta")
+        read_only_fields = getattr(meta, "read_only_fields")
+        self.assertEqual(read_only_fields, ("user",))
+
+        # When read_only_fields is define in serializer Meta class, but it doesn't have "user":
+        class SerializerWithEmptyReadOnlyFields(common_serializers.ModelWithUserSerializer):
+            class Meta:
+                model = ModelWithUserExampleC
+                read_only_fields = []
+
+        SerializerWithEmptyReadOnlyFields.__new__(SerializerWithEmptyReadOnlyFields)
+        meta = getattr(SerializerWithEmptyReadOnlyFields, "Meta")
+        read_only_fields = getattr(meta, "read_only_fields")
+        self.assertEqual(read_only_fields, ("user",))
+
+    def test_should_not_add_user_to_read_only_fields(self):
+        """
+        When a serializer class already has "user" field in
+        read_only_fields, the field should not be added to
+        read_only_fields
+        """
+
+        class SerializerWithReadOnlyFields(common_serializers.ModelWithUserSerializer):
+            class Meta:
+                model = ModelWithUserExampleC
+                read_only_fields = ["user", "id"]
+
+        SerializerWithReadOnlyFields.__new__(SerializerWithReadOnlyFields)
+        meta = getattr(SerializerWithReadOnlyFields, "Meta")
+        read_only_fields = getattr(meta, "read_only_fields")
+        self.assertEqual(read_only_fields, ("user", "id"))
+
     def tearDown(self) -> None:
         super().tearDown()
         self.get_user_model_patcher.stop()
