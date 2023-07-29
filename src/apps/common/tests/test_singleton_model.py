@@ -7,17 +7,16 @@ from meme_wars.tests.test_case import TestCase
 class TestSingletonModel(TestCase):
     class ConcreteSingletonModel(SingletonModel):
         """
-        This model does not have any migration files, but a
-        table will be created for it in the database created
-        for tests by pytest.
-        Creating the mentioned table will FAIL if the app has
-        any migrations.
+        This model will be migrated to the temporary tests
+        database(s) even though it has no migration files.
+        Model migration will FAIL if the app has migrations
+        (module "migrations").
         """
+
+        name = models.CharField(max_length=100, default="")
 
         class Meta:
             app_label = "common"
-
-        name = models.CharField(max_length=100, default="")
 
     def test_should_override_pk_before_saving_instance(self):
         singleton_instance = self.ConcreteSingletonModel(pk=10)
