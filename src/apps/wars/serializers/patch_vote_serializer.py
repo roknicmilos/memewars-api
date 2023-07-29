@@ -9,7 +9,7 @@ class PatchVoteSerializer(VoteSerializer):
         read_only_fields = ["user", "meme"]
 
     def create(self, validated_data: dict) -> None:
-        pass
+        pass  # pragma: no cover
 
     def update(self, instance: Vote, validated_data: dict) -> Vote:
         validated_data["submission_count"] = instance.submission_count + 1
