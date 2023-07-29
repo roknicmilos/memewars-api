@@ -1,10 +1,17 @@
 from django.contrib.auth import get_user_model
-from django.core.handlers.wsgi import WSGIRequest
 from django.db import models
 from rest_framework import serializers
 from rest_framework.fields import empty
 
 from apps.common.models import BaseModel
+
+
+def _get_user_from_serializer_kwargs(**kwargs) -> BaseModel:
+    request = kwargs.get("context", {}).get("request")
+    user = getattr(request, "user", None)
+    if not isinstance(user, get_user_model()):
+        raise PermissionError("Authenticated user is required")
+    return user
 
 
 class ModelWithUserSerializer(serializers.ModelSerializer):
@@ -18,8 +25,6 @@ class ModelWithUserSerializer(serializers.ModelSerializer):
     """
 
     user_field_name = "user"
-
-    # user_model = get_user_model()
 
     def __new__(cls, *args, **kwargs):
         user_model = get_user_model()
@@ -43,10 +48,8 @@ class ModelWithUserSerializer(serializers.ModelSerializer):
 
         return super().__new__(cls, *args, **kwargs)
 
-    def __init__(self, request: WSGIRequest, instance=None, data=empty, **kwargs):
-        if not isinstance(request.user, get_user_model()):
-            raise PermissionError("Authenticated user is required")
-        self.user = request.user
+    def __init__(self, instance=None, data=empty, **kwargs):
+        self.user = _get_user_from_serializer_kwargs(**kwargs)
         super().__init__(instance, data, **kwargs)
 
     def save(self, **kwargs) -> BaseModel:

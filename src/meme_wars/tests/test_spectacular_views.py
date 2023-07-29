@@ -1,7 +1,11 @@
+from unittest.mock import patch
+
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.urls import reverse
 from pytest_django.asserts import assertTemplateUsed
 
+from apps.common import serializers as common_serializers
 from meme_wars.tests import APITestCase
 
 
@@ -16,9 +20,11 @@ class TestSpectacularViews(APITestCase):
         self.assertEqual(response.status_code, 200)
         assertTemplateUsed(response, "drf_spectacular/redoc.html")
 
-    def test_should_download_api_schema(self):
+    @patch.object(common_serializers, "_get_user_from_serializer_kwargs", return_value=get_user_model())
+    def test_should_download_api_schema(self, _):
         response = self.client.get(path=reverse("api:schema:download"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            response.get("Content-Disposition"), f'inline; filename="{settings.SPECTACULAR_SETTINGS["TITLE"]}.yaml"'
+            first=response.get("Content-Disposition"),
+            second=f'inline; filename="{settings.SPECTACULAR_SETTINGS["TITLE"]}.yaml"',
         )

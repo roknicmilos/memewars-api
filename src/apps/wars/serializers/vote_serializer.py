@@ -1,13 +1,12 @@
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import OpenApiExample, extend_schema_serializer
-from rest_framework import serializers
 
+from apps.common.serializers import ModelWithUserSerializer
 from apps.wars.models import Vote
 
 
 @extend_schema_serializer(
-    exclude_fields=("user", "submission_count"),
     examples=[
         OpenApiExample(
             name=_("Success response example"),
@@ -27,8 +26,9 @@ from apps.wars.models import Vote
         ),
     ],
 )
-class VoteSerializer(serializers.ModelSerializer):
+class VoteSerializer(ModelWithUserSerializer):
     class Meta:
         model = Vote
-        fields = ["id", "score", "meme", "user", "submission_count", "created", "modified"]
+        fields = "__all__"
+        read_only_fields = ["submission_count"]
         ordering = ["created"]

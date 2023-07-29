@@ -7,7 +7,6 @@ from rest_framework.permissions import IsAuthenticated
 from apps.users.authentication import TokenAuthentication
 from apps.wars.models import Meme, War
 from apps.wars.serializers import MemeSerializer
-from apps.wars.views.serialized_user_api_view_mixin import SerializedUserAPIViewMixin
 
 
 @extend_schema_view(
@@ -24,7 +23,7 @@ from apps.wars.views.serialized_user_api_view_mixin import SerializedUserAPIView
         responses=MemeSerializer,
     ),
 )
-class MemeListCreateAPIView(ListCreateAPIView, SerializedUserAPIViewMixin):
+class MemeListCreateAPIView(ListCreateAPIView):
     queryset = Meme.objects.order_by("-created").all()
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
