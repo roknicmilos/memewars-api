@@ -45,9 +45,6 @@ class ModelWithUserSerializer(serializers.ModelSerializer):
 
     def __init__(self, request: WSGIRequest, instance=None, data=empty, **kwargs):
         if not isinstance(request.user, get_user_model()):
-            # TODO: TEST
-            #   1. when user is not authenticated
-            #   2. when user is authenticated
             raise PermissionError("Authenticated user is required")
         self.user = request.user
         super().__init__(instance, data, **kwargs)
