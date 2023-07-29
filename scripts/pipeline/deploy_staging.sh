@@ -10,6 +10,10 @@ echo "Current directory: $PWD"
 echo "Content of the current directory:"
 ls -la
 
+# Fetch the latest changes from "staging" branch:
+git fetch origin
+git reset --hard origin/staging || exit
+
 # Build and start the containers:
 docker compose build
 docker compose -p memewars-api-staging up -d
