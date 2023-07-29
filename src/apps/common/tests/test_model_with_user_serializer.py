@@ -194,6 +194,19 @@ class TestModelWithUserSerializer(TestCase):
         request.user = FakeUserModel()
         Serializer(request=request)
 
+    def test_should_save_model_instance_with_user_reference(self):
+        class Serializer(common_serializers.ModelWithUserSerializer):
+            class Meta:
+                model = ModelWithUserExampleC
+                fields = "__all__"
+
+        request = self.get_request_example()
+        request.user = FakeUserModel.objects.create()
+        serializer = Serializer(request=request, data={})
+        serializer.is_valid()
+        instance = serializer.save()
+        self.assertEqual(instance.user, request.user)
+
     def tearDown(self) -> None:
         super().tearDown()
         self.get_user_model_patcher.stop()

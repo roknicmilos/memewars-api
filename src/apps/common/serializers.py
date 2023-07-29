@@ -50,6 +50,5 @@ class ModelWithUserSerializer(serializers.ModelSerializer):
         super().__init__(instance, data, **kwargs)
 
     def save(self, **kwargs) -> BaseModel:
-        # TODO: TEST model is saved with the self.user
         kwargs[self.user_field_name] = self.user
         return super().save(**kwargs)
