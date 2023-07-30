@@ -6,14 +6,6 @@ from rest_framework.fields import empty
 from apps.common.models import BaseModel
 
 
-def _get_user_from_serializer_kwargs(**kwargs) -> BaseModel:
-    request = kwargs.get("context", {}).get("request")
-    user = getattr(request, "user", None)
-    if not isinstance(user, get_user_model()):
-        raise PermissionError("Authenticated user is required")
-    return user
-
-
 class ModelWithUserSerializer(serializers.ModelSerializer):
     """
     Meant to be used by model serializers with models that have
@@ -49,8 +41,14 @@ class ModelWithUserSerializer(serializers.ModelSerializer):
         return super().__new__(cls, *args, **kwargs)
 
     def __init__(self, instance=None, data=empty, **kwargs):
-        self.user = _get_user_from_serializer_kwargs(**kwargs)
+        request = kwargs.get("context", {}).get("request")
+        self.user = getattr(request, "user", None)
         super().__init__(instance, data, **kwargs)
+
+    def is_valid(self, *, raise_exception=False) -> bool:
+        if not isinstance(self.user, get_user_model()):
+            raise PermissionError("Authenticated user is required")
+        return super().is_valid(raise_exception=raise_exception)
 
     def save(self, **kwargs) -> BaseModel:
         kwargs[self.user_field_name] = self.user

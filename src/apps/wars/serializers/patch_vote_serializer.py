@@ -6,7 +6,7 @@ class PatchVoteSerializer(VoteSerializer):
     class Meta:
         model = Vote
         fields = "__all__"
-        read_only_fields = ["user", "meme"]
+        read_only_fields = ["user", "meme", "submission_count"]
 
     def create(self, validated_data: dict) -> None:
         pass  # pragma: no cover
