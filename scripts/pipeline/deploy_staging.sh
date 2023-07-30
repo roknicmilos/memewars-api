@@ -10,9 +10,9 @@ echo "Current directory: $PWD"
 echo "Content of the current directory:"
 ls -la
 
-# Fetch the latest changes from "staging" branch:
+# Checkout to the latest "staging" branch version:
 git fetch origin
-git reset --hard origin/staging || exit
+git checkout -B staging origin/staging || exit
 
 # Build and start the containers:
 docker compose build
