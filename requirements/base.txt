@@ -1,6 +1,6 @@
 Django==4.2.3
 Flake8-pyproject==1.2.3
-Pillow==10.0.0
+Pillow==10.0.1
 PyJWT==2.7.0
 bandit==1.7.5
 black==23.7.0
