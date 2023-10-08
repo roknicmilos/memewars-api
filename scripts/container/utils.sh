@@ -17,5 +17,5 @@ printc() {
 }
 
 bool() {
-  [ $(echo "$1" | tr "[:lower:]" "[:upper:]") = "TRUE" ] && echo true || echo false
+  [ $(echo "$1" | tr "[:lower:]" "[:upper:]") = "TRUE" ] && true || false
 }
